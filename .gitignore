@@ -1,6 +1,9 @@
 # phpstorm project files
 .idea
 
+# netbean# phpstorm project files
+.idea
+
 # netbeans project files
 nbproject
 
@@ -13,7 +16,10 @@ nbproject
 Thumbs.db
 
 # composer vendor dir
-/vendor
+!vendor/
+vendor/*
+!vendor/webvimark/
+# vendor/webvimark/*
 
 # composer itself is not needed
 composer.phar

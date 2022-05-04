@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
+use webvimark\modules\UserManagement\components\GhostAccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -18,6 +19,11 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
+			'ghost-access'=> [
+				'class' => 'webvimark\modules\UserManagement\components\GhostAccessControl',
+			],
+		];
+        /*return [
             'access' => [
                 'class' => AccessControl::className(),
                 'only' => ['logout'],
@@ -35,7 +41,7 @@ class SiteController extends Controller
                     'logout' => ['post'],
                 ],
             ],
-        ];
+        ];*/
     }
 
     /**

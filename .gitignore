@@ -21,6 +21,8 @@ vendor/*
 !vendor/webvimark/
 # vendor/webvimark/*
 
+config/db.php
+
 # composer itself is not needed
 composer.phar
 

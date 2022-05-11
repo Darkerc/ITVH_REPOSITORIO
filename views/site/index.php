@@ -6,13 +6,14 @@ $this->title = 'ITVH Repositorio';
 ?>
 <div class="site-index">
 
-    <div class="jumbotron text-center bg-transparent brand">
+    <div class="py-3 text-center bg-transparent brand">
         <h4>Repositorio institucional del ITVH</h4>
     </div>
 
     <div class="body-content">
+
         <div class="row">
-            <div class="col-12 col-lg-8">
+            <div class="col-12">
                 <div class="card bg-light">
                     <div class="card-body">
                         <h5 class="card-title text-center">Repositorios recientes</h5>
@@ -69,23 +70,144 @@ $this->title = 'ITVH Repositorio';
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-4">
-                <div class="row">
-                    <div class="col-12">
-                        Contenido2
+            <div class="py-2 col-12 col-lg-7">
+                <div class="card my-3">
+                    <div class="card-body">
+                        <h3 class="card-title">Repositorios por carreras</h3>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                Ing. Sistemas computacionales
+                                <span class="badge badge-primary badge-pill">14</span>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                Ing. Tecnologias de la informacion
+                                <span class="badge badge-primary badge-pill">14</span>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                Ing. Gestion empresarial
+                                <span class="badge badge-primary badge-pill">14</span>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                Lic. Administracion
+                                <span class="badge badge-primary badge-pill">14</span>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                Ing. Civil
+                                <span class="badge badge-primary badge-pill">14</span>
+                            </a>
+                        </div>
+                        </p>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12 col-md-8">
-                <div class="row">
-                    <div class="col-12">
-                        Contenido2
+            <div class="py-2 col-12 col-lg-5">
+                <div class="card my-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Buscar repositorios</h5>
+                        <p class="card-text">
+                        <div class="input-group mb-3">
+                            <input placeholder="Repositorio..." type="text" class="form-control d-block" style="min-height: 100% !important;">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary  btn-sm" type="button">
+                                    <i class="material-icons" style="color: #000 !important;">search</i>
+                                </button>
+                            </div>
+                        </div>
+                        </p>
+                    </div>
+                </div>
+                <div class="card my-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Buscar repositorio por:</h5>
+                        <p class="card-text">
+                        <ol>
+                            <li>
+                                <a href="#">Autor</a>
+                            </li>
+                            <li>
+                                <a href="#">Titulo</a>
+                            </li>
+                            <li>
+                                <a href="#">Fecha de publicacion</a>
+                            </li>
+                            <li>
+                                <a href="#">Palabras clave</a>
+                            </li>
+                        </ol>
+                        </p>
+                    </div>
+                </div>
+                <div class="card my-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Encuentra en:</h5>
+                        <p class="card-text">
+                        <h6 class="card-title">Autores:</h6>
+                        <ol>
+                            <li class="d-flex justify-content-between">
+                                <a href="#">Autor</a>
+                                <span class="badge badge-info my-auto">4</span>
+                            </li>
+                            <li class="d-flex justify-content-between">
+                                <a href="#">Titulo</a>
+                                <span class="badge badge-info my-auto">4</span>
+                            </li>
+                            <li class="d-flex justify-content-between">
+                                <a href="#">Fecha de publicacion</a>
+                                <span class="badge badge-info my-auto">4</span>
+                            </li>
+                            <li class="d-flex justify-content-between">
+                                <a href="#">Palabras clave</a>
+                                <span class="badge badge-info my-auto">4</span>
+                            </li>
+                        </ol>
+                        </p>
+                        <p class="card-text">
+                        <h6 class="card-title">Palabras clave:</h6>
+                        <ol>
+                            <li class="d-flex justify-content-between">
+                                <a href="#">Autor</a>
+                                <span class="badge badge-info my-auto">4</span>
+                            </li>
+                            <li class="d-flex justify-content-between">
+                                <a href="#">Titulo</a>
+                                <span class="badge badge-info my-auto">4</span>
+                            </li>
+                            <li class="d-flex justify-content-between">
+                                <a href="#">Fecha de publicacion</a>
+                                <span class="badge badge-info my-auto">4</span>
+                            </li>
+                            <li class="d-flex justify-content-between">
+                                <a href="#">Palabras clave</a>
+                                <span class="badge badge-info my-auto">4</span>
+                            </li>
+                        </ol>
+                        </p>
+                        <p class="card-text">
+                        <h6 class="card-title">Ultimas fechas:</h6>
+                        <ol>
+                            <li class="d-flex justify-content-between">
+                                <a href="#">Autor</a>
+                                <span class="badge badge-info my-auto">4</span>
+                            </li>
+                            <li class="d-flex justify-content-between">
+                                <a href="#">Titulo</a>
+                                <span class="badge badge-info my-auto">4</span>
+                            </li>
+                            <li class="d-flex justify-content-between">
+                                <a href="#">Fecha de publicacion</a>
+                                <span class="badge badge-info my-auto">4</span>
+                            </li>
+                            <li class="d-flex justify-content-between">
+                                <a href="#">Palabras clave</a>
+                                <span class="badge badge-info my-auto">4</span>
+                            </li>
+                        </ol>
+                        </p>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-4">Contenido2</div>
         </div>
     </div>
 </div>

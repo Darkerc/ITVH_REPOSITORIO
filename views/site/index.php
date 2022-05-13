@@ -5,7 +5,6 @@
 $this->title = 'ITVH Repositorio';
 ?>
 <div class="site-index">
-
     <div class="py-3 text-center bg-transparent brand">
         <h4>Repositorio institucional del ITVH</h4>
     </div>

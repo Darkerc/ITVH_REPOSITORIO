@@ -9,7 +9,6 @@ use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
-use webvimark\modules\UserManagement\components\GhostMenu;
 use webvimark\modules\UserManagement\UserManagementModule;
 
 AppAsset::register($this);
@@ -34,9 +33,10 @@ AppAsset::register($this);
         <?php
         NavBar::begin([
             'brandLabel' => 'ITVH Repositorio',
-            'brandUrl' => Yii::$app->homeUrl,
+            //'brandUrl' => Yii::$app->homeUrl,
+            'brandLabel' => '<img src="/images/logo_itvh_largo.png" class="logo_navbar"/>',
             'options' => [
-                'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
+                'class' => 'mynavbar navbar-expand-md navbar-light fixed-top',
             ],
         ]);
         echo Nav::widget([
@@ -77,7 +77,7 @@ AppAsset::register($this);
                     )
                     . Html::endForm()
                     . '</li>'
-                )
+                    )
             ],
         ]);
         NavBar::end();
@@ -85,7 +85,7 @@ AppAsset::register($this);
     </header>
 
     <main role="main" class="flex-shrink-0">
-        <div class="container">
+        <div class="container" style="margin-top: 70px;">
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>
@@ -167,3 +167,4 @@ AppAsset::register($this);
 
 </html>
 <?php $this->endPage() ?>
+

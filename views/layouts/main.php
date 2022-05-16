@@ -47,13 +47,13 @@ AppAsset::register($this);
                 [
                     'label' => 'Listar',
                     'items' => [
-                        ['label' => 'Año de publicación', 'url' => ['/recurso/index']],
-                        ['label' => 'Autor', 'url'              => ['/autor/index']],
-                        ['label' => 'Titulo', 'url'             => ['/archivo/index']],
-                        ['label' => 'Palabras clave', 'url'     => ['/palabra/index']],
+                        ['label' => 'Año de publicación', 'url' => ['/recurso']],
+                        ['label' => 'Autor', 'url'              => ['/autor']],
+                        ['label' => 'Titulo', 'url'             => ['/archivo']],
+                        ['label' => 'Palabras clave', 'url'     => ['/palabra']],
                     ],
                 ],
-                ['label' => 'Ayuda', 'url' => '/site/about',],
+                ['label' => 'Ayuda', 'url' => ['/site/about']],
                 [
                     'label' => 'Frontend routes',
                     'items' => [

@@ -1,0 +1,22 @@
+<?php
+
+use yii\helpers\Html;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\Producto */
+?>
+<div class="col-lg-4 col-md-4" style="height: 500px;">
+    <center>
+        <div class="product-item">
+            <div class="producto-view">
+                <h2> <a href=''><?= $model->pro_nombre ?></a></h>
+            </div>
+        </div>
+        <div class="product-image">
+            <?= Html::a(Html::img('/web/img/producto/' . $model->pro_imagen, ['style' => 'width:50%;']), ['view', 'id' => $model->pro_id]) ?>
+        </div><br>
+        <div class="product-price-view">
+            <h2><span>$</span]><?= $model->pro_costo ?></h><br><br>
+        </div>
+    </center> <br><br>
+</div>

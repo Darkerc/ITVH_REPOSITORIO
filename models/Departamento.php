@@ -36,8 +36,8 @@ class Departamento extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'dep_id' => 'Dep ID',
-            'dep_nombre' => 'Dep Nombre',
+            'dep_id'     => 'ID',
+            'dep_nombre' => 'Nombre',
         ];
     }
 }

@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\PalabraSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Palabras';
+$this->title = 'Palabras Clave';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="palabra-index">
@@ -17,12 +17,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Palabra', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php Html::a('Create Palabra', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
+    <?php GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                  }
             ],
         ],
-    ]); ?>
+    ]);  ?>
 
 
 </div>

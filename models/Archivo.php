@@ -42,13 +42,13 @@ class Archivo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'arc_id' => 'Arc ID',
-            'arc_nombre' => 'Arc Nombre',
+            'arc_id'        => 'ID',
+            'arc_nombre'    => 'Nombre',
             'arc_extencion' => 'Arc Extencion',
             'arc_nombreOri' => 'Arc Nombre Ori',
-            'arc_visitas' => 'Arc Visitas',
-            'arc_descargas' => 'Arc Descargas',
-            'arc_mimetype' => 'Arc Mimetype',
+            'arc_visitas'   => 'Visitas',
+            'arc_descargas' => 'Descargas',
+            'arc_mimetype'  => 'Arc Mimetype',
         ];
     }
 }

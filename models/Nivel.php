@@ -36,8 +36,8 @@ class Nivel extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'niv_id' => 'Niv ID',
-            'niv_nombre' => 'Niv Nombre',
+            'niv_id'     => 'ID',
+            'niv_nombre' => 'Nombre',
         ];
     }
 }

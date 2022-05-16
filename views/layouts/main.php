@@ -45,20 +45,23 @@ AppAsset::register($this);
                 ['label' => 'Inicio', 'url' => Yii::$app->homeUrl],
                 /*['label' => 'Inicio', 'url' => ['/autor/index']],*/
                 [
-                    'label' => 'Listado',
+                    'label' => 'Listar',
                     'items' => [
-                        ['label' => 'Autores', 'url' => ['/autor/index']],
-                        ['label' => 'Archivos', 'url' => ['/archivo/index']],
+                        ['label' => 'Año de publicación', 'url' => ['/recurso/index']],
+                        ['label' => 'Autor', 'url'              => ['/autor/index']],
+                        ['label' => 'Titulo', 'url'             => ['/archivo/index']],
+                        ['label' => 'Palabras clave', 'url'     => ['/palabra/index']],
                     ],
                 ],
+                ['label' => 'Ayuda', 'url' => '/site/about',],
                 [
                     'label' => 'Frontend routes',
                     'items' => [
-                        ['label' => 'Login', 'url' => ['/user-management/auth/login']],
-                        ['label' => 'Logout', 'url' => ['/user-management/auth/logout']],
-                        ['label' => 'Registration', 'url' => ['/user-management/auth/registration']],
+                        ['label' => 'Login', 'url'               => ['/user-management/auth/login']],
+                        ['label' => 'Logout', 'url'              => ['/user-management/auth/logout']],
+                        ['label' => 'Registration', 'url'        => ['/user-management/auth/registration']],
                         ['label' => 'Change own password', 'url' => ['/user-management/auth/change-own-password']],
-                        ['label' => 'Password recovery', 'url' => ['/user-management/auth/password-recovery']],
+                        ['label' => 'Password recovery', 'url'   => ['/user-management/auth/password-recovery']],
                         ['label' => 'E-mail confirmation', 'url' => ['/user-management/auth/confirm-email']],
                     ],
                 ],
@@ -77,7 +80,7 @@ AppAsset::register($this);
                     )
                     . Html::endForm()
                     . '</li>'
-                    )
+                )
             ],
         ]);
         NavBar::end();

@@ -34,9 +34,13 @@ AppAsset::register($this);
         NavBar::begin([
             'brandLabel' => 'ITVH Repositorio',
             //'brandUrl' => Yii::$app->homeUrl,
-            'brandLabel' => '<img src="/images/logo_itvh_largo.png" class="logo_navbar"/>',
+            'brandLabel' => '
+                <div class="logo_container">
+                    <img src="/images/logo_itvh_largo.png" class="logo_navbar"/>
+                </div>
+            ',
             'options' => [
-                'class' => 'mynavbar navbar-expand-md navbar-light fixed-top',
+                'class' => 'navbar_index navbar-expand-md navbar-light fixed-top',
             ],
         ]);
         echo Nav::widget([
@@ -48,6 +52,7 @@ AppAsset::register($this);
                     'label' => 'Listado',
                     'items' => [
                         ['label' => 'Autores', 'url' => ['/autor/index']],
+                        ['label' => 'Search', 'url' => ['/site/search']],
                         ['label' => 'Archivos', 'url' => ['/archivo/index']],
                     ],
                 ],

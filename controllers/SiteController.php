@@ -131,4 +131,14 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
+        /**
+     * Displays about page.
+     *
+     * @return string
+     */
+    public function actionSearch()
+    {
+        return $this->render('search');
+    }
 }

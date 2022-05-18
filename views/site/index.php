@@ -71,8 +71,8 @@ $this->title = 'ITVH Repositorio';
             </div>
             <div class="py-2 col-12 col-lg-7">
                 <div class="card my-3">
+                    <h4 class="card-header bg-info">Repositorios por carreras</h4>
                     <div class="card-body">
-                        <h3 class="card-title">Repositorios por carreras</h3>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                         <p class="card-text">
                         <div class="list-group">
@@ -103,8 +103,8 @@ $this->title = 'ITVH Repositorio';
             </div>
             <div class="py-2 col-12 col-lg-5">
                 <div class="card my-3">
+                    <h5 class="card-header bg-info">Buscar repositorios</h5>
                     <div class="card-body">
-                        <h5 class="card-title">Buscar repositorios</h5>
                         <p class="card-text">
                         <div class="input-group mb-3">
                             <input placeholder="Repositorio..." type="text" class="form-control d-block" style="min-height: 100% !important;">
@@ -118,8 +118,8 @@ $this->title = 'ITVH Repositorio';
                     </div>
                 </div>
                 <div class="card my-3">
+                    <h5 class="card-header bg-info">Buscar repositorio por:</h5>
                     <div class="card-body">
-                        <h5 class="card-title">Buscar repositorio por:</h5>
                         <p class="card-text">
                         <ol>
                             <li>
@@ -139,8 +139,8 @@ $this->title = 'ITVH Repositorio';
                     </div>
                 </div>
                 <div class="card my-3">
+                    <h5 class="card-header bg-info">Encuentra en:</h5>
                     <div class="card-body">
-                        <h5 class="card-title">Encuentra en:</h5>
                         <p class="card-text">
                         <h6 class="card-title">Autores:</h6>
                         <ol>

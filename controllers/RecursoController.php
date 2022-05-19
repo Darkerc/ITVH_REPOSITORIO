@@ -131,4 +131,14 @@ class RecursoController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionPublicacion()
+    {
+        $searchModel = new RecursoSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+        return $this->render('publicacion', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 }

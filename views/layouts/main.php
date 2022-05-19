@@ -53,7 +53,7 @@ AppAsset::register($this);
                 [
                     'label' => 'Listar',
                     'items' => [
-                        ['label' => 'Año de publicacion', 'url' => ['/recurso/index']],
+                        ['label' => 'Año de publicacion', 'url' => ['/recurso/publicacion']],
                         ['label' => 'Autor', 'url'              => ['/autor/index']],
                         ['label' => 'Titulo', 'url'             => ['/archivo/index']],
                         ['label' => 'Palabras Clave', 'url'     => ['/palabra/index']],

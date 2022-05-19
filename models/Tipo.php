@@ -36,8 +36,8 @@ class Tipo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'tip_id' => 'Tip ID',
-            'tip_nombre' => 'Tip Nombre',
+            'tip_id'     => 'ID',
+            'tip_nombre' => 'Nombre',
         ];
     }
 }

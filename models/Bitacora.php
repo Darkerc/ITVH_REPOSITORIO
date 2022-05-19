@@ -38,9 +38,9 @@ class Bitacora extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'bit_id' => 'Bit ID',
-            'bit_descripcion' => 'Bit Descripcion',
-            'bit_fkrecurso' => 'Bit Fkrecurso',
+            'bit_id'          => 'ID',
+            'bit_descripcion' => 'Descripcion',
+            'bit_fkrecurso'   => 'Recurso',
         ];
     }
 }

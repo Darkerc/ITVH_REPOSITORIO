@@ -123,16 +123,16 @@ $this->title = 'ITVH Repositorio';
                         <p class="card-text">
                         <ol>
                             <li>
-                                <a href="#">Autor</a>
+                                <a href="/site/search">Autor</a>
                             </li>
                             <li>
-                                <a href="#">Titulo</a>
+                                <a href="/site/search">Titulo</a>
                             </li>
                             <li>
-                                <a href="#">Fecha de publicacion</a>
+                                <a href="/site/search">Fecha de publicacion</a>
                             </li>
                             <li>
-                                <a href="#">Palabras clave</a>
+                                <a href="/site/search">Palabras clave</a>
                             </li>
                         </ol>
                         </p>
@@ -145,11 +145,11 @@ $this->title = 'ITVH Repositorio';
                         <h6 class="card-title">Autores:</h6>
                         <ol>
                             <li class="d-flex justify-content-between">
-                                <a href="#">Autor</a>
+                                <a href="/site/search">Autor</a>
                                 <span class="badge badge-info my-auto">4</span>
                             </li>
                             <li class="d-flex justify-content-between">
-                                <a href="#">Titulo</a>
+                                <a href="/site/search">Titulo</a>
                                 <span class="badge badge-info my-auto">4</span>
                             </li>
                             <li class="d-flex justify-content-between">
@@ -157,7 +157,7 @@ $this->title = 'ITVH Repositorio';
                                 <span class="badge badge-info my-auto">4</span>
                             </li>
                             <li class="d-flex justify-content-between">
-                                <a href="#">Palabras clave</a>
+                                <a href="/site/search">Palabras clave</a>
                                 <span class="badge badge-info my-auto">4</span>
                             </li>
                         </ol>
@@ -166,19 +166,19 @@ $this->title = 'ITVH Repositorio';
                         <h6 class="card-title">Palabras clave:</h6>
                         <ol>
                             <li class="d-flex justify-content-between">
-                                <a href="#">Autor</a>
+                                <a href="/site/search">Autor</a>
                                 <span class="badge badge-info my-auto">4</span>
                             </li>
                             <li class="d-flex justify-content-between">
-                                <a href="#">Titulo</a>
+                                <a href="/site/search">Titulo</a>
                                 <span class="badge badge-info my-auto">4</span>
                             </li>
                             <li class="d-flex justify-content-between">
-                                <a href="#">Fecha de publicacion</a>
+                                <a href="/site/search">Fecha de publicacion</a>
                                 <span class="badge badge-info my-auto">4</span>
                             </li>
                             <li class="d-flex justify-content-between">
-                                <a href="#">Palabras clave</a>
+                                <a href="/site/search">Palabras clave</a>
                                 <span class="badge badge-info my-auto">4</span>
                             </li>
                         </ol>
@@ -187,19 +187,19 @@ $this->title = 'ITVH Repositorio';
                         <h6 class="card-title">Ultimas fechas:</h6>
                         <ol>
                             <li class="d-flex justify-content-between">
-                                <a href="#">Autor</a>
+                                <a href="/site/search">Autor</a>
                                 <span class="badge badge-info my-auto">4</span>
                             </li>
                             <li class="d-flex justify-content-between">
-                                <a href="#">Titulo</a>
+                                <a href="/site/search">Titulo</a>
                                 <span class="badge badge-info my-auto">4</span>
                             </li>
                             <li class="d-flex justify-content-between">
-                                <a href="#">Fecha de publicacion</a>
+                                <a href="/site/search">Fecha de publicacion</a>
                                 <span class="badge badge-info my-auto">4</span>
                             </li>
                             <li class="d-flex justify-content-between">
-                                <a href="#">Palabras clave</a>
+                                <a href="/site/search">Palabras clave</a>
                                 <span class="badge badge-info my-auto">4</span>
                             </li>
                         </ol>

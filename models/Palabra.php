@@ -38,9 +38,9 @@ class Palabra extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pal_id' => 'Pal ID',
-            'pal_nombre' => 'Pal Nombre',
-            'pal_fkrecurso' => 'Pal Fkrecurso',
+            'pal_id'        => 'ID',
+            'pal_nombre'    => 'Nombre',
+            'pal_fkrecurso' => 'Recurso',
         ];
     }
 }

@@ -10,6 +10,8 @@ use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
 use webvimark\modules\UserManagement\UserManagementModule;
+use webvimark\modules\UserManagement\models\User;
+
 
 AppAsset::register($this);
 ?>
@@ -49,28 +51,30 @@ AppAsset::register($this);
                 ['label' => 'Inicio', 'url' => Yii::$app->homeUrl],
                 /*['label' => 'Inicio', 'url' => ['/autor/index']],*/
                 [
-                    'label' => 'Listado',
+                    'label' => 'Listar',
                     'items' => [
-                        ['label' => 'Autores', 'url' => ['/autor/index']],
-                        ['label' => 'Search', 'url' => ['/site/search']],
-                        ['label' => 'Archivos', 'url' => ['/archivo/index']],
+                        ['label' => 'Año de publicacion', 'url' => ['/recurso/index']],
+                        ['label' => 'Autor', 'url'              => ['/autor/index']],
+                        ['label' => 'Titulo', 'url'             => ['/archivo/index']],
+                        ['label' => 'Palabras Clave', 'url'     => ['/palabra/index']],
+                        ['label' => 'Search', 'url'             => ['/site/search']],
                     ],
                 ],
-                [
+				Yii::$app->user->isSuperadmin ? ( [
                     'label' => 'Frontend routes',
                     'items' => [
-                        ['label' => 'Login', 'url' => ['/user-management/auth/login']],
-                        ['label' => 'Logout', 'url' => ['/user-management/auth/logout']],
-                        ['label' => 'Registration', 'url' => ['/user-management/auth/registration']],
+                        ['label' => 'Login', 'url'               => ['/user-management/auth/login']],
+                        ['label' => 'Logout', 'url'              => ['/user-management/auth/logout']],
+                        ['label' => 'Registration', 'url'        => ['/user-management/auth/registration']],
                         ['label' => 'Change own password', 'url' => ['/user-management/auth/change-own-password']],
-                        ['label' => 'Password recovery', 'url' => ['/user-management/auth/password-recovery']],
+                        ['label' => 'Password recovery', 'url'   => ['/user-management/auth/password-recovery']],
                         ['label' => 'E-mail confirmation', 'url' => ['/user-management/auth/confirm-email']],
                     ],
-                ],
-                [
+                ]): '',
+                Yii::$app->user->isSuperadmin ? ([
                     'label' => 'Backend routes',
                     'items' => UserManagementModule::menuItems()
-                ],
+                ]): '',
                 Yii::$app->user->isGuest ? (
                     //['label' => 'Login', 'url' => ['/site/login']]
                     ['label' => 'Login', 'url' => ['/user-management/auth/login']]
@@ -82,7 +86,7 @@ AppAsset::register($this);
                     )
                     . Html::endForm()
                     . '</li>'
-                    )
+                )
             ],
         ]);
         NavBar::end();
@@ -172,4 +176,3 @@ AppAsset::register($this);
 
 </html>
 <?php $this->endPage() ?>
-

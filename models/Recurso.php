@@ -40,11 +40,11 @@ class Recurso extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'rec_id' => 'Rec ID',
-            'rec_nombre' => 'Rec Nombre',
-            'rec_resumen' => 'Rec Resumen',
-            'rec_fktipo' => 'Rec Fktipo',
-            'rec_fknivel' => 'Rec Fknivel',
+            'rec_id'      => 'ID',
+            'rec_nombre'  => 'Nombre',
+            'rec_resumen' => 'Resumen',
+            'rec_fktipo'  => 'Tipo',
+            'rec_fknivel' => 'Nivel',
         ];
     }
 }

@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="body-content">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 mt-3">
                 <div class="card">
                     <h4 class="card-header bg-info">Busqueda por Autor</h4>
                     <div class="card-body">
@@ -46,61 +46,56 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
             </div>
-
-            <div class="body-content">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <form class="row card-body">
-                                    <div class="col col-12 col-md-4 form-group">
-                                        <label for="exampleInputPassword1">En orden:</label>
-                                        <select class="custom-select">
-                                            <option selected>Ascendente</option>
-                                            <option value="1">Descendente</option>
-                                        </select>
-                                    </div>
-                                    <div class="col col-12 col-md-4 form-group">
-                                        <label>Resultado por pagina:</label>
-                                        <select class="custom-select">
-                                            <option selected>5</option>
-                                            <option value="1">10</option>
-                                            <option value="2">15</option>
-                                            <option value="3">20</option>
-                                            <option value="4">25</option>
-                                            <option value="5">...</option>
-                                        </select>
-                                    </div>
-                                    <div class="col col-12">
-                                        <button type="submit" class="btn btn-primary">Actualizar</button>
-                                    </div>
-                                </form>
+            <div class="col-12 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="row card-body">
+                            <div class="col col-12 col-md-4 form-group">
+                                <label for="exampleInputPassword1">En orden:</label>
+                                <select class="custom-select">
+                                    <option selected>Ascendente</option>
+                                    <option value="1">Descendente</option>
+                                </select>
                             </div>
-                        </div>
+                            <div class="col col-12 col-md-4 form-group">
+                                <label>Resultado por pagina:</label>
+                                <select class="custom-select">
+                                    <option selected>5</option>
+                                    <option value="1">10</option>
+                                    <option value="2">15</option>
+                                    <option value="3">20</option>
+                                    <option value="4">25</option>
+                                    <option value="5">...</option>
+                                </select>
+                            </div>
+                            <div class="col col-12">
+                                <button type="submit" class="btn btn-primary">Actualizar</button>
+                            </div>
+                        </form>
                     </div>
-
-                    <?php // echo $this->render('_search', ['model' => $searchModel]); 
-                    ?>
-
-                    <?= GridView::widget([
-                        'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
-                        'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
-
-                            'rec_id',
-                            'rec_nombre:ntext',
-                            'rec_resumen:ntext',
-                            'rec_fktipo',
-                            'rec_fknivel',
-                            [
-                                'class' => ActionColumn::className(),
-                                'urlCreator' => function ($action, Recurso $model, $key, $index, $column) {
-                                    return Url::toRoute([$action, 'rec_id' => $model->rec_id]);
-                                }
-                            ],
-                        ],
-                    ]); ?>
-
-
                 </div>
+            </div>
+            <div class="col-12 mt-3">
+
+                <?= GridView::widget([
+                    'dataProvider' => $dataProvider,
+                    'filterModel' => $searchModel,
+                    'columns' => [
+                        ['class' => 'yii\grid\SerialColumn'],
+
+                        'rec_id',
+                        'rec_nombre:ntext',
+                        'rec_resumen:ntext',
+                        'rec_fktipo',
+                        'rec_fknivel',
+                        [
+                            'class' => ActionColumn::className(),
+                            'urlCreator' => function ($action, Recurso $model, $key, $index, $column) {
+                                return Url::toRoute([$action, 'rec_id' => $model->rec_id]);
+                            }
+                        ],
+                    ],
+                ]); ?>
+            </div>
+        </div>
+    </div>

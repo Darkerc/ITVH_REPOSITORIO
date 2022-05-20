@@ -141,4 +141,9 @@ class SiteController extends Controller
     {
         return $this->render('search');
     }
+
+    public function actionArchivo()
+    {
+        return $this->render('archivo');
+    }
 }

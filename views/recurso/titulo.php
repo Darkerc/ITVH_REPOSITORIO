@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\RecursoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Año de publicación';
+$this->title = 'Titulo';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="recurso-index">
@@ -24,18 +24,22 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <h4 class="card-header bg-info">Busqueda por Año de publicación</h4>
+                    <h4 class="card-header bg-info">Busqueda por Titulo</h4>
                     <div class="card-body">
                         <form class="row card-body">
-                            <div class="col col-12 col-md-8 form-group">
-                                <label>Ir a una fecha de incio:</label>
-                                <input type="date" class="form-control" placeholder="Año...">
+                            <div class="col col-12 col-md-12 form-group">
+                                <label>
+                                    Ir a:
+                                    <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                        A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+                                    </a>
+                                </label>
                             </div>
                             <div class="col col-12 col-md-4 form-group">
-                                <label for="exampleInputPassword1">O seleccione un año</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Repositorio...">
+                                <label for="exampleInputPassword1">O introducir las primeras letras:</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="">
                             </div>
-                            <div class="col col-12">
+                            <div class="col col-12 form-group">
                                 <button type="submit" class="btn btn-primary">Buscar</button>
                             </div>
                         </form>
@@ -52,8 +56,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="col col-12 col-md-4 form-group">
                                         <label>Ordenar por:</label>
                                         <select class="custom-select">
-                                            <option selected>Año de publicacion</option>
-                                            <option value="1">Titulo</option>
+                                            <option selected>Titulo</option>
+                                            <option value="1">Año de publicacion</option>
                                             <option value="2">Autor</option>
                                             <option value="3">Fecha</option>
                                         </select>

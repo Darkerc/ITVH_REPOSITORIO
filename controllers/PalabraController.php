@@ -131,4 +131,14 @@ class PalabraController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionBusqueda()
+    {
+        $searchModel = new PalabraSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+        return $this->render('busqueda', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 }

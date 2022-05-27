@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
+use app\models\Carrera;
 use app\models\ContactForm;
 
 class SiteController extends Controller
@@ -67,7 +68,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $carreras = Carrera::find()->all();
+        return $this->render('index', compact('carreras'));
     }
 
     /**

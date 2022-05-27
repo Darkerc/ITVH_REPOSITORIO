@@ -14,15 +14,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'arc_nombre')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'arc_extencion')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'arc_extension')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'arc_nombreOri')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'arc_original')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'arc_visitas')->textInput() ?>
 
     <?= $form->field($model, 'arc_descargas')->textInput() ?>
 
     <?= $form->field($model, 'arc_mimetype')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'arc_fecha')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

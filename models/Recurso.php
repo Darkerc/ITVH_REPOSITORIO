@@ -8,16 +8,18 @@ use Yii;
  * This is the model class for table "recurso".
  *
  * @property int $rec_id
- * @property string|null $rec_nombre
- * @property string|null $rec_resumen
- * @property int|null $rec_fktipo
- * @property int|null $rec_fknivel
+ * @property string $rec_nombre
+ * @property string $rec_resumen
+ * @property string $rec_registro
+ * @property string $rec_descripcion
+ * @property int $rec_fkrecursotipo
+ * @property int $rec_fknivel
  *
  * @property AutorRecurso[] $autorRecursos
  * @property Bitacora[] $bitacoras
  * @property Palabra[] $palabras
  * @property Nivel $recFknivel
- * @property Tipo $recFktipo
+ * @property RecursoTipo $recFkrecursotipo
  * @property RecursoArchivo[] $recursoArchivos
  * @property RecursoCarrera[] $recursoCarreras
  */
@@ -37,10 +39,12 @@ class Recurso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rec_nombre', 'rec_resumen'], 'string'],
-            [['rec_fktipo', 'rec_fknivel'], 'integer'],
-            [['rec_fktipo'], 'exist', 'skipOnError' => true, 'targetClass' => Tipo::className(), 'targetAttribute' => ['rec_fktipo' => 'tip_id']],
+            [['rec_nombre', 'rec_resumen', 'rec_registro', 'rec_descripcion', 'rec_fkrecursotipo', 'rec_fknivel'], 'required'],
+            [['rec_nombre', 'rec_resumen', 'rec_descripcion'], 'string'],
+            [['rec_registro'], 'safe'],
+            [['rec_fkrecursotipo', 'rec_fknivel'], 'integer'],
             [['rec_fknivel'], 'exist', 'skipOnError' => true, 'targetClass' => Nivel::className(), 'targetAttribute' => ['rec_fknivel' => 'niv_id']],
+            [['rec_fkrecursotipo'], 'exist', 'skipOnError' => true, 'targetClass' => RecursoTipo::className(), 'targetAttribute' => ['rec_fkrecursotipo' => 'rectip_id']],
         ];
     }
 
@@ -53,7 +57,9 @@ class Recurso extends \yii\db\ActiveRecord
             'rec_id' => 'Rec ID',
             'rec_nombre' => 'Rec Nombre',
             'rec_resumen' => 'Rec Resumen',
-            'rec_fktipo' => 'Rec Fktipo',
+            'rec_registro' => 'Rec Registro',
+            'rec_descripcion' => 'Rec Descripcion',
+            'rec_fkrecursotipo' => 'Rec Fkrecursotipo',
             'rec_fknivel' => 'Rec Fknivel',
         ];
     }
@@ -99,13 +105,13 @@ class Recurso extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[RecFktipo]].
+     * Gets query for [[RecFkrecursotipo]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getRecFktipo()
+    public function getRecFkrecursotipo()
     {
-        return $this->hasOne(Tipo::className(), ['tip_id' => 'rec_fktipo']);
+        return $this->hasOne(RecursoTipo::className(), ['rectip_id' => 'rec_fkrecursotipo']);
     }
 
     /**
@@ -115,7 +121,7 @@ class Recurso extends \yii\db\ActiveRecord
      */
     public function getRecursoArchivos()
     {
-        return $this->hasMany(RecursoArchivo::className(), ['recarc_fkrecursos' => 'rec_id']);
+        return $this->hasMany(RecursoArchivo::className(), ['recarc_fkrecurso' => 'rec_id']);
     }
 
     /**

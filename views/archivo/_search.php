@@ -19,15 +19,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'arc_nombre') ?>
 
-    <?= $form->field($model, 'arc_extencion') ?>
+    <?= $form->field($model, 'arc_extension') ?>
 
-    <?= $form->field($model, 'arc_nombreOri') ?>
+    <?= $form->field($model, 'arc_original') ?>
 
     <?= $form->field($model, 'arc_visitas') ?>
 
     <?php // echo $form->field($model, 'arc_descargas') ?>
 
     <?php // echo $form->field($model, 'arc_mimetype') ?>
+
+    <?php // echo $form->field($model, 'arc_fecha') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -21,9 +21,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'rec_resumen') ?>
 
-    <?= $form->field($model, 'rec_fktipo') ?>
+    <?= $form->field($model, 'rec_registro') ?>
 
-    <?= $form->field($model, 'rec_fknivel') ?>
+    <?= $form->field($model, 'rec_descripcion') ?>
+
+    <?php // echo $form->field($model, 'rec_fkrecursotipo') ?>
+
+    <?php // echo $form->field($model, 'rec_fknivel') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -17,8 +17,8 @@ class RecursoSearch extends Recurso
     public function rules()
     {
         return [
-            [['rec_id', 'rec_fktipo', 'rec_fknivel'], 'integer'],
-            [['rec_nombre', 'rec_resumen'], 'safe'],
+            [['rec_id', 'rec_fkrecursotipo', 'rec_fknivel'], 'integer'],
+            [['rec_nombre', 'rec_resumen', 'rec_registro', 'rec_descripcion'], 'safe'],
         ];
     }
 
@@ -59,12 +59,14 @@ class RecursoSearch extends Recurso
         // grid filtering conditions
         $query->andFilterWhere([
             'rec_id' => $this->rec_id,
-            'rec_fktipo' => $this->rec_fktipo,
+            'rec_registro' => $this->rec_registro,
+            'rec_fkrecursotipo' => $this->rec_fkrecursotipo,
             'rec_fknivel' => $this->rec_fknivel,
         ]);
 
         $query->andFilterWhere(['like', 'rec_nombre', $this->rec_nombre])
-            ->andFilterWhere(['like', 'rec_resumen', $this->rec_resumen]);
+            ->andFilterWhere(['like', 'rec_resumen', $this->rec_resumen])
+            ->andFilterWhere(['like', 'rec_descripcion', $this->rec_descripcion]);
 
         return $dataProvider;
     }

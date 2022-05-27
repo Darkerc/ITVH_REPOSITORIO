@@ -18,7 +18,7 @@ class ArchivoSearch extends Archivo
     {
         return [
             [['arc_id', 'arc_visitas', 'arc_descargas'], 'integer'],
-            [['arc_nombre', 'arc_extencion', 'arc_nombreOri', 'arc_mimetype'], 'safe'],
+            [['arc_nombre', 'arc_extension', 'arc_original', 'arc_mimetype', 'arc_fecha'], 'safe'],
         ];
     }
 
@@ -61,11 +61,12 @@ class ArchivoSearch extends Archivo
             'arc_id' => $this->arc_id,
             'arc_visitas' => $this->arc_visitas,
             'arc_descargas' => $this->arc_descargas,
+            'arc_fecha' => $this->arc_fecha,
         ]);
 
         $query->andFilterWhere(['like', 'arc_nombre', $this->arc_nombre])
-            ->andFilterWhere(['like', 'arc_extencion', $this->arc_extencion])
-            ->andFilterWhere(['like', 'arc_nombreOri', $this->arc_nombreOri])
+            ->andFilterWhere(['like', 'arc_extension', $this->arc_extension])
+            ->andFilterWhere(['like', 'arc_original', $this->arc_original])
             ->andFilterWhere(['like', 'arc_mimetype', $this->arc_mimetype]);
 
         return $dataProvider;

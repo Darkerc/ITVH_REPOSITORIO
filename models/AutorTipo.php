@@ -50,6 +50,6 @@ class AutorTipo extends \yii\db\ActiveRecord
      */
     public function getAutors()
     {
-        return $this->hasMany(Autor::className(), ['aut_fktipo' => 'auttip_id']);
+        return $this->hasMany(Autor::className(), ['aut_fkautortipo' => 'auttip_id']);
     }
 }

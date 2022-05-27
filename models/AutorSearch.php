@@ -17,8 +17,8 @@ class AutorSearch extends Autor
     public function rules()
     {
         return [
-            [['aut_id', 'aut_semestre', 'aut_fkcarrera', 'aut_fktipo', 'aut_fkdepartamento', 'aut_fkencargado', 'aut_fkuser'], 'integer'],
-            [['aut_nombre', 'aut_paterno', 'aut_marterno', 'aut_correo'], 'safe'],
+            [['aut_id', 'aut_semestre', 'aut_fkcarrera', 'aut_fkautortipo', 'aut_fkdepartamento', 'aut_fkuser'], 'integer'],
+            [['aut_nombre', 'aut_paterno', 'aut_materno', 'aut_correo'], 'safe'],
         ];
     }
 
@@ -61,15 +61,14 @@ class AutorSearch extends Autor
             'aut_id' => $this->aut_id,
             'aut_semestre' => $this->aut_semestre,
             'aut_fkcarrera' => $this->aut_fkcarrera,
-            'aut_fktipo' => $this->aut_fktipo,
+            'aut_fkautortipo' => $this->aut_fkautortipo,
             'aut_fkdepartamento' => $this->aut_fkdepartamento,
-            'aut_fkencargado' => $this->aut_fkencargado,
             'aut_fkuser' => $this->aut_fkuser,
         ]);
 
         $query->andFilterWhere(['like', 'aut_nombre', $this->aut_nombre])
             ->andFilterWhere(['like', 'aut_paterno', $this->aut_paterno])
-            ->andFilterWhere(['like', 'aut_marterno', $this->aut_marterno])
+            ->andFilterWhere(['like', 'aut_materno', $this->aut_materno])
             ->andFilterWhere(['like', 'aut_correo', $this->aut_correo]);
 
         return $dataProvider;

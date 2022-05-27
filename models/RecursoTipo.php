@@ -5,21 +5,21 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "tipo".
+ * This is the model class for table "recurso_tipo".
  *
- * @property int $tip_id
- * @property string|null $tip_nombre
+ * @property int $rectip_id
+ * @property string|null $rectip_nombre
  *
  * @property Recurso[] $recursos
  */
-class Tipo extends \yii\db\ActiveRecord
+class RecursoTipo extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'tipo';
+        return 'recurso_tipo';
     }
 
     /**
@@ -28,7 +28,7 @@ class Tipo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tip_nombre'], 'string'],
+            [['rectip_nombre'], 'string'],
         ];
     }
 
@@ -38,8 +38,8 @@ class Tipo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'tip_id' => 'Tip ID',
-            'tip_nombre' => 'Tip Nombre',
+            'rectip_id' => 'Rectip ID',
+            'rectip_nombre' => 'Rectip Nombre',
         ];
     }
 
@@ -50,6 +50,6 @@ class Tipo extends \yii\db\ActiveRecord
      */
     public function getRecursos()
     {
-        return $this->hasMany(Recurso::className(), ['rec_fktipo' => 'tip_id']);
+        return $this->hasMany(Recurso::className(), ['rec_fkrecursotipo' => 'rectip_id']);
     }
 }

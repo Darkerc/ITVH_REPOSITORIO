@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\RecursoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Año de publicación';
+$this->title = 'Recursos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="recurso-index">
@@ -17,8 +17,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php Html::a('Create Recurso', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Recurso', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <div class="body-content">
         <div class="row">
@@ -92,25 +94,26 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
             <div class="col-12 mt-3">
-                <?= GridView::widget([
-                    'dataProvider' => $dataProvider,
-                    'filterModel' => $searchModel,
-                    'columns' => [
-                        ['class' => 'yii\grid\SerialColumn'],
+            <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
 
-                        'rec_id',
-                        'rec_nombre:ntext',
-                        'rec_resumen:ntext',
-                        'rec_fktipo',
-                        'rec_fknivel',
-                        [
-                            'class' => ActionColumn::className(),
-                            'urlCreator' => function ($action, Recurso $model, $key, $index, $column) {
-                                return Url::toRoute([$action, 'rec_id' => $model->rec_id]);
-                            }
-                        ],
-                    ],
-                ]); ?>
+            'rec_id',
+            'rec_nombre:ntext',
+            'rec_resumen:ntext',
+            'rec_fktipo',
+            'rec_fknivel',
+            [
+                'class' => ActionColumn::className(),
+                'urlCreator' => function ($action, Recurso $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'rec_id' => $model->rec_id]);
+                 }
+            ],
+        ],
+    ]); ?> 
             </div>
         </div>
     </div>
+</div>

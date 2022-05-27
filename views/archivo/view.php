@@ -31,11 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'arc_id',
             'arc_nombre:ntext',
-            'arc_extencion:ntext',
-            'arc_nombreOri:ntext',
+            'arc_extension:ntext',
+            'arc_original:ntext',
             'arc_visitas',
             'arc_descargas',
             'arc_mimetype:ntext',
+            'arc_fecha',
         ],
     ]) ?>
 

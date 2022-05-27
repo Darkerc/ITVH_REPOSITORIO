@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'aut_paterno') ?>
 
-    <?= $form->field($model, 'aut_marterno') ?>
+    <?= $form->field($model, 'aut_materno') ?>
 
     <?= $form->field($model, 'aut_correo') ?>
 
@@ -29,11 +29,9 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'aut_fkcarrera') ?>
 
-    <?php // echo $form->field($model, 'aut_fktipo') ?>
+    <?php // echo $form->field($model, 'aut_fkautortipo') ?>
 
     <?php // echo $form->field($model, 'aut_fkdepartamento') ?>
-
-    <?php // echo $form->field($model, 'aut_fkencargado') ?>
 
     <?php // echo $form->field($model, 'aut_fkuser') ?>
 

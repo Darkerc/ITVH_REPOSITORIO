@@ -16,7 +16,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'rec_resumen')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'rec_fktipo')->textInput() ?>
+    <?= $form->field($model, 'rec_registro')->textInput() ?>
+
+    <?= $form->field($model, 'rec_descripcion')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'rec_fkrecursotipo')->textInput() ?>
 
     <?= $form->field($model, 'rec_fknivel')->textInput() ?>
 

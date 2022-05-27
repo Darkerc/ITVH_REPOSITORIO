@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'aut_paterno')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'aut_marterno')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'aut_materno')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'aut_correo')->textarea(['rows' => 6]) ?>
 
@@ -24,11 +24,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'aut_fkcarrera')->textInput() ?>
 
-    <?= $form->field($model, 'aut_fktipo')->textInput() ?>
+    <?= $form->field($model, 'aut_fkautortipo')->textInput() ?>
 
     <?= $form->field($model, 'aut_fkdepartamento')->textInput() ?>
-
-    <?= $form->field($model, 'aut_fkencargado')->textInput() ?>
 
     <?= $form->field($model, 'aut_fkuser')->textInput() ?>
 

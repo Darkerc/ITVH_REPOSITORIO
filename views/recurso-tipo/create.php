@@ -3,13 +3,13 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Tipo */
+/* @var $model app\models\RecursoTipo */
 
-$this->title = 'Create Tipo';
-$this->params['breadcrumbs'][] = ['label' => 'Tipos', 'url' => ['index']];
+$this->title = 'Create Recurso Tipo';
+$this->params['breadcrumbs'][] = ['label' => 'Recurso Tipos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="tipo-create">
+<div class="recurso-tipo-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

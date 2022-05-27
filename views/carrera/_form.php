@@ -14,6 +14,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'car_nombre')->textarea(['rows' => 6]) ?>
 
+    <?= $form->field($model, 'car_fkdepartamento')->textInput() ?>
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

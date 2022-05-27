@@ -30,11 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'arc_id',
             'arc_nombre:ntext',
-            'arc_extencion:ntext',
-            'arc_nombreOri:ntext',
+            'arc_extension:ntext',
+            'arc_original:ntext',
             'arc_visitas',
             //'arc_descargas',
             //'arc_mimetype:ntext',
+            //'arc_fecha',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Archivo $model, $key, $index, $column) {

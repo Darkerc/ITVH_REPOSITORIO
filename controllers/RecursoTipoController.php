@@ -2,16 +2,16 @@
 
 namespace app\controllers;
 
-use app\models\Tipo;
-use app\models\TipoSearch;
+use app\models\RecursoTipo;
+use app\models\RecursoTipoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TipoController implements the CRUD actions for Tipo model.
+ * RecursoTipoController implements the CRUD actions for RecursoTipo model.
  */
-class TipoController extends Controller
+class RecursoTipoController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,13 +32,13 @@ class TipoController extends Controller
     }
 
     /**
-     * Lists all Tipo models.
+     * Lists all RecursoTipo models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new TipoSearch();
+        $searchModel = new RecursoTipoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -48,30 +48,30 @@ class TipoController extends Controller
     }
 
     /**
-     * Displays a single Tipo model.
-     * @param int $tip_id Tip ID
+     * Displays a single RecursoTipo model.
+     * @param int $rectip_id Rectip ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($tip_id)
+    public function actionView($rectip_id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($tip_id),
+            'model' => $this->findModel($rectip_id),
         ]);
     }
 
     /**
-     * Creates a new Tipo model.
+     * Creates a new RecursoTipo model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Tipo();
+        $model = new RecursoTipo();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'tip_id' => $model->tip_id]);
+                return $this->redirect(['view', 'rectip_id' => $model->rectip_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -83,18 +83,18 @@ class TipoController extends Controller
     }
 
     /**
-     * Updates an existing Tipo model.
+     * Updates an existing RecursoTipo model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $tip_id Tip ID
+     * @param int $rectip_id Rectip ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($tip_id)
+    public function actionUpdate($rectip_id)
     {
-        $model = $this->findModel($tip_id);
+        $model = $this->findModel($rectip_id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'tip_id' => $model->tip_id]);
+            return $this->redirect(['view', 'rectip_id' => $model->rectip_id]);
         }
 
         return $this->render('update', [
@@ -103,29 +103,29 @@ class TipoController extends Controller
     }
 
     /**
-     * Deletes an existing Tipo model.
+     * Deletes an existing RecursoTipo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $tip_id Tip ID
+     * @param int $rectip_id Rectip ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($tip_id)
+    public function actionDelete($rectip_id)
     {
-        $this->findModel($tip_id)->delete();
+        $this->findModel($rectip_id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Tipo model based on its primary key value.
+     * Finds the RecursoTipo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $tip_id Tip ID
-     * @return Tipo the loaded model
+     * @param int $rectip_id Rectip ID
+     * @return RecursoTipo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($tip_id)
+    protected function findModel($rectip_id)
     {
-        if (($model = Tipo::findOne(['tip_id' => $tip_id])) !== null) {
+        if (($model = RecursoTipo::findOne(['rectip_id' => $rectip_id])) !== null) {
             return $model;
         }
 

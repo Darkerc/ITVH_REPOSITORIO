@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Tipo;
+use app\models\RecursoTipo;
 
 /**
- * TipoSearch represents the model behind the search form of `app\models\Tipo`.
+ * RecursoTipoSearch represents the model behind the search form of `app\models\RecursoTipo`.
  */
-class TipoSearch extends Tipo
+class RecursoTipoSearch extends RecursoTipo
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class TipoSearch extends Tipo
     public function rules()
     {
         return [
-            [['tip_id'], 'integer'],
-            [['tip_nombre'], 'safe'],
+            [['rectip_id'], 'integer'],
+            [['rectip_nombre'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class TipoSearch extends Tipo
      */
     public function search($params)
     {
-        $query = Tipo::find();
+        $query = RecursoTipo::find();
 
         // add conditions that should always apply here
 
@@ -58,10 +58,10 @@ class TipoSearch extends Tipo
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'tip_id' => $this->tip_id,
+            'rectip_id' => $this->rectip_id,
         ]);
 
-        $query->andFilterWhere(['like', 'tip_nombre', $this->tip_nombre]);
+        $query->andFilterWhere(['like', 'rectip_nombre', $this->rectip_nombre]);
 
         return $dataProvider;
     }

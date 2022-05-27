@@ -32,7 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'rec_id',
             'rec_nombre:ntext',
             'rec_resumen:ntext',
-            'rec_fktipo',
+            'rec_registro',
+            'rec_descripcion:ntext',
+            'rec_fkrecursotipo',
             'rec_fknivel',
         ],
     ]) ?>

@@ -8,10 +8,11 @@ use Yii;
  * This is the model class for table "carrera".
  *
  * @property int $car_id
- * @property string|null $car_nombre
+ * @property string $car_nombre
+ * @property int $car_fkdepartamento
  *
  * @property Autor[] $autors
- * @property DepartamentoCarrera[] $departamentoCarreras
+ * @property Departamento $carFkdepartamento
  * @property RecursoCarrera[] $recursoCarreras
  */
 class Carrera extends \yii\db\ActiveRecord
@@ -30,7 +31,10 @@ class Carrera extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['car_nombre', 'car_fkdepartamento'], 'required'],
             [['car_nombre'], 'string'],
+            [['car_fkdepartamento'], 'integer'],
+            [['car_fkdepartamento'], 'exist', 'skipOnError' => true, 'targetClass' => Departamento::className(), 'targetAttribute' => ['car_fkdepartamento' => 'dep_id']],
         ];
     }
 
@@ -42,6 +46,7 @@ class Carrera extends \yii\db\ActiveRecord
         return [
             'car_id' => 'Car ID',
             'car_nombre' => 'Car Nombre',
+            'car_fkdepartamento' => 'Car Fkdepartamento',
         ];
     }
 
@@ -56,13 +61,13 @@ class Carrera extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[DepartamentoCarreras]].
+     * Gets query for [[CarFkdepartamento]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getDepartamentoCarreras()
+    public function getCarFkdepartamento()
     {
-        return $this->hasMany(DepartamentoCarrera::className(), ['depcar_fkcarrera' => 'car_id']);
+        return $this->hasOne(Departamento::className(), ['dep_id' => 'car_fkdepartamento']);
     }
 
     /**

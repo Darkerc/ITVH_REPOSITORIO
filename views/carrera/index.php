@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'car_id',
             'car_nombre:ntext',
+            'car_fkdepartamento',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Carrera $model, $key, $index, $column) {

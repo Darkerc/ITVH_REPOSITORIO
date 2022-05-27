@@ -136,9 +136,11 @@ class PalabraController extends Controller
     {
         $searchModel = new PalabraSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+
         return $this->render('busqueda', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
+
 }

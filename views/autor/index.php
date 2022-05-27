@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\AutorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Autores';
+$this->title = 'Autors';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="autor-index">
@@ -30,8 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'aut_id',
             'aut_nombre:ntext',
-            'aut_apellidoMaterno:ntext',
-            'aut_apellidoPaterno:ntext',
+            'aut_paterno:ntext',
+            'aut_marterno:ntext',
             'aut_correo:ntext',
             //'aut_semestre',
             //'aut_fkcarrera',

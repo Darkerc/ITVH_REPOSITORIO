@@ -9,6 +9,8 @@ use Yii;
  *
  * @property int $tip_id
  * @property string|null $tip_nombre
+ *
+ * @property Recurso[] $recursos
  */
 class Tipo extends \yii\db\ActiveRecord
 {
@@ -36,8 +38,18 @@ class Tipo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'tip_id'     => 'ID',
-            'tip_nombre' => 'Nombre',
+            'tip_id' => 'Tip ID',
+            'tip_nombre' => 'Tip Nombre',
         ];
+    }
+
+    /**
+     * Gets query for [[Recursos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRecursos()
+    {
+        return $this->hasMany(Recurso::className(), ['rec_fktipo' => 'tip_id']);
     }
 }

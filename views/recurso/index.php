@@ -17,10 +17,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php Html::a('Create Recurso', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Recurso', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]);     ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Recurso $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'rec_id' => $model->rec_id]);
-                }
+                 }
             ],
         ],
     ]); ?>

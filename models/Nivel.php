@@ -9,6 +9,8 @@ use Yii;
  *
  * @property int $niv_id
  * @property string|null $niv_nombre
+ *
+ * @property Recurso[] $recursos
  */
 class Nivel extends \yii\db\ActiveRecord
 {
@@ -36,8 +38,18 @@ class Nivel extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'niv_id'     => 'ID',
-            'niv_nombre' => 'Nombre',
+            'niv_id' => 'Niv ID',
+            'niv_nombre' => 'Niv Nombre',
         ];
+    }
+
+    /**
+     * Gets query for [[Recursos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRecursos()
+    {
+        return $this->hasMany(Recurso::className(), ['rec_fknivel' => 'niv_id']);
     }
 }

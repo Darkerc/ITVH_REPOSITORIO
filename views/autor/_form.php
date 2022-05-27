@@ -14,9 +14,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'aut_nombre')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'aut_apellidoMaterno')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'aut_paterno')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'aut_apellidoPaterno')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'aut_marterno')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'aut_correo')->textarea(['rows' => 6]) ?>
 

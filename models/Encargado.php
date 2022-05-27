@@ -9,9 +9,11 @@ use Yii;
  *
  * @property int $enc_id
  * @property string|null $enc_nombre
- * @property string|null $enc_apellidoMaterno
- * @property string|null $enc_apellidoPaterno
+ * @property string|null $enc_paterno
+ * @property string|null $enc_materno
  * @property int|null $enc_fkdepartamento
+ *
+ * @property Autor[] $autors
  */
 class Encargado extends \yii\db\ActiveRecord
 {
@@ -29,7 +31,7 @@ class Encargado extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['enc_nombre', 'enc_apellidoMaterno', 'enc_apellidoPaterno'], 'string'],
+            [['enc_nombre', 'enc_paterno', 'enc_materno'], 'string'],
             [['enc_fkdepartamento'], 'integer'],
         ];
     }
@@ -40,11 +42,21 @@ class Encargado extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'enc_id'              => 'ID',
-            'enc_nombre'          => 'Nombre',
-            'enc_apellidoMaterno' => 'Apellido Materno',
-            'enc_apellidoPaterno' => 'Apellido Paterno',
-            'enc_fkdepartamento'  => 'Departamento',
+            'enc_id' => 'Enc ID',
+            'enc_nombre' => 'Enc Nombre',
+            'enc_paterno' => 'Enc Paterno',
+            'enc_materno' => 'Enc Materno',
+            'enc_fkdepartamento' => 'Enc Fkdepartamento',
         ];
+    }
+
+    /**
+     * Gets query for [[Autors]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAutors()
+    {
+        return $this->hasMany(Autor::className(), ['aut_fkencargado' => 'enc_id']);
     }
 }

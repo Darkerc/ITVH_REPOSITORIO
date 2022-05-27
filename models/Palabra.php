@@ -10,6 +10,8 @@ use Yii;
  * @property int $pal_id
  * @property string|null $pal_nombre
  * @property int|null $pal_fkrecurso
+ *
+ * @property Recurso $palFkrecurso
  */
 class Palabra extends \yii\db\ActiveRecord
 {
@@ -29,6 +31,7 @@ class Palabra extends \yii\db\ActiveRecord
         return [
             [['pal_nombre'], 'string'],
             [['pal_fkrecurso'], 'integer'],
+            [['pal_fkrecurso'], 'exist', 'skipOnError' => true, 'targetClass' => Recurso::className(), 'targetAttribute' => ['pal_fkrecurso' => 'rec_id']],
         ];
     }
 
@@ -38,9 +41,19 @@ class Palabra extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pal_id'        => 'ID',
-            'pal_nombre'    => 'Nombre',
-            'pal_fkrecurso' => 'Recurso',
+            'pal_id' => 'Pal ID',
+            'pal_nombre' => 'Pal Nombre',
+            'pal_fkrecurso' => 'Pal Fkrecurso',
         ];
+    }
+
+    /**
+     * Gets query for [[PalFkrecurso]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPalFkrecurso()
+    {
+        return $this->hasOne(Recurso::className(), ['rec_id' => 'pal_fkrecurso']);
     }
 }

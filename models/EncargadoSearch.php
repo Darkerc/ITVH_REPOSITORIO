@@ -18,7 +18,7 @@ class EncargadoSearch extends Encargado
     {
         return [
             [['enc_id', 'enc_fkdepartamento'], 'integer'],
-            [['enc_nombre', 'enc_apellidoMaterno', 'enc_apellidoPaterno'], 'safe'],
+            [['enc_nombre', 'enc_paterno', 'enc_materno'], 'safe'],
         ];
     }
 
@@ -63,8 +63,8 @@ class EncargadoSearch extends Encargado
         ]);
 
         $query->andFilterWhere(['like', 'enc_nombre', $this->enc_nombre])
-            ->andFilterWhere(['like', 'enc_apellidoMaterno', $this->enc_apellidoMaterno])
-            ->andFilterWhere(['like', 'enc_apellidoPaterno', $this->enc_apellidoPaterno]);
+            ->andFilterWhere(['like', 'enc_paterno', $this->enc_paterno])
+            ->andFilterWhere(['like', 'enc_materno', $this->enc_materno]);
 
         return $dataProvider;
     }

@@ -31,8 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'enc_id',
             'enc_nombre:ntext',
-            'enc_apellidoMaterno:ntext',
-            'enc_apellidoPaterno:ntext',
+            'enc_paterno:ntext',
+            'enc_materno:ntext',
             'enc_fkdepartamento',
         ],
     ]) ?>

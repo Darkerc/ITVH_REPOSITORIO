@@ -14,9 +14,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'enc_nombre')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'enc_apellidoMaterno')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'enc_paterno')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'enc_apellidoPaterno')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'enc_materno')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'enc_fkdepartamento')->textInput() ?>
 

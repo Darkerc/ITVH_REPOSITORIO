@@ -136,6 +136,7 @@ class RecursoController extends Controller
     {
         $searchModel = new RecursoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+
         return $this->render('publicacion', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -146,6 +147,7 @@ class RecursoController extends Controller
     {
         $searchModel = new RecursoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+
         return $this->render('autor', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -156,6 +158,7 @@ class RecursoController extends Controller
     {
         $searchModel = new RecursoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+
         return $this->render('titulo', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

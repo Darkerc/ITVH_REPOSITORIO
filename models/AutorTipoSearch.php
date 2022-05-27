@@ -17,8 +17,8 @@ class AutorTipoSearch extends AutorTipo
     public function rules()
     {
         return [
-            [['autt_id'], 'integer'],
-            [['autt_nombre'], 'safe'],
+            [['auttip_id'], 'integer'],
+            [['auttip_nombre'], 'safe'],
         ];
     }
 
@@ -58,10 +58,10 @@ class AutorTipoSearch extends AutorTipo
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'autt_id' => $this->autt_id,
+            'auttip_id' => $this->auttip_id,
         ]);
 
-        $query->andFilterWhere(['like', 'autt_nombre', $this->autt_nombre]);
+        $query->andFilterWhere(['like', 'auttip_nombre', $this->auttip_nombre]);
 
         return $dataProvider;
     }

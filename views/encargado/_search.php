@@ -19,9 +19,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'enc_nombre') ?>
 
-    <?= $form->field($model, 'enc_apellidoMaterno') ?>
+    <?= $form->field($model, 'enc_paterno') ?>
 
-    <?= $form->field($model, 'enc_apellidoPaterno') ?>
+    <?= $form->field($model, 'enc_materno') ?>
 
     <?= $form->field($model, 'enc_fkdepartamento') ?>
 

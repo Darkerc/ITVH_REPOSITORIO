@@ -9,6 +9,9 @@ use Yii;
  *
  * @property int $dep_id
  * @property string|null $dep_nombre
+ *
+ * @property Autor[] $autors
+ * @property DepartamentoCarrera[] $departamentoCarreras
  */
 class Departamento extends \yii\db\ActiveRecord
 {
@@ -36,8 +39,28 @@ class Departamento extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'dep_id'     => 'ID',
-            'dep_nombre' => 'Nombre',
+            'dep_id' => 'Dep ID',
+            'dep_nombre' => 'Dep Nombre',
         ];
+    }
+
+    /**
+     * Gets query for [[Autors]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAutors()
+    {
+        return $this->hasMany(Autor::className(), ['aut_fkdepartamento' => 'dep_id']);
+    }
+
+    /**
+     * Gets query for [[DepartamentoCarreras]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDepartamentoCarreras()
+    {
+        return $this->hasMany(DepartamentoCarrera::className(), ['depcar_fkdepartamento' => 'dep_id']);
     }
 }

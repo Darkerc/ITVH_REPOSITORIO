@@ -31,8 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'aut_id',
             'aut_nombre:ntext',
-            'aut_apellidoMaterno:ntext',
-            'aut_apellidoPaterno:ntext',
+            'aut_paterno:ntext',
+            'aut_marterno:ntext',
             'aut_correo:ntext',
             'aut_semestre',
             'aut_fkcarrera',

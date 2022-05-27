@@ -14,6 +14,8 @@ use Yii;
  * @property int|null $arc_visitas
  * @property int|null $arc_descargas
  * @property string|null $arc_mimetype
+ *
+ * @property RecursoArchivo[] $recursoArchivos
  */
 class Archivo extends \yii\db\ActiveRecord
 {
@@ -42,13 +44,23 @@ class Archivo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'arc_id'        => 'ID',
-            'arc_nombre'    => 'Titulo',
-            'arc_extencion' => 'Extencion',
-            'arc_nombreOri' => 'Nombre Original',
-            'arc_visitas'   => 'Visitas',
-            'arc_descargas' => 'Descargas',
-            'arc_mimetype'  => 'Mimetype',
+            'arc_id' => 'Arc ID',
+            'arc_nombre' => 'Arc Nombre',
+            'arc_extencion' => 'Arc Extencion',
+            'arc_nombreOri' => 'Arc Nombre Ori',
+            'arc_visitas' => 'Arc Visitas',
+            'arc_descargas' => 'Arc Descargas',
+            'arc_mimetype' => 'Arc Mimetype',
         ];
+    }
+
+    /**
+     * Gets query for [[RecursoArchivos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRecursoArchivos()
+    {
+        return $this->hasMany(RecursoArchivo::className(), ['recarc_fkarchivo' => 'arc_id']);
     }
 }

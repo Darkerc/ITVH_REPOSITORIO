@@ -49,14 +49,14 @@ class AutorTipoController extends Controller
 
     /**
      * Displays a single AutorTipo model.
-     * @param int $autt_id Autt ID
+     * @param int $auttip_id Auttip ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($autt_id)
+    public function actionView($auttip_id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($autt_id),
+            'model' => $this->findModel($auttip_id),
         ]);
     }
 
@@ -71,7 +71,7 @@ class AutorTipoController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'autt_id' => $model->autt_id]);
+                return $this->redirect(['view', 'auttip_id' => $model->auttip_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -85,16 +85,16 @@ class AutorTipoController extends Controller
     /**
      * Updates an existing AutorTipo model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $autt_id Autt ID
+     * @param int $auttip_id Auttip ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($autt_id)
+    public function actionUpdate($auttip_id)
     {
-        $model = $this->findModel($autt_id);
+        $model = $this->findModel($auttip_id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'autt_id' => $model->autt_id]);
+            return $this->redirect(['view', 'auttip_id' => $model->auttip_id]);
         }
 
         return $this->render('update', [
@@ -105,13 +105,13 @@ class AutorTipoController extends Controller
     /**
      * Deletes an existing AutorTipo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $autt_id Autt ID
+     * @param int $auttip_id Auttip ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($autt_id)
+    public function actionDelete($auttip_id)
     {
-        $this->findModel($autt_id)->delete();
+        $this->findModel($auttip_id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -119,13 +119,13 @@ class AutorTipoController extends Controller
     /**
      * Finds the AutorTipo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $autt_id Autt ID
+     * @param int $auttip_id Auttip ID
      * @return AutorTipo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($autt_id)
+    protected function findModel($auttip_id)
     {
-        if (($model = AutorTipo::findOne(['autt_id' => $autt_id])) !== null) {
+        if (($model = AutorTipo::findOne(['auttip_id' => $auttip_id])) !== null) {
             return $model;
         }
 

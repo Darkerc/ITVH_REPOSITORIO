@@ -10,6 +10,8 @@ use Yii;
  * @property int $bit_id
  * @property string|null $bit_descripcion
  * @property int|null $bit_fkrecurso
+ *
+ * @property Recurso $bitFkrecurso
  */
 class Bitacora extends \yii\db\ActiveRecord
 {
@@ -29,6 +31,7 @@ class Bitacora extends \yii\db\ActiveRecord
         return [
             [['bit_descripcion'], 'string'],
             [['bit_fkrecurso'], 'integer'],
+            [['bit_fkrecurso'], 'exist', 'skipOnError' => true, 'targetClass' => Recurso::className(), 'targetAttribute' => ['bit_fkrecurso' => 'rec_id']],
         ];
     }
 
@@ -38,9 +41,19 @@ class Bitacora extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'bit_id'          => 'ID',
-            'bit_descripcion' => 'Descripcion',
-            'bit_fkrecurso'   => 'Recurso',
+            'bit_id' => 'Bit ID',
+            'bit_descripcion' => 'Bit Descripcion',
+            'bit_fkrecurso' => 'Bit Fkrecurso',
         ];
+    }
+
+    /**
+     * Gets query for [[BitFkrecurso]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBitFkrecurso()
+    {
+        return $this->hasOne(Recurso::className(), ['rec_id' => 'bit_fkrecurso']);
     }
 }

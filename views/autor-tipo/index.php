@@ -28,12 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'autt_id',
-            'autt_nombre:ntext',
+            'auttip_id',
+            'auttip_nombre:ntext',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, AutorTipo $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'autt_id' => $model->autt_id]);
+                    return Url::toRoute([$action, 'auttip_id' => $model->auttip_id]);
                  }
             ],
         ],

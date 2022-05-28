@@ -22,6 +22,7 @@ class AppAsset extends AssetBundle
     public $css = [
         'bundle/index.css',
         'css/site.css',
+        'css/libreria.css',
     ];
     public $js = [
         'bundle/index.js'

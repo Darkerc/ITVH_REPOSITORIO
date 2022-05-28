@@ -1,11 +1,7 @@
 <?php
 
-use yii\helpers\Html;
-use app\assets\AppAsset;
-use yii\grid\GridView;
 use yii\bootstrap4\Carousel;
-use yii\grid\ActionColumn;
-use yii\helpers\Url;
+
 
 /** @var yii\web\View $this */
 
@@ -20,15 +16,21 @@ $this->title = 'ITVH Repositorio';
         'items' => [
             [
                 'content' => '<img src="images/blanco.jpg"/>',
-                'caption' => '<h4 class="textblack">Índice de Cohesión Organizacional: Propuesta para Evaluar la Guía Corporativa</h4><p class="textblack">De: Roberto Celaya</p><button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2">Ver repositorio</button>',
+                'caption' => '<h4 class="textblack">Índice de Cohesión Organizacional: Propuesta para Evaluar la Guía Corporativa</h4>
+                <p class="textblack">De: Roberto Celaya</p>
+                <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2">Ver repositorio</button>',
             ],
             [
                 'content' => '<img src="images/blanco.jpg"/>',
-                'caption' => '<h4 class="textblack">Índice de Cohesión Organizacional: Propuesta para Evaluar la Comision Corporativa</h4><p class="textblack">De: Roberto Ismael</p><button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2">Ver repositorio</button>',
+                'caption' => '<h4 class="textblack">Índice de Cohesión Organizacional: Propuesta para Evaluar la Comision Corporativa</h4>
+                <p class="textblack">De: Roberto Ismael</p>
+                <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2">Ver repositorio</button>',
             ],
             [
                 'content' => '<img src="images/blanco.jpg"/>',
-                'caption' => '<h4 class="textblack">Compresion Lectora: Propuesta para la promocion de La Lectura a nivel Basico</h4><p class="textblack">De: Carlos reyes</p><button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2">Ver repositorio</button>',
+                'caption' => '<h4 class="textblack">Compresion Lectora: Propuesta para la promocion de La Lectura a nivel Basico</h4>
+                <p class="textblack">De: Carlos reyes</p>
+                <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2">Ver repositorio</button>',
             ],
         ]
     ]); ?>
@@ -36,7 +38,7 @@ $this->title = 'ITVH Repositorio';
     <div class="body-content">
         <div class="row">
             <div class="py-2 col-12 col-lg-7">
-                                <div class="card my-3">
+                <div class="card my-3">
                     <h4 class="card-header bg-info">Repositorios por carreras</h4>
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -65,7 +67,7 @@ $this->title = 'ITVH Repositorio';
                         </div>
                         </p>
                     </div>
-                </div> 
+                </div>
             </div>
             <div class="py-2 col-12 col-lg-5">
                 <div class="card my-3">

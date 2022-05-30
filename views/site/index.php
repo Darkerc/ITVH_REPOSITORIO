@@ -12,7 +12,7 @@ $this->title = 'ITVH Repositorio';
         <h4>Repositorio institucional del ITVH</h4>
     </div>
 
-    <? echo Carousel::widget([
+    <?= Carousel::widget([
         'items' => [
             [
                 'content' => '<img src="images/blanco.jpg"/>',

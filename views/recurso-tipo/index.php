@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'rectip_nombre:ntext',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, RecursoTipo $model, $key, $index, $column) {
+                'urlCreator' => function ($action, $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'rectip_id' => $model->rectip_id]);
                  }
             ],

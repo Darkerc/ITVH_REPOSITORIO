@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'dep_nombre:ntext',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Departamento $model, $key, $index, $column) {
+                'urlCreator' => function ($action, $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'dep_id' => $model->dep_id]);
                  }
             ],

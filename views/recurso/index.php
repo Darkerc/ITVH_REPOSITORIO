@@ -20,7 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Recurso', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -37,9 +38,9 @@ $this->params['breadcrumbs'][] = $this->title;
             //'rec_fknivel',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Recurso $model, $key, $index, $column) {
+                'urlCreator' => function ($action, $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'rec_id' => $model->rec_id]);
-                 }
+                }
             ],
         ],
     ]); ?>

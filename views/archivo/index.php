@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'arc_fecha',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Archivo $model, $key, $index, $column) {
+                'urlCreator' => function ($action, $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'arc_id' => $model->arc_id]);
                  }
             ],

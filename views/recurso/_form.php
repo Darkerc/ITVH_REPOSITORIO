@@ -2,6 +2,7 @@
 
 use app\models\Nivel;
 use app\models\RecursoTipo;
+use kartik\datecontrol\DateControl;
 use yii\helpers\Html;
 use kartik\label\LabelInPlace;
 use yii\helpers\ArrayHelper;
@@ -24,7 +25,15 @@ $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
 
     <?= $form->field($model, 'rec_resumen', $config)->widget(LabelInPlace::classname()); ?>
 
-    <?= $form->field($model, 'rec_registro')->textInput() ?>
+    <?= $form->field($model, 'rec_registro')->widget(DateControl::classname(), [
+        'type' => DateControl::FORMAT_DATE,
+        'ajaxConversion' => false,
+        'widgetOptions' => [
+            'pluginOptions' => [
+                'autoclose' => true
+            ]
+        ]
+    ]); ?>
 
     <?= $form->field($model, 'rec_descripcion', $config)->widget(LabelInPlace::classname()); ?>
 

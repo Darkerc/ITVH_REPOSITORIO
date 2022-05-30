@@ -7,6 +7,9 @@ use yii\helpers\Html;
 use kartik\label\LabelInPlace;
 use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
+// on your view layout file
+use kartik\icons\FontAwesomeAsset;
+FontAwesomeAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Recurso */
@@ -29,6 +32,7 @@ $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
         'type' => DateControl::FORMAT_DATE,
         'ajaxConversion' => false,
         'widgetOptions' => [
+            'removeIcon' => '<i class="fas fa-trash text-danger"></i>',
             'pluginOptions' => [
                 'autoclose' => true
             ]

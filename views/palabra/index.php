@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'pal_fkrecurso',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Palabra $model, $key, $index, $column) {
+                'urlCreator' => function ($action, $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'pal_id' => $model->pal_id]);
                  }
             ],

@@ -54,13 +54,13 @@ class Recurso extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'rec_id' => 'Rec ID',
-            'rec_nombre' => 'Rec Nombre',
-            'rec_resumen' => 'Rec Resumen',
-            'rec_registro' => 'Rec Registro',
-            'rec_descripcion' => 'Rec Descripcion',
-            'rec_fkrecursotipo' => 'Rec Fkrecursotipo',
-            'rec_fknivel' => 'Rec Fknivel',
+            'rec_id' => 'ID',
+            'rec_nombre' => 'Título',
+            'rec_resumen' => 'Resumen',
+            'rec_registro' => 'Fecha de Registro',
+            'rec_descripcion' => 'Descripcion',
+            'rec_fkrecursotipo' => 'Tipo',
+            'rec_fknivel' => 'Nivel',
         ];
     }
 

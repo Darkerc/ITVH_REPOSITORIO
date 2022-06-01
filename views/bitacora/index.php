@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'bit_fkrecurso',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Bitacora $model, $key, $index, $column) {
+                'urlCreator' => function ($action, $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'bit_id' => $model->bit_id]);
                  }
             ],

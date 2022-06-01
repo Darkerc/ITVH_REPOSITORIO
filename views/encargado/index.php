@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'enc_fkdepartamento',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Encargado $model, $key, $index, $column) {
+                'urlCreator' => function ($action, $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'enc_id' => $model->enc_id]);
                  }
             ],

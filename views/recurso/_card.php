@@ -1,8 +1,6 @@
 <?php
 
 /** @var yii\web\View $this */
-
-$this->title = 'ITVH Repositorio';
 ?>
 <div class="site-index">
     <div class="py-3 text-center bg-transparent brand">

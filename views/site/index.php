@@ -1,9 +1,7 @@
 <?php
 
+use app\widgets\CardListData;
 use yii\bootstrap4\Carousel;
-
-
-/** @var yii\web\View $this */
 
 $this->title = 'ITVH Repositorio';
 ?>
@@ -12,7 +10,7 @@ $this->title = 'ITVH Repositorio';
         <h4>Repositorio institucional del ITVH</h4>
     </div>
 
-    <? echo Carousel::widget([
+    <?php echo Carousel::widget([
         'items' => [
             [
                 'content' => '<img src="images/blanco.jpg"/>',
@@ -38,36 +36,38 @@ $this->title = 'ITVH Repositorio';
     <div class="body-content">
         <div class="row">
             <div class="py-2 col-12 col-lg-7">
-                <div class="card my-3">
-                    <h4 class="card-header bg-info">Repositorios por carreras</h4>
-                    <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <p class="card-text">
-                        <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                Ing. Sistemas computacionales
-                                <span class="badge badge-primary badge-pill">14</span>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                Ing. Tecnologias de la informacion
-                                <span class="badge badge-primary badge-pill">14</span>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                Ing. Gestion empresarial
-                                <span class="badge badge-primary badge-pill">14</span>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                Lic. Administracion
-                                <span class="badge badge-primary badge-pill">14</span>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                Ing. Civil
-                                <span class="badge badge-primary badge-pill">14</span>
-                            </a>
-                        </div>
-                        </p>
-                    </div>
-                </div>
+                <?= CardListData::widget([
+                    'titulo' => 'Repositorio por carreras',
+                    'descripcion' => 'Carreras disponibles del instituto tecnologico de villahermosa',
+                    'mode' => 'OUTLINED',
+                    'data' => [
+                        [
+                            'href' => '#',
+                            'label' => 'Ing. Sistemas computacionales',
+                            'chip' => 14
+                        ],
+                        [
+                            'href' => '#',
+                            'label' => 'Ing. Tecnologias de la informacion',
+                            'chip' => 14
+                        ],
+                        [
+                            'href' => '#',
+                            'label' => 'Ing. Gestion empresarial',
+                            'chip' => 14
+                        ],
+                        [
+                            'href' => '#',
+                            'label' => 'Lic. Administracion',
+                            'chip' => 14
+                        ],
+                        [
+                            'href' => '#',
+                            'label' => 'Ing. Civil',
+                            'chip' => 14
+                        ],
+                    ]
+                ]) ?>
             </div>
             <div class="py-2 col-12 col-lg-5">
                 <div class="card my-3">
@@ -85,95 +85,98 @@ $this->title = 'ITVH Repositorio';
                         </p>
                     </div>
                 </div>
-                <div class="card my-3">
-                    <h5 class="card-header bg-info">Buscar repositorio por:</h5>
-                    <div class="card-body">
-                        <p class="card-text">
-                        <ol>
-                            <li>
-                                <a href="/site/search">Autor</a>
-                            </li>
-                            <li>
-                                <a href="/site/search">Titulo</a>
-                            </li>
-                            <li>
-                                <a href="/site/search">Fecha de publicacion</a>
-                            </li>
-                            <li>
-                                <a href="/site/search">Palabras clave</a>
-                            </li>
-                        </ol>
-                        </p>
-                    </div>
-                </div>
-                <div class="card my-3">
-                    <h5 class="card-header bg-info">Encuentra en:</h5>
-                    <div class="card-body">
-                        <p class="card-text">
-                        <h6 class="card-title">Autores:</h6>
-                        <ol>
-                            <li class="d-flex justify-content-between">
-                                <a href="/site/search">Autor</a>
-                                <span class="badge badge-info my-auto">4</span>
-                            </li>
-                            <li class="d-flex justify-content-between">
-                                <a href="/site/search">Titulo</a>
-                                <span class="badge badge-info my-auto">4</span>
-                            </li>
-                            <li class="d-flex justify-content-between">
-                                <a href="#">Fecha de publicacion</a>
-                                <span class="badge badge-info my-auto">4</span>
-                            </li>
-                            <li class="d-flex justify-content-between">
-                                <a href="/site/search">Palabras clave</a>
-                                <span class="badge badge-info my-auto">4</span>
-                            </li>
-                        </ol>
-                        </p>
-                        <p class="card-text">
-                        <h6 class="card-title">Palabras clave:</h6>
-                        <ol>
-                            <li class="d-flex justify-content-between">
-                                <a href="/site/search">Autor</a>
-                                <span class="badge badge-info my-auto">4</span>
-                            </li>
-                            <li class="d-flex justify-content-between">
-                                <a href="/site/search">Titulo</a>
-                                <span class="badge badge-info my-auto">4</span>
-                            </li>
-                            <li class="d-flex justify-content-between">
-                                <a href="/site/search">Fecha de publicacion</a>
-                                <span class="badge badge-info my-auto">4</span>
-                            </li>
-                            <li class="d-flex justify-content-between">
-                                <a href="/site/search">Palabras clave</a>
-                                <span class="badge badge-info my-auto">4</span>
-                            </li>
-                        </ol>
-                        </p>
-                        <p class="card-text">
-                        <h6 class="card-title">Ultimas fechas:</h6>
-                        <ol>
-                            <li class="d-flex justify-content-between">
-                                <a href="/site/search">Autor</a>
-                                <span class="badge badge-info my-auto">4</span>
-                            </li>
-                            <li class="d-flex justify-content-between">
-                                <a href="/site/search">Titulo</a>
-                                <span class="badge badge-info my-auto">4</span>
-                            </li>
-                            <li class="d-flex justify-content-between">
-                                <a href="/site/search">Fecha de publicacion</a>
-                                <span class="badge badge-info my-auto">4</span>
-                            </li>
-                            <li class="d-flex justify-content-between">
-                                <a href="/site/search">Palabras clave</a>
-                                <span class="badge badge-info my-auto">4</span>
-                            </li>
-                        </ol>
-                        </p>
-                    </div>
-                </div>
+                <?= CardListData::widget([
+                    'titulo' => 'Repositorio por carreras',
+                    'mode' => 'DEFAULT',
+                    'list_style_type' => 'decimal',
+                    'data' => [
+                        [
+                            'href' => '#',
+                            'label' => 'Autor',
+                        ],
+                        [
+                            'href' => '#',
+                            'label' => 'Titulo',
+                        ],
+                        [
+                            'href' => '#',
+                            'label' => 'Fecha de publicacion',
+                        ],
+                        [
+                            'href' => '#',
+                            'label' => 'Palabras clave',
+                        ],
+                    ]
+                ])  ?>
+                <?= CardListData::widget([
+                    'titulo' => 'Repositorio por carreras',
+                    'mode' => 'TREE',
+                    'data' => [
+                        [
+                            'group' => 'Autores',
+                            'items' => [
+                                [
+                                    'label' => 'Autor',
+                                    'chip' => 14
+                                ],
+                                [
+                                    'label' => 'Titulo',
+                                    'chip' => 14
+                                ],
+                                [
+                                    'label' => 'Fecha de publicacion',
+                                    'chip' => 14
+                                ],
+                                [
+                                    'label' => 'Palabras clave',
+                                    'chip' => 14
+                                ],
+                            ],
+                        ],
+                        [
+                            'group' => 'Palabras clave',
+                            'items' => [
+                                [
+                                    'label' => 'INGENIERIA',
+                                    'chip' => 14
+                                ],
+                                [
+                                    'label' => 'SISTEMAS',
+                                    'chip' => 14
+                                ],
+                                [
+                                    'label' => 'PROGRAMACION',
+                                    'chip' => 14
+                                ],
+                                [
+                                    'label' => 'REDES',
+                                    'chip' => 14
+                                ],
+                            ],
+                        ],
+                        [
+                            'group' => 'Ultimas fechas',
+                            'items' => [
+                                [
+                                    'label' => '2022',
+                                    'chip' => 14
+                                ],
+                                [
+                                    'label' => '2021',
+                                    'chip' => 14
+                                ],
+                                [
+                                    'label' => '2020',
+                                    'chip' => 14
+                                ],
+                                [
+                                    'label' => '2019',
+                                    'chip' => 14
+                                ],
+                            ],
+                        ]
+                    ]
+                ]) ?>
             </div>
         </div>
     </div>

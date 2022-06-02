@@ -44,9 +44,9 @@ class Carrera extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'car_id' => 'Car ID',
-            'car_nombre' => 'Car Nombre',
-            'car_fkdepartamento' => 'Car Fkdepartamento',
+            'car_id'             => 'ID',
+            'car_nombre'         => 'Nombre',
+            'car_fkdepartamento' => 'Departamento',
         ];
     }
 

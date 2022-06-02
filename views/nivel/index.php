@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\NivelSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Nivels';
+$this->title = 'Niveles';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="nivel-index">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Nivel', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear un nivel', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

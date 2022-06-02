@@ -38,8 +38,8 @@ class AutorTipo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'auttip_id' => 'Auttip ID',
-            'auttip_nombre' => 'Auttip Nombre',
+            'auttip_id'     => 'ID',
+            'auttip_nombre' => 'Nombre',
         ];
     }
 

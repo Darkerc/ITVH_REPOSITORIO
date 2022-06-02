@@ -42,11 +42,11 @@ class Encargado extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'enc_id' => 'Enc ID',
-            'enc_nombre' => 'Enc Nombre',
-            'enc_paterno' => 'Enc Paterno',
-            'enc_materno' => 'Enc Materno',
-            'enc_fkdepartamento' => 'Enc Fkdepartamento',
+            'enc_id'             => 'ID',
+            'enc_nombre'         => 'Nombre',
+            'enc_paterno'        => 'Apellido Paterno',
+            'enc_materno'        => 'Apellido Materno',
+            'enc_fkdepartamento' => 'Departamento',
         ];
     }
 

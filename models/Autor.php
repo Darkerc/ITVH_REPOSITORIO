@@ -55,16 +55,16 @@ class Autor extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'aut_id' => 'Aut ID',
-            'aut_nombre' => 'Aut Nombre',
-            'aut_paterno' => 'Aut Paterno',
-            'aut_materno' => 'Aut Materno',
-            'aut_correo' => 'Aut Correo',
-            'aut_semestre' => 'Aut Semestre',
-            'aut_fkcarrera' => 'Aut Fkcarrera',
-            'aut_fkautortipo' => 'Aut Fkautortipo',
-            'aut_fkdepartamento' => 'Aut Fkdepartamento',
-            'aut_fkuser' => 'Aut Fkuser',
+            'aut_id'             => 'ID',
+            'aut_nombre'         => 'Nombre',
+            'aut_paterno'        => 'Apellido Paterno',
+            'aut_materno'        => 'Apellido Materno',
+            'aut_correo'         => 'Correo',
+            'aut_semestre'       => 'Semestre',
+            'aut_fkcarrera'      => 'Carrera',
+            'aut_fkautortipo'    => 'Autor Tipo',
+            'aut_fkdepartamento' => 'Departamento',
+            'aut_fkuser'         => 'User',
         ];
     }
 

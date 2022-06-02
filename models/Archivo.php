@@ -46,14 +46,14 @@ class Archivo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'arc_id' => 'Arc ID',
-            'arc_nombre' => 'Arc Nombre',
-            'arc_extension' => 'Arc Extension',
-            'arc_original' => 'Arc Original',
-            'arc_visitas' => 'Arc Visitas',
-            'arc_descargas' => 'Arc Descargas',
-            'arc_mimetype' => 'Arc Mimetype',
-            'arc_fecha' => 'Arc Fecha',
+            'arc_id'        => 'ID',
+            'arc_nombre'    => 'Nombre',
+            'arc_extension' => 'Extension',
+            'arc_original'  => 'Nombre Original',
+            'arc_visitas'   => 'Visitas',
+            'arc_descargas' => 'Descargas',
+            'arc_mimetype'  => 'Mimetype',
+            'arc_fecha'     => 'Fecha de publicacion',
         ];
     }
 

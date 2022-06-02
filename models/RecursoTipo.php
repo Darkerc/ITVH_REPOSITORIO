@@ -38,8 +38,8 @@ class RecursoTipo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'rectip_id' => 'Rectip ID',
-            'rectip_nombre' => 'Rectip Nombre',
+            'rectip_id'     => 'ID',
+            'rectip_nombre' => 'Nombre',
         ];
     }
 

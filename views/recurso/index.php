@@ -17,10 +17,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Recurso', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear un recurso', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    <?php // echo $this->render('publiacion', ['model' => $searchModel]); 
     ?>
 
     <?= GridView::widget([

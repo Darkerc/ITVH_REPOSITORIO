@@ -1,6 +1,10 @@
 <?php
+<<<<<<< HEAD
+error_reporting(E_ALL ^ E_NOTICE); 
+=======
 use kartik\datecontrol\Module;
 
+>>>>>>> 399c773b48ef557f190c2c0aa3d15778302a9648
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 

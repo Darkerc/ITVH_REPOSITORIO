@@ -49,17 +49,6 @@ AppAsset::register($this);
             'options' => ['class' => 'navbar-nav'],
             'items' => [
                 ['label' => 'Inicio', 'url' => Yii::$app->homeUrl],
-                /*['label' => 'Inicio', 'url' => ['/autor/index']],*/
-                [
-                    'label' => 'Listar',
-                    'items' => [
-                        ['label' => 'Año de publicacion', 'url' => ['/recurso/publicacion']],
-                        ['label' => 'Autor', 'url'              => ['/recurso/autor']],
-                        ['label' => 'Titulo', 'url'             => ['/recurso/titulo']],
-                        ['label' => 'Palabras Clave', 'url'     => ['/palabra/busqueda']],
-                        ['label' => 'Search', 'url'             => ['/site/search']],
-                    ],
-                ],
 				Yii::$app->user->isSuperadmin ? ( [
                     'label' => 'Frontend routes',
                     'items' => [
@@ -77,11 +66,11 @@ AppAsset::register($this);
                 ]): '',
                 Yii::$app->user->isGuest ? (
                     //['label' => 'Login', 'url' => ['/site/login']]
-                    ['label' => 'Login', 'url' => ['/user-management/auth/login']]
+                    ['label' => 'Iniciar session', 'url' => ['/user-management/auth/login']]
                 ) : ('<li>'
                     . Html::beginForm(['/user-management/auth/logout'], 'post', ['class' => 'form-inline'])
                     . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->username . ')',
+                        'Cerrar session (' . Yii::$app->user->identity->username . ')',
                         ['class' => 'btn btn-link logout']
                     )
                     . Html::endForm()

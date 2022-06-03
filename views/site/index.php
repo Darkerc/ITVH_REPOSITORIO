@@ -42,27 +42,27 @@ $this->title = 'ITVH Repositorio';
                     'mode' => 'OUTLINED',
                     'data' => [
                         [
-                            'href' => '#',
+                            'href' => 'site/busqueda',
                             'label' => 'Ing. Sistemas computacionales',
                             'chip' => 14
                         ],
                         [
-                            'href' => '#',
+                            'href' => 'site/busqueda',
                             'label' => 'Ing. Tecnologias de la informacion',
                             'chip' => 14
                         ],
                         [
-                            'href' => '#',
+                            'href' => 'site/busqueda',
                             'label' => 'Ing. Gestion empresarial',
                             'chip' => 14
                         ],
                         [
-                            'href' => '#',
+                            'href' => 'site/busqueda',
                             'label' => 'Lic. Administracion',
                             'chip' => 14
                         ],
                         [
-                            'href' => '#',
+                            'href' => 'site/busqueda',
                             'label' => 'Ing. Civil',
                             'chip' => 14
                         ],
@@ -78,7 +78,7 @@ $this->title = 'ITVH Repositorio';
                             <input placeholder="Repositorio..." type="text" class="form-control d-block" style="min-height: 100% !important;">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary  btn-sm" type="button">
-                                    <i class="material-icons" style="color: #000 !important;">search</i>
+                                    <i class="material-icons" style="color: site/busqueda000 !important;">search</i>
                                 </button>
                             </div>
                         </div>
@@ -91,19 +91,19 @@ $this->title = 'ITVH Repositorio';
                     'list_style_type' => 'decimal',
                     'data' => [
                         [
-                            'href' => '#',
+                            'href' => 'site/busqueda',
                             'label' => 'Autor',
                         ],
                         [
-                            'href' => '#',
+                            'href' => 'site/busqueda',
                             'label' => 'Titulo',
                         ],
                         [
-                            'href' => '#',
+                            'href' => 'site/busqueda',
                             'label' => 'Fecha de publicacion',
                         ],
                         [
-                            'href' => '#',
+                            'href' => 'site/busqueda',
                             'label' => 'Palabras clave',
                         ],
                     ]
@@ -116,18 +116,22 @@ $this->title = 'ITVH Repositorio';
                             'group' => 'Autores',
                             'items' => [
                                 [
+                                    'href' => 'site/busqueda',
                                     'label' => 'Autor',
                                     'chip' => 14
                                 ],
                                 [
+                                    'href' => 'site/busqueda',
                                     'label' => 'Titulo',
                                     'chip' => 14
                                 ],
                                 [
+                                    'href' => 'site/busqueda',
                                     'label' => 'Fecha de publicacion',
                                     'chip' => 14
                                 ],
                                 [
+                                    'href' => 'site/busqueda',
                                     'label' => 'Palabras clave',
                                     'chip' => 14
                                 ],
@@ -137,18 +141,22 @@ $this->title = 'ITVH Repositorio';
                             'group' => 'Palabras clave',
                             'items' => [
                                 [
+                                    'href' => 'site/busqueda',
                                     'label' => 'INGENIERIA',
                                     'chip' => 14
                                 ],
                                 [
+                                    'href' => 'site/busqueda',
                                     'label' => 'SISTEMAS',
                                     'chip' => 14
                                 ],
                                 [
+                                    'href' => 'site/busqueda',
                                     'label' => 'PROGRAMACION',
                                     'chip' => 14
                                 ],
                                 [
+                                    'href' => 'site/busqueda',
                                     'label' => 'REDES',
                                     'chip' => 14
                                 ],
@@ -158,18 +166,22 @@ $this->title = 'ITVH Repositorio';
                             'group' => 'Ultimas fechas',
                             'items' => [
                                 [
+                                    'href' => 'site/busqueda',
                                     'label' => '2022',
                                     'chip' => 14
                                 ],
                                 [
+                                    'href' => 'site/busqueda',
                                     'label' => '2021',
                                     'chip' => 14
                                 ],
                                 [
+                                    'href' => 'site/busqueda',
                                     'label' => '2020',
                                     'chip' => 14
                                 ],
                                 [
+                                    'href' => 'site/busqueda',
                                     'label' => '2019',
                                     'chip' => 14
                                 ],

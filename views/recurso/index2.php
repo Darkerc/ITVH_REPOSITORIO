@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use kartik\builder\TabularForm;
 
 /* @var $this yii\web\View */
@@ -18,13 +18,35 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Recurso', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear un recurso', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    <?php // echo $this->render('publiacion', ['model' => $searchModel]); 
     ?>
 
-    <?= Html::beginForm();
+    <? /* GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'rec_id',
+            'rec_nombre:ntext',
+            'rec_resumen:ntext',
+            'rec_registro',
+            //'rec_descripcion:ntext',
+            'tipo',
+            'nivel',
+            [
+                'class' => ActionColumn::className(),
+                'urlCreator' => function ($action, $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'rec_id' => $model->rec_id]);
+                }
+            ],
+        ],
+    ]);  */?>
+
+<?= Html::beginForm();
     TabularForm::widget([
         // your data provider
         'dataProvider' => $dataProvider,
@@ -57,6 +79,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'rec_registro' => ['label' => 'Publicado el:', 'type' => TabularForm::INPUT_STATIC],
+            'tipo' => ['label' => 'Tipo:', 'type' => TabularForm::INPUT_STATIC],
+            'nivel' => ['Nivel' => 'Publicado el:', 'type' => TabularForm::INPUT_STATIC],
         ],
 
         // configure other gridview settings
@@ -74,6 +98,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ]
     ]);
     Html::endForm(); ?>
-
 
 </div>

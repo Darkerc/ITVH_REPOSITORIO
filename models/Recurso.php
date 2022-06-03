@@ -133,4 +133,14 @@ class Recurso extends \yii\db\ActiveRecord
     {
         return $this->hasMany(RecursoCarrera::className(), ['reccar_fkrecurso' => 'rec_id']);
     }
+
+    public function getNivel()
+    {
+        return $this->recFknivel->niv_nombre;
+    }
+
+    public function getTipo()
+    {
+        return $this->recFkrecursotipo->rectip_nombre;
+    }
 }

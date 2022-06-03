@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef94e2c5d3370436f96cbf6f2b76a697",
+    "content-hash": "4f1c20308443ee689cde5617a07961cc",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -685,16 +685,16 @@
         },
         {
             "name": "kartik-v/yii2-grid",
-            "version": "v3.5.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-grid.git",
-                "reference": "7f8c9270dde525b60960b8c4cb2d40d861b3bdb9"
+                "reference": "a5df137f458f4a9d1f4989e95df352e55ecbf9d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/7f8c9270dde525b60960b8c4cb2d40d861b3bdb9",
-                "reference": "7f8c9270dde525b60960b8c4cb2d40d861b3bdb9",
+                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/a5df137f458f4a9d1f4989e95df352e55ecbf9d4",
+                "reference": "a5df137f458f4a9d1f4989e95df352e55ecbf9d4",
                 "shasum": ""
             },
             "require": {
@@ -706,6 +706,7 @@
                 "kartik-v/yii2-bootstrap5-dropdown": "For enabling dropdown support when using with Bootstrap v5.x",
                 "kartik-v/yii2-mpdf": "For exporting grids to PDF"
             },
+            "default-branch": true,
             "type": "yii2-extension",
             "extra": {
                 "branch-alias": {
@@ -738,7 +739,7 @@
             ],
             "support": {
                 "issues": "https://github.com/kartik-v/yii2-grid/issues",
-                "source": "https://github.com/kartik-v/yii2-grid/tree/v3.5.0"
+                "source": "https://github.com/kartik-v/yii2-grid/tree/master"
             },
             "funding": [
                 {
@@ -746,7 +747,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2022-02-26T18:18:49+00:00"
+            "time": "2022-05-06T03:37:11+00:00"
         },
         {
             "name": "kartik-v/yii2-helpers",
@@ -6520,7 +6521,8 @@
         "kartik-v/yii2-datecontrol": 20,
         "kartik-v/yii2-builder": 20,
         "kartik-v/yii2-widget-datepicker": 20,
-        "kartik-v/yii2-icons": 20
+        "kartik-v/yii2-icons": 20,
+        "kartik-v/yii2-grid": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

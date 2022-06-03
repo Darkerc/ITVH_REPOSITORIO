@@ -153,4 +153,15 @@ class RecursoController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+    public function actionTitulo()
+    {
+        $searchModel = new RecursoSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->render('titulo', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 }

@@ -1,23 +1,23 @@
 <?php
 
+// echo
+// var_dump($model);
+// die;
 /** @var yii\web\View $this */
 ?>
-<div class="site-index">
-    <div class="py-3 text-center bg-transparent brand">
-        <h4>Recurso</h4>
-    </div>
 
+<div class="site-index">
     <div class="body-content">
         <div class="row">
             <div class="col-12 mt-3">
                 <table class="table table-hover">
                     <tr class="tr_item">
                         <td class="td_header">Titulo</td>
-                        <td class="td_value">Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, possimus debitis. Hic molestias esse suscipit earum eligendi eveniet deserunt, eaque quae asperiores debitis, a totam. Illo quisquam eligendi amet voluptate.</td>
+                        <td class="td_value"><?= $model->rec_nombre ?></td>
                     </tr>
                     <tr class="tr_item">
                         <td class="td_header">Resumen</td>
-                        <td class="td_value">Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, possimus debitis. Hic molestias esse suscipit earum eligendi eveniet deserunt, eaque quae asperiores debitis, a totam. Illo quisquam eligendi amet voluptate.</td>
+                        <td class="td_value"><?= $model->rec_resumen ?></td>
                     </tr>
                     <tr class="tr_item">
                         <td class="td_header">Autor(es)</td>
@@ -40,14 +40,20 @@
                         </td>
                     </tr>
                     <tr class="tr_item">
-                        <td class="td_header">Carreras</td>
+                        <td class="td_header">Nivel</td>
                         <td class="td_value">
-                            Licenciatura
+                        <?= $model->nivel ?>
+                        </td>
+                    </tr>
+                    <tr class="tr_item">
+                        <td class="td_header">Tipo</td>
+                        <td class="td_value">
+                        <?= $model->tipo ?>
                         </td>
                     </tr>
                     <tr class="tr_item">
                         <td class="td_header">Fecha de publicacion</td>
-                        <td class="td_value">SOME DATE</td>
+                        <td class="td_value"><?= $model->rec_registro ?></td>
                     </tr>
                     <tr class="tr_item">
                         <td class="td_header">URL del recurso</td>

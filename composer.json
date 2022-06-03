@@ -24,7 +24,10 @@
         "kartik-v/yii2-builder": "dev-master",
         "kartik-v/yii2-widget-datepicker": "dev-master",
         "kartik-v/yii2-icons": "dev-master",
-        "kartik-v/yii2-grid": "dev-master"
+        "kartik-v/yii2-grid": "dev-master",
+        "kartik-v/yii2-widget-select2": "dev-master",
+        "kartik-v/yii2-date-range": "dev-master",
+        "kartik-v/yii2-widget-activeform": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

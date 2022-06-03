@@ -1,8 +1,10 @@
 <?php
+
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+
 $this->title = 'ITVH Repositorio - Buscar';
 $results = $dataProvider->getModels();
 ?>
@@ -16,25 +18,9 @@ $results = $dataProvider->getModels();
                 <div class="card">
                     <h4 class="card-header bg-info">Buscando por...</h4>
                     <div class="card-body">
-                    <?= $this->render('busqueda/_search', ['model' => $searchModel]); ?>
-                    <!-- <form class="row card-body">
+                        <?= $this->render('busqueda/_search', ['model' => $searchModel]); ?>
+                        <!-- <form class="row card-body">
                             <div class="col col-12 form-group">
-                                <?= GridView::widget([
-                                    'dataProvider' => $dataProvider,
-                                    'filterModel' => $searchModel,
-                                    'columns' => [
-                                        ['class' => 'yii\grid\SerialColumn'],
-
-                                        'rec_id',
-                                        'rec_nombre:ntext',
-                                        'rec_resumen:ntext',
-                                        'rec_registro',
-                                        'rec_registro',
-                                        'aut_nombre',
-                                        //'rec_descripcion:ntext',
-                                        'tipo',
-                                    ],
-                                ]);  ?>
                             </div>
                             <div class="col col-12 col-md-6 form-group">
                                 <label for="exampleInputPassword1">Carreras</label>
@@ -78,6 +64,18 @@ $results = $dataProvider->getModels();
                 <div class="card">
                     <h4 class="card-header bg-info">Resultados de busqueda</h4>
                     <div class="card-body p-0">
+                        <?= GridView::widget([
+                            'dataProvider' => $dataProvider,
+                            'columns' => [
+                                ['class' => 'yii\grid\SerialColumn'],
+                                'rec_nombre:ntext',
+                                'rec_resumen:ntext',
+                                'rec_registro',
+                                'aut_nombre',
+                                'rec_descripcion:ntext',
+                                'tipo',
+                            ],
+                        ]);  ?>
                         <div class="list-group">
                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
                                 <div class="d-flex w-100 justify-content-between">

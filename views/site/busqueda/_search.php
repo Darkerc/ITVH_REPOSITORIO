@@ -44,7 +44,7 @@ $data = [
 
         <div class="col col-12 col-md-6">
             <label class="control-label">Autores</label>
-            <? echo Select2::widget([
+            <?= Select2::widget([
                 'name' => 'Autores',
                 'data' => $data,
                 'maintainOrder' => true,
@@ -73,7 +73,7 @@ $data = [
         <div class="col col-12 col-md-6">
             <div class="form-group">
                 <label class="control-label">Palabras clave</label>
-                <? echo Select2::widget([
+                <?= Select2::widget([
                     'name' => 'Palabras Clave',
                     'data' => $data,
                     'maintainOrder' => true,

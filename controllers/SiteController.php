@@ -11,6 +11,9 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\Carrera;
 use app\models\ContactForm;
+use app\models\Recurso;
+use app\models\RecursoSearch;
+use yii\data\ActiveDataProvider;
 
 class SiteController extends Controller
 {
@@ -147,5 +150,17 @@ class SiteController extends Controller
     public function actionRecurso()
     {
         return $this->render('recurso');
+    }
+
+    public function actionBusqueda()
+    {
+        $searchModel = new RecursoSearch();
+      
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    
+        return $this->render('busqueda', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 }

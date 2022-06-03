@@ -1,72 +1,40 @@
 <?php
-
+use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\grid\ActionColumn;
 use yii\grid\GridView;
-
 $this->title = 'ITVH Repositorio - Buscar';
+$results = $dataProvider->getModels();
 ?>
-
 <div class="site-index">
     <div class="py-3 text-center bg-transparent brand">
         <h4>Repositorio institucional del ITVH</h4>
     </div>
-
     <div class="body-content">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <h4 class="card-header bg-info">Buscando por...</h4>
                     <div class="card-body">
-                        <form class="row card-body">
+                    <?= $this->render('busqueda/_search', ['model' => $searchModel]); ?>
+                    <!-- <form class="row card-body">
                             <div class="col col-12 form-group">
                                 <?= GridView::widget([
                                     'dataProvider' => $dataProvider,
                                     'filterModel' => $searchModel,
                                     'columns' => [
                                         ['class' => 'yii\grid\SerialColumn'],
-                                        [
-                                            'label' => 'First Name',
-                                            'attribute' => 'firstname',
-                                        ],
-                                        [
-                                            'label' => 'Last Name',
-                                            'attribute' => 'lastname',
-                                        ],
-                                        //  'company',
-                                        // 'address:ntext',
-                                        // 'phone',
-                                        // 'mobile',
-                                        // 'fax',
-                                        //Following is the related column from the groups table
-                                        [
-                                            'label' => 'Groups',
-                                            'format' => 'ntext',
-                                            'attribute' => 'groupname',
-                                            'value' => function ($model) {
-                                                foreach ($model->groups as $group) {
-                                                    $groupNames[] = $group->groupname;
-                                                }
-                                                return implode("\n", $groupNames);
-                                            },
-                                        ],
-                                        [
-                                            'label' => 'Primary Email',
-                                            'attribute' => 'pemail',
-                                        ],
-                                        // 'semail:email',
-                                        // 'country',
-                                        // 'websiteurl:url',
-                                        // 'gender',
-                                        // 'birthday',
-                                        // 'status',
-                                        // 'sentstatus',
-                                        // 'addeddate',
-                                        // 'updateddate',
-                                        ['class' => 'yii\grid\ActionColumn'],
+
+                                        'rec_id',
+                                        'rec_nombre:ntext',
+                                        'rec_resumen:ntext',
+                                        'rec_registro',
+                                        'rec_registro',
+                                        'aut_nombre',
+                                        //'rec_descripcion:ntext',
+                                        'tipo',
                                     ],
-                                ]);
-                                ?>
-                                <label for="exampleInputEmail1">Nombre del repositorio:</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Repositorio...">
+                                ]);  ?>
                             </div>
                             <div class="col col-12 col-md-6 form-group">
                                 <label for="exampleInputPassword1">Carreras</label>
@@ -102,7 +70,7 @@ $this->title = 'ITVH Repositorio - Buscar';
                             <div class="col col-12">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
-                        </form>
+                        </form> -->
                     </div>
                 </div>
             </div>

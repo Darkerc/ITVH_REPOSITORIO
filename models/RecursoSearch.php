@@ -68,6 +68,7 @@ class RecursoSearch extends Recurso
             ->andFilterWhere(['like', 'rec_resumen', $this->rec_resumen])
             ->andFilterWhere(['like', 'rec_descripcion', $this->rec_descripcion]);
 
+
         return $dataProvider;
     }
 }

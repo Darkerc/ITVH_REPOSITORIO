@@ -93,7 +93,7 @@ class SiteController extends Controller
             $data[] = [
                 'href'  => 'site/busqueda',
                 'label' => $carrera->car_nombre,
-                'chip'  => 14
+                'chip'  => rand(1, 1000)
             ];
         }
         foreach ($palabras as $palabra) {

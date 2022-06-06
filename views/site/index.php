@@ -16,29 +16,7 @@ $this->title = 'ITVH Repositorio';
     // die;
     ?>
 
-    <?php echo Carousel::widget([
-         'items' => $items
-        //[
-        //     [
-        //         'content' => '<img src="images/blanco.jpg"/>',
-        //         'caption' => '<h4 class="textblack">Índice de Cohesión Organizacional: Propuesta para Evaluar la Guía Corporativa</h4>
-        //         <p class="textblack">De: Roberto Celaya</p>
-        //         <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2">Ver repositorio</button>',
-        //     ],
-        //     [
-        //         'content' => '<img src="images/blanco.jpg"/>',
-        //         'caption' => '<h4 class="textblack">Índice de Cohesión Organizacional: Propuesta para Evaluar la Comision Corporativa</h4>
-        //         <p class="textblack">De: Roberto Ismael</p>
-        //         <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2">Ver repositorio</button>',
-        //     ],
-        //     [
-        //         'content' => '<img src="images/blanco.jpg"/>',
-        //         'caption' => '<h4 class="textblack">Compresion Lectora: Propuesta para la promocion de La Lectura a nivel Basico</h4>
-        //         <p class="textblack">De: Carlos reyes</p>
-        //         <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2">Ver repositorio</button>',
-        //     ],
-        // ]
-    ]); ?>
+    <?= Carousel::widget(['items' => $items]); ?>
 
     <div class="body-content">
         <div class="row">
@@ -47,33 +25,7 @@ $this->title = 'ITVH Repositorio';
                     'titulo' => 'Repositorio por carreras',
                     'descripcion' => 'Carreras disponibles del instituto tecnologico de villahermosa',
                     'mode' => 'OUTLINED',
-                    'data' => [
-                        [
-                            'href' => 'site/busqueda',
-                            'label' => 'Ing. Sistemas computacionales',
-                            'chip' => 14
-                        ],
-                        [
-                            'href' => 'site/busqueda',
-                            'label' => 'Ing. Tecnologias de la informacion',
-                            'chip' => 14
-                        ],
-                        [
-                            'href' => 'site/busqueda',
-                            'label' => 'Ing. Gestion empresarial',
-                            'chip' => 14
-                        ],
-                        [
-                            'href' => 'site/busqueda',
-                            'label' => 'Lic. Administracion',
-                            'chip' => 14
-                        ],
-                        [
-                            'href' => 'site/busqueda',
-                            'label' => 'Ing. Civil',
-                            'chip' => 14
-                        ],
-                    ]
+                    'data' => $data
                 ]) ?>
             </div>
             <div class="py-2 col-12 col-lg-5">

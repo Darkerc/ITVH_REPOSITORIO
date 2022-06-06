@@ -24,10 +24,10 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
-			'ghost-access'=> [
-				'class' => 'webvimark\modules\UserManagement\components\GhostAccessControl',
-			],
-		];
+            'ghost-access' => [
+                'class' => 'webvimark\modules\UserManagement\components\GhostAccessControl',
+            ],
+        ];
         /*return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -72,16 +72,26 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $carreras = Carrera::find()->all();
+        $carreras = Carrera::find()->orderby('RAND()')->limit(6)->all();
         $recursos = Recurso::find()->orderby('RAND()')->limit(3)->all();
         $items = [];
+        $data = [];
         foreach ($recursos as $recurso) {
-            $items[] = ['content' => '<img src="images/blanco.jpg"/>', 
-            'caption' => '<h4 class="textblack">'.$recurso->rec_nombre.':</h4> 
-            <p class="textblack">'.$recurso->rec_resumen.'</p>
-            <a  href="/recurso/view?rec_id='.$recurso->rec_id.'"><button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2">Ver repositorio </button></a>'];
+            $items[] = [
+                'content' => '<img src="images/blanco.jpg"/>',
+                'caption' => '<h4 class="textblack">' . $recurso->rec_nombre . ':</h4> 
+            <p class="textblack">' . $recurso->rec_resumen . '</p>
+            <a  href="/recurso/view?rec_id=' . $recurso->rec_id . '"><button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2">Ver repositorio </button></a>'
+            ];
         }
-        return $this->render('index', compact('carreras', 'items'));
+        foreach ($carreras as $carrera) {
+            $data[] = [
+                'href' => 'site/busqueda',
+                'label' => $carrera->car_nombre,
+                'chip' => 14
+            ];
+        }
+        return $this->render('index', compact('carreras', 'items', 'data'));
     }
 
     /**
@@ -146,7 +156,7 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-        /**
+    /**
      * Displays about page.
      *
      * @return string
@@ -164,9 +174,9 @@ class SiteController extends Controller
     public function actionBusqueda()
     {
         $searchModel = new RecursoSearch();
-      
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-    
+
         return $this->render('busqueda', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

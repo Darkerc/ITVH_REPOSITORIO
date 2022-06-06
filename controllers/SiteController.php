@@ -13,6 +13,7 @@ use app\models\Carrera;
 use app\models\ContactForm;
 use app\models\Recurso;
 use app\models\RecursoSearch;
+use yii\helpers\Html;
 use yii\data\ActiveDataProvider;
 
 class SiteController extends Controller
@@ -72,7 +73,15 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $carreras = Carrera::find()->all();
-        return $this->render('index', compact('carreras'));
+        $recursos = Recurso::find()->orderby('RAND()')->limit(3)->all();
+        $items = [];
+        foreach ($recursos as $recurso) {
+            $items[] = ['content' => '<img src="images/blanco.jpg"/>', 
+            'caption' => '<h4 class="textblack">'.$recurso->rec_nombre.':</h4> 
+            <p class="textblack">'.$recurso->rec_resumen.'</p>
+            <a  href="/recurso/view?rec_id='.$recurso->rec_id.'"><button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2">Ver repositorio </button></a>'];
+        }
+        return $this->render('index', compact('carreras', 'items'));
     }
 
     /**

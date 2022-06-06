@@ -10,27 +10,34 @@ $this->title = 'ITVH Repositorio';
         <h4>Repositorio institucional del ITVH</h4>
     </div>
 
+    <?
+    // echo
+    // var_dump($items);
+    // die;
+    ?>
+
     <?php echo Carousel::widget([
-        'items' => [
-            [
-                'content' => '<img src="images/blanco.jpg"/>',
-                'caption' => '<h4 class="textblack">Índice de Cohesión Organizacional: Propuesta para Evaluar la Guía Corporativa</h4>
-                <p class="textblack">De: Roberto Celaya</p>
-                <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2">Ver repositorio</button>',
-            ],
-            [
-                'content' => '<img src="images/blanco.jpg"/>',
-                'caption' => '<h4 class="textblack">Índice de Cohesión Organizacional: Propuesta para Evaluar la Comision Corporativa</h4>
-                <p class="textblack">De: Roberto Ismael</p>
-                <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2">Ver repositorio</button>',
-            ],
-            [
-                'content' => '<img src="images/blanco.jpg"/>',
-                'caption' => '<h4 class="textblack">Compresion Lectora: Propuesta para la promocion de La Lectura a nivel Basico</h4>
-                <p class="textblack">De: Carlos reyes</p>
-                <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2">Ver repositorio</button>',
-            ],
-        ]
+         'items' => $items
+        //[
+        //     [
+        //         'content' => '<img src="images/blanco.jpg"/>',
+        //         'caption' => '<h4 class="textblack">Índice de Cohesión Organizacional: Propuesta para Evaluar la Guía Corporativa</h4>
+        //         <p class="textblack">De: Roberto Celaya</p>
+        //         <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2">Ver repositorio</button>',
+        //     ],
+        //     [
+        //         'content' => '<img src="images/blanco.jpg"/>',
+        //         'caption' => '<h4 class="textblack">Índice de Cohesión Organizacional: Propuesta para Evaluar la Comision Corporativa</h4>
+        //         <p class="textblack">De: Roberto Ismael</p>
+        //         <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2">Ver repositorio</button>',
+        //     ],
+        //     [
+        //         'content' => '<img src="images/blanco.jpg"/>',
+        //         'caption' => '<h4 class="textblack">Compresion Lectora: Propuesta para la promocion de La Lectura a nivel Basico</h4>
+        //         <p class="textblack">De: Carlos reyes</p>
+        //         <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2">Ver repositorio</button>',
+        //     ],
+        // ]
     ]); ?>
 
     <div class="body-content">

@@ -29,8 +29,8 @@ $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
     <?= $form->field($model, 'rec_resumen', $config)->widget(LabelInPlace::classname()); ?>
 
     <?= $form->field($model, 'rec_registro')->widget(DateControl::classname(), [
-        'type' => DateControl::FORMAT_DATE,
-        'ajaxConversion' => false,
+        'type'=>DateControl::FORMAT_DATETIME,
+        'ajaxConversion' => true,
         'widgetOptions' => [
             'removeIcon' => '<i class="fas fa-trash text-danger"></i>',
             'pluginOptions' => [

@@ -45,104 +45,75 @@ $this->title = 'ITVH Repositorio';
                     </div>
                 </div>
                 <?= CardListData::widget([
-                    'titulo' => 'Repositorio por carreras',
+                    'titulo' => 'Repositorio por Listado',
                     'mode' => 'DEFAULT',
                     'list_style_type' => 'decimal',
                     'data' => [
                         [
-                            'href' => 'site/busqueda',
+                            'href'  => 'site/busqueda',
                             'label' => 'Autor',
                         ],
                         [
-                            'href' => 'site/busqueda',
+                            'href'  => 'site/busqueda',
                             'label' => 'Titulo',
                         ],
                         [
-                            'href' => 'site/busqueda',
+                            'href'  => 'site/busqueda',
                             'label' => 'Fecha de publicacion',
                         ],
                         [
-                            'href' => 'site/busqueda',
+                            'href'  => 'site/busqueda',
                             'label' => 'Palabras clave',
                         ],
                     ]
                 ])  ?>
                 <?= CardListData::widget([
-                    'titulo' => 'Repositorio por carreras',
+                    'titulo' => 'Repositorio por Listado',
                     'mode' => 'TREE',
                     'data' => [
                         [
                             'group' => 'Autores',
                             'items' => [
                                 [
-                                    'href' => 'site/busqueda',
+                                    'href'  => 'site/busqueda',
                                     'label' => 'Autor',
-                                    'chip' => 14
                                 ],
                                 [
-                                    'href' => 'site/busqueda',
+                                    'href'  => 'site/busqueda',
                                     'label' => 'Titulo',
-                                    'chip' => 14
                                 ],
                                 [
-                                    'href' => 'site/busqueda',
+                                    'href'  => 'site/busqueda',
                                     'label' => 'Fecha de publicacion',
-                                    'chip' => 14
                                 ],
                                 [
-                                    'href' => 'site/busqueda',
+                                    'href'  => 'site/busqueda',
                                     'label' => 'Palabras clave',
-                                    'chip' => 14
                                 ],
                             ],
                         ],
                         [
                             'group' => 'Palabras clave',
-                            'items' => [
-                                [
-                                    'href' => 'site/busqueda',
-                                    'label' => 'INGENIERIA',
-                                    'chip' => 14
-                                ],
-                                [
-                                    'href' => 'site/busqueda',
-                                    'label' => 'SISTEMAS',
-                                    'chip' => 14
-                                ],
-                                [
-                                    'href' => 'site/busqueda',
-                                    'label' => 'PROGRAMACION',
-                                    'chip' => 14
-                                ],
-                                [
-                                    'href' => 'site/busqueda',
-                                    'label' => 'REDES',
-                                    'chip' => 14
-                                ],
-                            ],
+                            'items' => $data1,
                         ],
                         [
                             'group' => 'Ultimas fechas',
                             'items' => [
                                 [
-                                    'href' => 'site/busqueda',
+                                    'href'  => 'site/busqueda',
                                     'label' => '2022',
-                                    'chip' => 14
                                 ],
                                 [
-                                    'href' => 'site/busqueda',
+                                    'href'  => 'site/busqueda',
                                     'label' => '2021',
-                                    'chip' => 14
                                 ],
                                 [
-                                    'href' => 'site/busqueda',
+                                    'href'  => 'site/busqueda',
                                     'label' => '2020',
-                                    'chip' => 14
                                 ],
                                 [
-                                    'href' => 'site/busqueda',
+                                    'href'  => 'site/busqueda',
                                     'label' => '2019',
-                                    'chip' => 14
                                 ],
                             ],
                         ]

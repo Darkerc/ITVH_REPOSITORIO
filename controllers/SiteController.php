@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\Carrera;
 use app\models\ContactForm;
+use app\models\Palabra;
 use app\models\Recurso;
 use app\models\RecursoSearch;
 use yii\helpers\Html;
@@ -74,24 +75,34 @@ class SiteController extends Controller
     {
         $carreras = Carrera::find()->orderby('RAND()')->limit(6)->all();
         $recursos = Recurso::find()->orderby('RAND()')->limit(3)->all();
+        $palabras = Palabra::find()->orderby('RAND()')->limit(4)->all();
         $items = [];
+        $items2 = [];
         $data = [];
         foreach ($recursos as $recurso) {
             $items[] = [
                 'content' => '<img src="images/blanco.jpg"/>',
                 'caption' => '<h4 class="textblack">' . $recurso->rec_nombre . ':</h4> 
-            <p class="textblack">' . $recurso->rec_resumen . '</p>
-            <a  href="/recurso/view?rec_id=' . $recurso->rec_id . '"><button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2">Ver repositorio </button></a>'
+                              <p class="textblack">' . $recurso->rec_resumen . '</p>
+                              <a  href="/recurso/view?rec_id=' . $recurso->rec_id . '">
+                              <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2"> Ver repositorio </button>
+                              </a>'
             ];
         }
         foreach ($carreras as $carrera) {
             $data[] = [
-                'href' => 'site/busqueda',
+                'href'  => 'site/busqueda',
                 'label' => $carrera->car_nombre,
-                'chip' => 14
+                'chip'  => 14
             ];
         }
-        return $this->render('index', compact('carreras', 'items', 'data'));
+        foreach ($palabras as $palabra) {
+            $data1[] = [
+                'href'  => 'site/busqueda',
+                'label' => $palabra->pal_nombre,
+            ];
+        }
+        return $this->render('index', compact('carreras', 'items', 'data', 'data1'));
     }
 
     /**

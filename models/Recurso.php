@@ -150,7 +150,7 @@ class Recurso extends \yii\db\ActiveRecord
     {
                 $carreras = "";
                 foreach ($this->recursoCarreras as $carrera) {
-                    $carreras .= $carrera->carrera . '</li><li class="list-group-item list-group-item-action"> ';
+                    $carreras .= $carrera->carrera . ', ';
                 };
                 return $carreras;
     }

@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use app\widgets\CardSearchPagination;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\RecursoSearch */
@@ -23,7 +24,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
 
-<?= GridView::widget([
+    <?= CardSearchPagination::widget([
+        "dataProvider" => $dataProvider,
+        "dataProviderResultsMapper" => function ($model) {
+            return [
+                "title" => $model['rec_nombre'],
+                "description" => $model['rec_resumen'],
+                "time" => $model['rec_registro'],
+                "type" => $model['tipo'],
+            ];
+        }
+    ]); ?>
+
+    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [

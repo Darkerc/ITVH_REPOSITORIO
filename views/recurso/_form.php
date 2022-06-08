@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Carrera;
 use app\models\Nivel;
 use app\models\RecursoTipo;
 use kartik\datecontrol\DateControl;
@@ -9,6 +10,8 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 // on your view layout file
 use kartik\icons\FontAwesomeAsset;
+use kartik\select2\Select2;
+
 FontAwesomeAsset::register($this);
 
 /* @var $this yii\web\View */
@@ -18,6 +21,7 @@ FontAwesomeAsset::register($this);
 $config = ['template' => "{input}\n{error}\n{hint}"];
 $tipo = ArrayHelper::map(RecursoTipo::find()->all(), 'rectip_id', 'rectip_nombre');
 $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
+$carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
 ?>
 
 <div class="recurso-form">
@@ -29,7 +33,7 @@ $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
     <?= $form->field($model, 'rec_resumen', $config)->widget(LabelInPlace::classname()); ?>
 
     <?= $form->field($model, 'rec_registro')->widget(DateControl::classname(), [
-        'type'=>DateControl::FORMAT_DATETIME,
+        'type' => DateControl::FORMAT_DATETIME,
         'ajaxConversion' => true,
         'widgetOptions' => [
             'removeIcon' => '<i class="fas fa-trash text-danger"></i>',
@@ -49,6 +53,16 @@ $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
             <?= $form->field($model, 'rec_fknivel')->dropDownList($nivel, ['prompt' => 'Seleccione uno']) ?>
         </div>
     </div>
+
+    <?= $form->field($model, 'recursoCarrera')->widget(Select2::classname(), [
+        'data' => $carrera,
+        'options' => ['placeholder' => 'Selecciona una carrera...', 'multiple' => true],
+        'pluginOptions' => [
+            'tags' => true,
+            'tokenSeparators' => [',', ' '],
+            'maximumInputLength' => 10
+        ],
+    ])->label('Carreras'); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>

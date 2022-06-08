@@ -25,6 +25,7 @@ use Yii;
  */
 class Recurso extends \yii\db\ActiveRecord
 {
+    public $recursoCarrera;
     /**
      * {@inheritdoc}
      */
@@ -41,7 +42,7 @@ class Recurso extends \yii\db\ActiveRecord
         return [
             [['rec_nombre', 'rec_resumen', 'rec_registro', 'rec_descripcion', 'rec_fkrecursotipo', 'rec_fknivel'], 'required'],
             [['rec_nombre', 'rec_resumen', 'rec_descripcion'], 'string'],
-            [['rec_registro'], 'safe'],
+            [['rec_registro', 'recursoCarrera'], 'safe'],
             [['rec_fkrecursotipo', 'rec_fknivel'], 'integer'],
             [['rec_fknivel'], 'exist', 'skipOnError' => true, 'targetClass' => Nivel::className(), 'targetAttribute' => ['rec_fknivel' => 'niv_id']],
             [['rec_fkrecursotipo'], 'exist', 'skipOnError' => true, 'targetClass' => RecursoTipo::className(), 'targetAttribute' => ['rec_fkrecursotipo' => 'rectip_id']],
@@ -61,6 +62,7 @@ class Recurso extends \yii\db\ActiveRecord
             'rec_descripcion'   => 'Descripcion',
             'rec_fkrecursotipo' => 'Tipo',
             'rec_fknivel'       => 'Nivel',
+            'recursoCarrera'   => 'Carreras',
         ];
     }
 
@@ -142,5 +144,19 @@ class Recurso extends \yii\db\ActiveRecord
     public function getTipo()
     {
         return $this->recFkrecursotipo->rectip_nombre;
+    }
+
+    public function getCarrera()
+    {
+                $carreras = "";
+                foreach ($this->recursoCarreras as $carrera) {
+                    $carreras .= $carrera->carrera . ', ';
+                };
+                return $carreras;
+    }
+
+    public function getUsuarioNombre()
+    {
+        return $this->getAutorRecursos()->where([])->one()->aut_nombre;
     }
 }

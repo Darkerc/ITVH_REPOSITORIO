@@ -5,10 +5,12 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Recurso;
+use app\models\RecursoCarrera;
 
 /**
  * RecursoSearch represents the model behind the search form of `app\models\Recurso`.
  */
+
 class RecursoSearch extends Recurso
 {
     /**
@@ -41,6 +43,7 @@ class RecursoSearch extends Recurso
     public function search($params)
     {
         $query = Recurso::find();
+        $carrera =  RecursoCarrera::find();
 
         // add conditions that should always apply here
 
@@ -70,6 +73,8 @@ class RecursoSearch extends Recurso
         $query->andFilterWhere(['like', 'rec_nombre', $this->rec_nombre])
             ->andFilterWhere(['like', 'rec_resumen', $this->rec_resumen])
             ->andFilterWhere(['like', 'rec_descripcion', $this->rec_descripcion]);
+
+        //$carrera->andFilterWhere(['recursoCarrera' => $this->reccar_fkcarrera]);
 
 
         return $dataProvider;

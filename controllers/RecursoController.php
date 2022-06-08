@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Recurso;
+use app\models\RecursoCarrera;
 use app\models\RecursoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -55,6 +56,7 @@ class RecursoController extends Controller
      */
     public function actionView($rec_id)
     {
+
         return $this->render('view', [
             'model' => $this->findModel($rec_id),
         ]);
@@ -71,6 +73,17 @@ class RecursoController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                // echo ('<pre>');
+                // var_dump($model);
+                // var_dump($model->recursoCarreras);
+                // echo ('</pre>');
+                // die;
+                foreach ($model->recursoCarrera as $carrera) {
+                    $carreras = new RecursoCarrera();
+                    $carreras->reccar_fkrecurso = $model->rec_id;
+                    $carreras->reccar_fkcarrera = $carrera;
+                    $carreras->save();
+                };
                 return $this->redirect(['view', 'rec_id' => $model->rec_id]);
             }
         } else {
@@ -94,6 +107,23 @@ class RecursoController extends Controller
         $model = $this->findModel($rec_id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            // echo ('<pre>');
+            // var_dump($this->request->post());
+            // var_dump($model->recursoCarrera);
+            // echo ('</pre>');
+            // die;
+            foreach ($model->recursoCarrera as $carrera) {
+                $carreras = RecursoCarrera::find()->where(['reccar_fkrecurso' => $model->rec_id, 'reccar_fkcarrera' => $carrera])->one();
+                if (isset($carreras)) {
+                    $carreras->reccar_fkcarrera = $carrera;
+                    $carreras->update();
+                } else {
+                    $carreras = new RecursoCarrera();
+                    $carreras->reccar_fkrecurso = $model->rec_id;
+                    $carreras->reccar_fkcarrera = $carrera;
+                    $carreras->save();
+                }
+            }
             return $this->redirect(['view', 'rec_id' => $model->rec_id]);
         }
 

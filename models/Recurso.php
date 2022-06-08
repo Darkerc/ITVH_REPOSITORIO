@@ -150,13 +150,13 @@ class Recurso extends \yii\db\ActiveRecord
     {
                 $carreras = "";
                 foreach ($this->recursoCarreras as $carrera) {
-                    $carreras .= $carrera->carrera . ', ';
+                    $carreras .= $carrera->carrera . '</li><li class="list-group-item list-group-item-action"> ';
                 };
                 return $carreras;
     }
 
-    public function getUsuarioNombre()
+    /*public function getUsuarioNombre()
     {
         return $this->getAutorRecursos()->where([])->one()->aut_nombre;
-    }
+    }*/
 }

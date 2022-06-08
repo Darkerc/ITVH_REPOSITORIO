@@ -51,10 +51,10 @@ $data = [
                 'data' => $data,
                 'maintainOrder' => true,
                 'options' => ['placeholder' => 'Selecciona un autor ...', 'multiple' => true],
-                'toggleAllSettings' => [
-                    'selectLabel' => 'Seleccionar todo',
-                    'unselectLabel' => 'Deseleccionar todo',
-                    'selectOptions' => ['class' => 'text-success'],
+                'toggleAllSettings'   => [
+                    'selectLabel'     => 'Seleccionar todo',
+                    'unselectLabel'   => 'Deseleccionar todo',
+                    'selectOptions'   => ['class' => 'text-success'],
                     'unselectOptions' => ['class' => 'text-danger'],
                 ],
                 'pluginOptions' => [

@@ -2,6 +2,7 @@
 
 use kartik\datecontrol\Module;
 error_reporting(E_ALL ^ E_NOTICE); 
+setlocale(LC_TIME, 'es_ES.UTF-8');
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 

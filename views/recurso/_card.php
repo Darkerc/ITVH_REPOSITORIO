@@ -32,11 +32,7 @@
                     <tr class="tr_item">
                         <td class="td_header">Carreras</td>
                         <td class="td_value">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item list-group-item-action">Ing. sistemas computacionales</li>
-                                <li class="list-group-item list-group-item-action">Ing. informatica</li>
-                                <li class="list-group-item list-group-item-action">Ing. Tecnologias de la informacion</li>
-                            </ul>
+                        <li class="list-group-item list-group-item-action"><?= $model->carrera ?></li>
                         </td>
                     </tr>
                     <tr class="tr_item">

@@ -77,8 +77,8 @@ class SiteController extends Controller
         $recursos = Recurso::find()->orderby('RAND()')->limit(3)->all();
         $palabras = Palabra::find()->orderby('RAND()')->limit(4)->all();
         $items = [];
-        $data1 = [];
         $data = [];
+        $data1 = [];
         foreach ($recursos as $recurso) {
             $items[] = [
                 'content' => '<img src="images/blanco.jpg"/>',

@@ -10,6 +10,7 @@ use kartik\daterange\DateRangePicker;
 use kartik\form\ActiveForm;
 use kartik\icons\FontAwesomeAsset;
 use kartik\label\LabelInPlace;
+use app\models\Carrera;
 
 FontAwesomeAsset::register($this);
 
@@ -20,6 +21,7 @@ FontAwesomeAsset::register($this);
 $config = ['template' => "{input}\n{error}\n{hint}"];
 $tipo = ArrayHelper::map(RecursoTipo::find()->all(), 'rectip_id', 'rectip_nombre');
 $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
+$carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
 $data = [
     "Sistemas" => "Sistemas",
     "Tecnologia" => "Tecnologia",
@@ -49,10 +51,10 @@ $data = [
                 'data' => $data,
                 'maintainOrder' => true,
                 'options' => ['placeholder' => 'Selecciona un autor ...', 'multiple' => true],
-                'toggleAllSettings' => [
-                    'selectLabel' => 'Seleccionar todo',
-                    'unselectLabel' => 'Deseleccionar todo',
-                    'selectOptions' => ['class' => 'text-success'],
+                'toggleAllSettings'   => [
+                    'selectLabel'     => 'Seleccionar todo',
+                    'unselectLabel'   => 'Deseleccionar todo',
+                    'selectOptions'   => ['class' => 'text-success'],
                     'unselectOptions' => ['class' => 'text-danger'],
                 ],
                 'pluginOptions' => [
@@ -60,14 +62,6 @@ $data = [
                     'maximumInputLength' => 10
                 ],
             ]); ?>
-        </div>
-
-        <div class="col col-12 col-md-6">
-            <?= $form->field($model, 'rec_fkrecursotipo')->dropDownList($tipo, ['prompt' => 'Seleccione uno']); ?>
-        </div>
-
-        <div class="col col-12 col-md-6">
-            <?= $form->field($model, 'rec_fknivel')->dropDownList($nivel, ['prompt' => 'Seleccione uno']) ?>
         </div>
 
         <div class="col col-12 col-md-6">
@@ -91,6 +85,29 @@ $data = [
                 ]); ?>
             </div>
         </div>
+
+        <div class="col col-12">
+            <div class="form-group">
+                <?= $form->field($model, 'recursoCarrera')->widget(Select2::classname(), [
+                    'data' => $carrera,
+                    'options' => ['placeholder' => 'Selecciona una carrera...', 'multiple' => true],
+                    'pluginOptions' => [
+                        'tags' => true,
+                        'tokenSeparators' => [',', ' '],
+                        'maximumInputLength' => 10
+                    ],
+                ])->label('Carreras'); ?>
+            </div>
+        </div>
+
+        <div class="col col-12 col-md-6">
+            <?= $form->field($model, 'rec_fkrecursotipo')->dropDownList($tipo, ['prompt' => 'Seleccione uno']); ?>
+        </div>
+
+        <div class="col col-12 col-md-6">
+            <?= $form->field($model, 'rec_fknivel')->dropDownList($nivel, ['prompt' => 'Seleccione uno']) ?>
+        </div>
+
 
         <div class="col col-12">
             <div class="form-group">

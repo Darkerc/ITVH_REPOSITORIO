@@ -67,4 +67,14 @@ class RecursoCarrera extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Recurso::className(), ['rec_id' => 'reccar_fkrecurso']);
     }
+
+    public function getCarrera()
+    {
+        return $this->reccarFkcarrera->car_nombre;
+    }
+
+    public function getRecurso()
+    {
+        return $this->reccarFkrecurso->rec_nombre;
+    }
 }

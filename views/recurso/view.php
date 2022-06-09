@@ -45,6 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'rec_fkrecursotipo',
                     'rec_fknivel',
                     'carrera',
+                    //'palabra'
                 ],
             ]) ?>
         </div>

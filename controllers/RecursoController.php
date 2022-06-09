@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Palabra;
 use app\models\Recurso;
 use app\models\RecursoCarrera;
 use app\models\RecursoSearch;
@@ -84,6 +85,18 @@ class RecursoController extends Controller
                     $carreras->reccar_fkcarrera = $carrera;
                     $carreras->save();
                 };
+                /* foreach ($model->palabras as $palabra) {
+                    $palabras = Palabra::find()->where(['pal_fkrecurso' => $model->rec_id, 'pal_nombre' => $palabra])->one();
+                    if (isset($palabras)) {
+                        $palabras->pal_nombre = $palabra;
+                        $palabras->update();
+                    } else {
+                        $palabras = new Palabra();
+                        $palabras->pal_fkrecurso = $model->rec_id;
+                        $palabras->pal_nombre = $palabra;
+                        $palabras->save();
+                    }
+                } */
                 return $this->redirect(['view', 'rec_id' => $model->rec_id]);
             }
         } else {
@@ -124,6 +137,23 @@ class RecursoController extends Controller
                     $carreras->save();
                 }
             }
+            // echo ('<pre>');
+            // var_dump($this->request->post());
+            // var_dump($model->palabras);
+            // echo ('</pre>');
+            // die;
+            /* foreach ($model->palabras as $palabra) {
+                $palabras = Palabra::find()->where(['pal_fkrecurso' => $model->rec_id, 'pal_nombre' => $palabra])->one();
+                if (isset($palabras)) {
+                    $palabras->pal_nombre = $palabra;
+                    $palabras->update();
+                } else {
+                    $palabras = new Palabra();
+                    $palabras->pal_fkrecurso = $model->rec_id;
+                    $palabras->pal_nombre = $palabra;
+                    $palabras->save();
+                }
+            } */
             return $this->redirect(['view', 'rec_id' => $model->rec_id]);
         }
 

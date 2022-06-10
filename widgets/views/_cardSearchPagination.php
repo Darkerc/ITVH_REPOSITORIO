@@ -24,9 +24,9 @@
                         <small><?= $item['footerRight'] ?></small>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <div class="btn btn-success btn-sm">
+                        <a class="btn btn-success btn-sm" href="<?= $item['href'] ?>">
                             Ver repositorio
-                        </div>
+                        </a>
                     </div>
                 </div>
             <?php } ?>

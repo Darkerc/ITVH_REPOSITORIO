@@ -91,8 +91,8 @@ $carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
     ]);
     ?>
 
-    <div class="form-group mt-3">
-        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
+    <div class="d-flex justify-content-end form-group mt-5">
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success btn-lg px-5']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

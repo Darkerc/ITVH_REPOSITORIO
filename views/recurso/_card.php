@@ -23,9 +23,9 @@
                         <td class="td_header">Autor(es)</td>
                         <td class="td_value">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item list-group-item-action">Autor 1</li>
-                                <li class="list-group-item list-group-item-action">Autor 2</li>
-                                <li class="list-group-item list-group-item-action">Autor 3</li>
+                                <li class="list-group-item list-group-item-action">
+                                <?= $model->autor ?>
+                                </li>
                             </ul>
                         </td>
                     </tr>
@@ -78,7 +78,23 @@
                     <tr class="tr_item">
                         <td class="td_header">Palabras Clave</td>
                         <td class="td_value">
-                            <li class="list-group-item list-group-item-action"><?= $model->palabra ?></li>
+                        <?php
+                                if(count($model->palabras) > 0) {
+                            ?>
+                            <?php foreach($model->palabras as $rPalabra) { ?>
+                                <li class="list-group-item list-group-item-action">
+                                    <?= $rPalabra->pal_nombre ?>
+                                </li>
+                            <?php } ?>
+                            <?php
+                                } else {
+                            ?>
+                                <li class="list-group-item list-group-item-action">
+                                    Sin Palabras Clave
+                                </li>
+                            <?php
+                                }
+                            ?>
                         </td>
                     </tr>
                 </table>

@@ -151,17 +151,20 @@ class Recurso extends \yii\db\ActiveRecord
     public function getCarrera()
     {
         $carreras = array_map(fn ($carrera) => $carrera->carrera, $this->recursoCarreras);
-        $carr = join(", ",$carreras);
+        $carr = join(" - ",$carreras);
         return !$carr ? 'Sin carreras' : $carr;
     }
 
     public function getPalabra()
     {
-        $palabrasn = "";
-        foreach ($this->palabras as $palabra) {
-            $palabrasn .= $palabra->pal_nombre . ', ';
-        };
-        return !$palabrasn ? 'Sin palabras' : $palabrasn;
+        $palabras = array_map(fn ($palabra) => $palabra->pal_nombre, $this->palabras);
+        $carr = join(" - ",$palabras);
+        return !$carr ? 'Sin Palabras Clave' : $carr;
+        // $palabrasn = "";
+        // foreach ($this->palabras as $palabra) {
+        //     $palabrasn .= $palabra->pal_nombre . ', ';
+        // };
+        // return !$palabrasn ? 'Sin palabras' : $palabrasn;
     }
 
     public function getAutor()

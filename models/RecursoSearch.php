@@ -43,7 +43,6 @@ class RecursoSearch extends Recurso
     public function search($params)
     {
         $query = Recurso::find();
-        $carrera =  RecursoCarrera::find();
 
         // add conditions that should always apply here
 

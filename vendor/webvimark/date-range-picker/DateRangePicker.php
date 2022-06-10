@@ -76,7 +76,7 @@ class DateRangePicker extends Widget
 		{
 			Yii::$app->i18n->translations['widgets/DateRangePicker/*'] = [
 				'class' => 'yii\i18n\PhpMessageSource',
-				'sourceLanguage' => 'en-US',
+				'sourceLanguage' => 'es-ES',
 				'basePath' => __DIR__ . '/messages',
 				'fileMap' => [
 					'widgets/DateRangePicker/app' => 'app.php',

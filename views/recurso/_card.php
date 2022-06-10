@@ -32,19 +32,19 @@
                     <tr class="tr_item">
                         <td class="td_header">Carreras</td>
                         <td class="td_value">
-                        <li class="list-group-item list-group-item-action"><?= $model->carrera ?></li>
+                            <li class="list-group-item list-group-item-action"><?= $model->carrera ?></li>
                         </td>
                     </tr>
                     <tr class="tr_item">
                         <td class="td_header">Nivel</td>
                         <td class="td_value">
-                        <?= $model->nivel ?>
+                            <?= $model->nivel ?>
                         </td>
                     </tr>
                     <tr class="tr_item">
                         <td class="td_header">Tipo</td>
                         <td class="td_value">
-                        <?= $model->tipo ?>
+                            <?= $model->tipo ?>
                         </td>
                     </tr>
                     <tr class="tr_item">
@@ -57,6 +57,12 @@
                             <a href="https://getbootstrap.com/docs/4.0/content/tables/#hoverable-rows">
                                 https://getbootstrap.com/docs/4.0/content/tables/#hoverable-rows
                             </a>
+                        </td>
+                    </tr>
+                    <tr class="tr_item">
+                        <td class="td_header">Palabras Clave</td>
+                        <td class="td_value">
+                            <li class="list-group-item list-group-item-action"><?= $model->palabras ?></li>
                         </td>
                     </tr>
                 </table>

@@ -1,34 +1,26 @@
 <?php
 
-use yii\helpers\Html;
-//use yii\widgets\ActiveForm;
-use yii\helpers\ArrayHelper;
-use app\models\RecursoTipo;
+use app\models\Autor;
+use app\models\Carrera;
 use app\models\Nivel;
+use app\models\Palabra;
+use app\models\RecursoTipo;
+use yii\helpers\Html;
 use kartik\select2\Select2;
 use kartik\daterange\DateRangePicker;
 use kartik\form\ActiveForm;
 use kartik\icons\FontAwesomeAsset;
 use kartik\label\LabelInPlace;
-use app\models\Carrera;
+use yii\helpers\ArrayHelper;
 
 FontAwesomeAsset::register($this);
 
-/* @var $this yii\web\View */
-/* @var $model app\models\RecursoSearch */
-/* @var $form yii\widgets\ActiveForm */
-
 $config = ['template' => "{input}\n{error}\n{hint}"];
+$autores = ArrayHelper::map(Autor::find()->all(), 'aut_id', 'aut_nombre');
+$palabras = ArrayHelper::map(Palabra::find()->all(), 'pal_id', 'pal_nombre');
+$carreras = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
 $tipo = ArrayHelper::map(RecursoTipo::find()->all(), 'rectip_id', 'rectip_nombre');
 $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
-$carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
-$data = [
-    "Sistemas" => "Sistemas",
-    "Tecnologia" => "Tecnologia",
-    "Administracion" => "Administracion",
-    "Contaminacion" => "Contaminacion",
-    "Innovacion" => "Innovacion"
-];
 ?>
 
 <div>
@@ -48,9 +40,12 @@ $data = [
             <label class="control-label">Autores</label>
             <?= Select2::widget([
                 'name' => 'Autores',
-                'data' => $data,
+                'data' => $autores,
                 'maintainOrder' => true,
-                'options' => ['placeholder' => 'Selecciona un autor ...', 'multiple' => true],
+                'options' => [
+                    'placeholder' => 'Selecciona un autor ...', 
+                    'multiple' => true
+                ],
                 'toggleAllSettings'   => [
                     'selectLabel'     => 'Seleccionar todo',
                     'unselectLabel'   => 'Deseleccionar todo',
@@ -69,9 +64,12 @@ $data = [
                 <label class="control-label">Palabras clave</label>
                 <?= Select2::widget([
                     'name' => 'Palabras Clave',
-                    'data' => $data,
+                    'data' => $palabras,
                     'maintainOrder' => true,
-                    'options' => ['placeholder' => 'Selecciona las palabras clave ...', 'multiple' => true],
+                    'options' => [
+                        'placeholder' => 'Selecciona las palabras clave ...',
+                        'multiple' => true
+                    ],
                     'toggleAllSettings' => [
                         'selectLabel' => 'Seleccionar todo',
                         'unselectLabel' => 'Deseleccionar todo',
@@ -89,8 +87,17 @@ $data = [
         <div class="col col-12">
             <div class="form-group">
                 <?= $form->field($model, 'recursoCarrera')->widget(Select2::classname(), [
-                    'data' => $carrera,
-                    'options' => ['placeholder' => 'Selecciona una carrera...', 'multiple' => true],
+                    'data' => $carreras,
+                    'options' => [
+                        'placeholder' => 'Selecciona una carrera...',
+                        'multiple' => true
+                    ],
+                    'toggleAllSettings' => [
+                        'selectLabel' => 'Seleccionar todo',
+                        'unselectLabel' => 'Deseleccionar todo',
+                        'selectOptions' => ['class' => 'text-success'],
+                        'unselectOptions' => ['class' => 'text-danger'],
+                    ],
                     'pluginOptions' => [
                         'tags' => true,
                         'tokenSeparators' => [',', ' '],
@@ -101,13 +108,22 @@ $data = [
         </div>
 
         <div class="col col-12 col-md-6">
-            <?= $form->field($model, 'rec_fkrecursotipo')->dropDownList($tipo, ['prompt' => 'Seleccione uno']); ?>
+            <?= $form->field($model, 'rec_fkrecursotipo')->widget(Select2::classname(), [
+                'data' => $tipo,
+                'options' => [
+                    'placeholder' => 'Seleccione un tipo',
+                ],
+            ])->label('Tipo'); ?>
         </div>
 
         <div class="col col-12 col-md-6">
-            <?= $form->field($model, 'rec_fknivel')->dropDownList($nivel, ['prompt' => 'Seleccione uno']) ?>
+        <?= $form->field($model, 'rec_fknivel')->widget(Select2::classname(), [
+                'data' => $nivel,
+                'options' => [
+                    'placeholder' => 'Seleccione un nivel',
+                ],
+            ])->label('Nivel'); ?>
         </div>
-
 
         <div class="col col-12">
             <div class="form-group">

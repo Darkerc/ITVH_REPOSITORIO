@@ -5,13 +5,15 @@
     <div class="card-body p-0">
         <div class="list-group">
             <?php foreach ($this->context->items as $item) { ?>
-                <a class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between mb-3">
                         <h5 class="mb-1">
                             <?= $item['title'] ?> - <span class="badge badge-info"><?= $item['type'] ?></span>
                         </h5>
                         <span>
-                            <small class="badge badge-info"><?= $item['time'] ?></small>
+                            <small class="badge badge-info">
+                                Publicado en: <?= date_format(new DateTime($item['time']), 'd/m/Y')  ?>
+                            </small>
                         </span>
                     </div>
                     <p class="mb-1">
@@ -21,7 +23,12 @@
                         <small><?= $item['footerLeft'] ?></small>
                         <small><?= $item['footerRight'] ?></small>
                     </div>
-                </a>
+                    <div class="d-flex justify-content-end">
+                        <div class="btn btn-success btn-sm">
+                            Ver repositorio
+                        </div>
+                    </div>
+                </div>
             <?php } ?>
         </div>
     </div>

@@ -85,7 +85,7 @@ class RecursoController extends Controller
                     $carreras->reccar_fkcarrera = $carrera;
                     $carreras->save();
                 };
-                foreach ($model->palabras as $palabra) {
+                foreach ($model->palabrasc as $palabra) {
                     $palabras = Palabra::find()->where(['pal_fkrecurso' => $model->rec_id, 'pal_nombre' => $palabra])->one();
                         $palabras = new Palabra();
                         $palabras->pal_fkrecurso = $model->rec_id;
@@ -137,7 +137,7 @@ class RecursoController extends Controller
             // var_dump($model->palabras);
             // echo ('</pre>');
             // die;
-            foreach ($model->palabras as $palabra) {
+            foreach ($model->palabrasc as $palabra) {
                 $palabras = Palabra::find()->where(['pal_fkrecurso' => $model->rec_id, 'pal_nombre' => $palabra])->one();
                 if (isset($palabras)) {
                     $palabras->pal_nombre = $palabra;

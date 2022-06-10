@@ -26,7 +26,7 @@ use Yii;
 class Recurso extends \yii\db\ActiveRecord
 {
     public $recursoCarrera;
-    public $palabras;
+    public $palabrasc;
     /**
      * {@inheritdoc}
      */
@@ -43,7 +43,7 @@ class Recurso extends \yii\db\ActiveRecord
         return [
             [['rec_nombre', 'rec_resumen', 'rec_registro', 'rec_descripcion', 'rec_fkrecursotipo', 'rec_fknivel'], 'required'],
             [['rec_nombre', 'rec_resumen', 'rec_descripcion'], 'string'],
-            [['rec_registro', 'recursoCarrera', 'palabras'], 'safe'],
+            [['rec_registro', 'recursoCarrera', 'palabrasc'], 'safe'],
             [['rec_fkrecursotipo', 'rec_fknivel'], 'integer'],
             [['rec_fknivel'], 'exist', 'skipOnError' => true, 'targetClass' => Nivel::className(), 'targetAttribute' => ['rec_fknivel' => 'niv_id']],
             [['rec_fkrecursotipo'], 'exist', 'skipOnError' => true, 'targetClass' => RecursoTipo::className(), 'targetAttribute' => ['rec_fkrecursotipo' => 'rectip_id']],
@@ -64,7 +64,7 @@ class Recurso extends \yii\db\ActiveRecord
             'rec_fkrecursotipo' => 'Tipo',
             'rec_fknivel'       => 'Nivel',
             'recursoCarrera'    => 'Carreras',
-            'palabras'          => 'Palabras Clave',
+            'palabrasc'          => 'Palabras Clave',
         ];
     }
 
@@ -159,11 +159,11 @@ class Recurso extends \yii\db\ActiveRecord
 
     public function getPalabra()
     {
-        // $palabrasn = "";
-        // foreach ($this->palabras as $palabra) {
-        //     $palabrasn .= $palabra->pal_nombre . ', ';
-        // };
-        // return $palabrasn;
+        $palabrasn = "";
+        foreach ($this->palabras as $palabra) {
+            $palabrasn .= $palabra->pal_nombre . ', ';
+        };
+        return $palabrasn;
     }
 
     /*public function getUsuarioNombre()

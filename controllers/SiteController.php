@@ -106,7 +106,7 @@ class SiteController extends Controller
                 'label' => $palabra->pal_nombre,
             ];
         }
-        return $this->render('index', 'items', 'data', 'data1');
+        return $this->render('index', compact('items', 'data', 'data1'));
     }
 
     /**

@@ -26,7 +26,7 @@ use Yii;
 class Recurso extends \yii\db\ActiveRecord
 {
     public $recursoCarrera;
-    //public $palabras;
+    public $palabras;
     /**
      * {@inheritdoc}
      */
@@ -64,7 +64,7 @@ class Recurso extends \yii\db\ActiveRecord
             'rec_fkrecursotipo' => 'Tipo',
             'rec_fknivel'       => 'Nivel',
             'recursoCarrera'    => 'Carreras',
-            //'palabras'          => 'Palabras Clave',
+            'palabras'          => 'Palabras Clave',
         ];
     }
 
@@ -157,14 +157,14 @@ class Recurso extends \yii\db\ActiveRecord
         return $carreras;
     }
 
-   /* public function getPalabra()
+    public function getPalabra()
     {
-        $palabrasn = "";
-        foreach ($this->palabras as $palabra) {
-            $palabrasn .= $palabra->pal_nombre . ', ';
-        };
-        return $palabrasn;
-    }*/
+        // $palabrasn = "";
+        // foreach ($this->palabras as $palabra) {
+        //     $palabrasn .= $palabra->pal_nombre . ', ';
+        // };
+        // return $palabrasn;
+    }
 
     /*public function getUsuarioNombre()
     {

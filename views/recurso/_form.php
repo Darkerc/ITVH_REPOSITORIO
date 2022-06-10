@@ -2,7 +2,6 @@
 
 use app\models\Carrera;
 use app\models\Nivel;
-use app\models\Palabra;
 use app\models\RecursoTipo;
 use kartik\datecontrol\DateControl;
 use yii\helpers\Html;
@@ -23,7 +22,6 @@ $config = ['template' => "{input}\n{error}\n{hint}"];
 $tipo = ArrayHelper::map(RecursoTipo::find()->all(), 'rectip_id', 'rectip_nombre');
 $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
 $carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
-$palabra = ArrayHelper::map(Palabra::find()->all(), 'pal_id', 'pal_nombre');
 ?>
 
 <div class="recurso-form">
@@ -72,15 +70,14 @@ $palabra = ArrayHelper::map(Palabra::find()->all(), 'pal_id', 'pal_nombre');
         ],
     ])->label('Carreras'); ?>
 
-    <? /* $form->field($model, 'palabras')->widget(Select2::classname(), [
-        'data' => $palabra,
-        'options' => ['placeholder' => 'Ingrese o seleccione las palabras clave...', 'multiple' => true],
+    <?= $form->field($model, 'palabras')->widget(Select2::classname(), [
+        'options' => ['placeholder' => 'Ingrese las palabras clave...', 'multiple' => true],
         'pluginOptions' => [
             'tags' => true,
             'tokenSeparators' => [',', ' '],
             'maximumInputLength' => 15
         ],
-    ])->label('Palabras Clave');  */?>
+    ])->label('Palabras Clave');  ?>
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>

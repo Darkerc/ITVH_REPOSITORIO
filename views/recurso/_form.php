@@ -81,15 +81,20 @@ $carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
         ],
     ])->label('Palabras Clave');  ?>
 
-    <?= 
-    FileInput::widget([
-        'name' => 'attachment_49[]',
-        'language' => 'es',
-        'options'=>[
-            'multiple'=>true
-        ],
-    ]);
-    ?>
+    <div class="row">
+        <div class="col col-12 form-group">
+            <label> Agregue su archivo </label>
+            <?=
+            FileInput::widget([
+                'name' => 'attachment_49[]',
+                'language' => 'es',
+                'options' => [
+                    'multiple' => true
+                ],
+            ]);
+            ?>
+        </div>
+    </div>
 
     <div class="d-flex justify-content-end form-group mt-5">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success btn-lg px-5']) ?>

@@ -32,7 +32,23 @@
                     <tr class="tr_item">
                         <td class="td_header">Carreras</td>
                         <td class="td_value">
-                            <li class="list-group-item list-group-item-action"><?= $model->carrera ?></li>
+                            <?php
+                                if(count($model->recursoCarreras) > 0) {
+                            ?>
+                            <?php foreach($model->recursoCarreras as $rCarrera) { ?>
+                                <li class="list-group-item list-group-item-action">
+                                    <?= $rCarrera->carrera ?>
+                                </li>
+                            <?php } ?>
+                            <?php
+                                } else {
+                            ?>
+                                <li class="list-group-item list-group-item-action">
+                                    Sin carreras
+                                </li>
+                            <?php
+                                }
+                            ?>
                         </td>
                     </tr>
                     <tr class="tr_item">

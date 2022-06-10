@@ -19,11 +19,16 @@
                     <p class="mb-1">
                         <?= $item['description'] ?>
                     </p>
-                    <div class="d-flex justify-content-between">
-                        <small><?= $item['footerLeft'] ?></small>
-                        <small><?= $item['footerRight'] ?></small>
+                    <div class="d-flex justify-content-between py-2">
+                        <span class='badge badge-info'>
+                            <?= $item['footerLeft'] ?>
+                        </span>
+
+                        <span class="badge badge-info">
+                            <?= $item['footerRight'] ?>
+                        </span>
                     </div>
-                    <div class="d-flex justify-content-end pt-2">
+                    <div class="d-flex justify-content-end py-2">
                         <a class="btn btn-success btn-sm" href="<?= $item['href'] ?>">
                             Ver repositorio
                         </a>

@@ -152,7 +152,7 @@ class Recurso extends \yii\db\ActiveRecord
     {
         $carreras = "";
         foreach ($this->recursoCarreras as $carrera) {
-            $carreras .= $carrera->carrera . ', ';
+            $carreras .= $carrera->carrera;
         };
         return !$carreras ? 'Sin carreras' : $carreras;
     }

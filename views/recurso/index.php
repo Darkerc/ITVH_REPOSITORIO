@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 "description" => $model['rec_resumen'],
                 "time" => $model['rec_registro'],
                 "type" => $model['tipo'],
+                "href" => '/recurso/view?rec_id=' . $model->rec_id . ''
             ];
         }
     ]); ?>

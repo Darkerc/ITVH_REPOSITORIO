@@ -25,6 +25,7 @@ $this->title = 'ITVH Repositorio - Buscar';
                         "description" => $model['rec_resumen'],
                         "time" => $model['rec_registro'],
                         "type" => $model['tipo'],
+                        "footerRight" => $model['carrera'],
                         "href" => '#'
                     ];
                 }

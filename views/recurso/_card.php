@@ -32,7 +32,7 @@
                     <tr class="tr_item">
                         <td class="td_header">Carreras</td>
                         <td class="td_value">
-                            <li class="list-group-item list-group-item-action"><?= $model->carrera ?></li>
+                            <li class="list-group-item list-group-item-action"><?= $model->viewcarrera ?></li>
                         </td>
                     </tr>
                     <tr class="tr_item">

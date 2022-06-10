@@ -41,7 +41,7 @@ class Recurso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rec_nombre', 'rec_resumen', 'rec_registro', 'rec_descripcion', 'rec_fkrecursotipo', 'rec_fknivel'], 'required'],
+            [['rec_nombre', 'rec_resumen', 'rec_registro', 'rec_fkrecursotipo', 'rec_fknivel'], 'required'],
             [['rec_nombre', 'rec_resumen', 'rec_descripcion'], 'string'],
             [['rec_registro', 'recursoCarrera', 'palabrasc'], 'safe'],
             [['rec_fkrecursotipo', 'rec_fknivel'], 'integer'],

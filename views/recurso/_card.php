@@ -70,8 +70,8 @@
                     <tr class="tr_item">
                         <td class="td_header">URL del recurso</td>
                         <td class="td_value">
-                            <a href="https://getbootstrap.com/docs/4.0/content/tables/#hoverable-rows">
-                                https://getbootstrap.com/docs/4.0/content/tables/#hoverable-rows
+                            <a href="<?= $model->currentUrl ?>">
+                               <?= $model->currentUrl ?>
                             </a>
                         </td>
                     </tr>

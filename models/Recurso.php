@@ -154,7 +154,7 @@ class Recurso extends \yii\db\ActiveRecord
         foreach ($this->recursoCarreras as $carrera) {
             $carreras .= $carrera->carrera . ', ';
         };
-        return $carreras | 'Sin carreras';
+        return !$carreras ? 'Sin carreras' : $carreras;
     }
 
     public function getPalabra()
@@ -163,7 +163,7 @@ class Recurso extends \yii\db\ActiveRecord
         foreach ($this->palabras as $palabra) {
             $palabrasn .= $palabra->pal_nombre . ', ';
         };
-        return $palabrasn | 'Sin palabras';
+        return !$palabrasn ? 'Sin palabras' : $palabrasn;
     }
 
     public function getAutor()

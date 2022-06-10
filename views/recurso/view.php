@@ -31,23 +31,4 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
     ]);
     ?>
-
-    <div class="row">
-        <div class="col col-12 col-md-12 form-group">
-            <?= DetailView::widget([
-                'model' => $model,
-                'attributes' => [
-                    'rec_id',
-                    'rec_nombre',
-                    'rec_resumen',
-                    'rec_registro',
-                    'rec_descripcion',
-                    'rec_fkrecursotipo',
-                    'rec_fknivel',
-                    'carrera',
-                    //'palabra'
-                ],
-            ]) ?>
-        </div>
-    </div>
 </div>

@@ -150,11 +150,9 @@ class Recurso extends \yii\db\ActiveRecord
 
     public function getCarrera()
     {
-        $carreras = "";
-        foreach ($this->recursoCarreras as $carrera) {
-            $carreras .= $carrera->carrera . ', ';
-        };
-        return !$carreras ? 'Sin carreras' : $carreras;
+        $carreras = array_map(fn ($carrera) => $carrera->carrera, $this->recursoCarreras);
+        $carr = join(", ",$carreras);
+        return !$carr ? 'Sin carreras' : $carr;
     }
 
     public function getPalabra()

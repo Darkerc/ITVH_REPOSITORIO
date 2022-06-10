@@ -23,7 +23,7 @@
                         <small><?= $item['footerLeft'] ?></small>
                         <small><?= $item['footerRight'] ?></small>
                     </div>
-                    <div class="d-flex justify-content-end">
+                    <div class="d-flex justify-content-end pt-2">
                         <a class="btn btn-success btn-sm" href="<?= $item['href'] ?>">
                             Ver repositorio
                         </a>

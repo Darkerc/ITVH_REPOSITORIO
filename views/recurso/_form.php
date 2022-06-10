@@ -11,6 +11,7 @@ use yii\widgets\ActiveForm;
 // on your view layout file
 use kartik\icons\FontAwesomeAsset;
 use kartik\select2\Select2;
+use kartik\file\FileInput;
 
 FontAwesomeAsset::register($this);
 
@@ -79,7 +80,17 @@ $carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
         ],
     ])->label('Palabras Clave');  ?>
 
-    <div class="form-group">
+    <?= 
+    FileInput::widget([
+        'name' => 'attachment_49[]',
+        'language' => 'es',
+        'options'=>[
+            'multiple'=>true
+        ],
+    ]);
+    ?>
+
+    <div class="form-group mt-3">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
     </div>
 

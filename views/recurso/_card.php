@@ -62,7 +62,7 @@
                     <tr class="tr_item">
                         <td class="td_header">Palabras Clave</td>
                         <td class="td_value">
-                            <li class="list-group-item list-group-item-action"><?= $model->palabra ?></li>
+                            <li class="list-group-item list-group-item-action"><?= $model->palabras ?></li>
                         </td>
                     </tr>
                 </table>

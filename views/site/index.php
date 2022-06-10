@@ -16,7 +16,7 @@ $this->title = 'ITVH Repositorio';
     // die;
     ?>
 
-    <?= Carousel::widget(['items' => $items]); ?>
+    <?= Carousel::widget(['items' => $recursos]); ?>
 
     <div class="body-content">
         <div class="row">
@@ -25,7 +25,7 @@ $this->title = 'ITVH Repositorio';
                     'titulo' => 'Repositorio por carreras',
                     'descripcion' => 'Carreras disponibles del instituto tecnologico de villahermosa',
                     'mode' => 'OUTLINED',
-                    'data' => $data
+                    'data' => $carreras
                 ]) ?>
             </div>
             <div class="py-2 col-12 col-lg-5">
@@ -94,7 +94,7 @@ $this->title = 'ITVH Repositorio';
                         ],
                         [
                             'group' => 'Palabras clave',
-                            'items' => $data1,
+                            'items' => $palabras,
                         ],
                         [
                             'group' => 'Ultimas fechas',

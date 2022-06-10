@@ -77,36 +77,33 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $carreras = Carrera::find()->orderby('RAND()')->limit(6)->all();
-        $recursos = Recurso::find()->orderby('RAND()')->limit(3)->all();
-        $palabras = Palabra::find()->orderby('RAND()')->limit(4)->all();
-        $items = [];
-        $data = [];
-        $data1 = [];
-        foreach ($recursos as $recurso) {
-            $items[] = [
+        $recursos = array_map(function ($recurso) {
+            return [
                 'content' => '<img src="images/blanco.jpg"/>',
                 'caption' => '<h4 class="textblack">' . $recurso->rec_nombre . ':</h4> 
-                              <p class="textblack">' . $recurso->rec_resumen . '</p>
-                              <a  href="/recurso/view?rec_id=' . $recurso->rec_id . '">
-                              <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2"> Ver repositorio </button>
-                              </a>'
+                                <p class="textblack">' . $recurso->rec_resumen . '</p>
+                                <a  href="/recurso/view?rec_id=' . $recurso->rec_id . '">
+                                <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2"> Ver repositorio </button>
+                                </a>'
             ];
-        }
-        foreach ($carreras as $carrera) {
-            $data[] = [
+        }, Recurso::find()->orderby('RAND()')->limit(3)->all());
+
+        $carreras = array_map(function ($carrera) {
+            return [
                 'href'  => 'site/busqueda',
                 'label' => $carrera->car_nombre,
                 'chip'  => rand(1, 1000)
             ];
-        }
-        foreach ($palabras as $palabra) {
-            $data1[] = [
+        }, Carrera::find()->orderby('RAND()')->limit(6)->all());
+
+        $palabras = array_map(function ($palabra) {
+            return [
                 'href'  => 'site/busqueda',
                 'label' => $palabra->pal_nombre,
             ];
-        }
-        return $this->render('index', 'items', 'data', 'data1');
+        }, Palabra::find()->orderby('RAND()')->limit(4)->all());
+
+        return $this->render('index', compact('recursos', 'carreras', 'palabras'));
     }
 
     /**

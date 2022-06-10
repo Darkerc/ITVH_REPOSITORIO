@@ -31,7 +31,9 @@ $carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
 
     <?= $form->field($model, 'rec_nombre', $config)->widget(LabelInPlace::classname()); ?>
 
-    <?= $form->field($model, 'rec_resumen', $config)->widget(LabelInPlace::classname()); ?>
+    <?= $form->field($model, 'rec_resumen', $config)->widget(LabelInPlace::classname(), [
+        'type' => LabelInPlace::TYPE_TEXTAREA
+    ]); ?>
 
     <?= $form->field($model, 'rec_registro')->widget(DateControl::classname(), [
         'type' => DateControl::FORMAT_DATETIME,
@@ -44,7 +46,6 @@ $carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
         ]
     ]); ?>
 
-    <?= $form->field($model, 'rec_descripcion', $config)->widget(LabelInPlace::classname()); ?>
 
     <div class="row">
         <div class="col col-12 col-md-6 form-group">

@@ -41,7 +41,7 @@ class Recurso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rec_nombre', 'rec_resumen', 'rec_registro', 'rec_fkrecursotipo', 'rec_fknivel'], 'required'],
+            [['rec_nombre', 'rec_resumen', 'rec_registro', 'rec_fkrecursotipo', 'rec_fknivel', 'recursoCarrera', 'palabrasc'], 'required', 'message' => '{attribute} no puede estar vacio'],
             [['rec_nombre', 'rec_resumen', 'rec_descripcion'], 'string'],
             [['rec_registro', 'recursoCarrera', 'palabrasc'], 'safe'],
             [['rec_fkrecursotipo', 'rec_fknivel'], 'integer'],
@@ -151,14 +151,14 @@ class Recurso extends \yii\db\ActiveRecord
     public function getCarrera()
     {
         $carreras = array_map(fn ($carrera) => $carrera->carrera, $this->recursoCarreras);
-        $carr = join(" - ",$carreras);
+        $carr = join(" - ", $carreras);
         return !$carr ? 'Sin carreras' : $carr;
     }
 
     public function getPalabra()
     {
         $palabras = array_map(fn ($palabra) => $palabra->pal_nombre, $this->palabras);
-        $carr = join(" - ",$palabras);
+        $carr = join(" - ", $palabras);
         return !$carr ? 'Sin Palabras Clave' : $carr;
         // $palabrasn = "";
         // foreach ($this->palabras as $palabra) {
@@ -172,7 +172,8 @@ class Recurso extends \yii\db\ActiveRecord
         return 'Sin autores';
     }
 
-    public function getCurrentUrl() {
+    public function getCurrentUrl()
+    {
         $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         return $actual_link;
     }

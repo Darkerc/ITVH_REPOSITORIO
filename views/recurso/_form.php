@@ -57,6 +57,12 @@ $carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
     <?= $form->field($model, 'recursoCarrera')->widget(Select2::classname(), [
         'data' => $carrera,
         'options' => ['placeholder' => 'Selecciona una carrera...', 'multiple' => true],
+        'toggleAllSettings' => [
+            'selectLabel' => 'Seleccionar todo',
+            'unselectLabel' => 'Deseleccionar todo',
+            'selectOptions' => ['class' => 'text-success'],
+            'unselectOptions' => ['class' => 'text-danger'],
+        ],
         'pluginOptions' => [
             'tags' => true,
             'tokenSeparators' => [',', ' '],

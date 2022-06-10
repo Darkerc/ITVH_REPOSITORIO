@@ -77,7 +77,36 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $carreras = Carrera::find()->orderby('RAND()')->limit(6)->all();
+        $recursos = Recurso::find()->orderby('RAND()')->limit(3)->all();
+        $palabras = Palabra::find()->orderby('RAND()')->limit(4)->all();
+        $items = [];
+        $data = [];
+        $data1 = [];
+        foreach ($recursos as $recurso) {
+            $items[] = [
+                'content' => '<img src="images/blanco.jpg"/>',
+                'caption' => '<h4 class="textblack">' . $recurso->rec_nombre . ':</h4> 
+                              <p class="textblack">' . $recurso->rec_resumen . '</p>
+                              <a  href="/recurso/view?rec_id=' . $recurso->rec_id . '">
+                              <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2"> Ver repositorio </button>
+                              </a>'
+            ];
+        }
+        foreach ($carreras as $carrera) {
+            $data[] = [
+                'href'  => 'site/busqueda',
+                'label' => $carrera->car_nombre,
+                'chip'  => rand(1, 1000)
+            ];
+        }
+        foreach ($palabras as $palabra) {
+            $data1[] = [
+                'href'  => 'site/busqueda',
+                'label' => $palabra->pal_nombre,
+            ];
+        }
+        return $this->render('index', 'items', 'data', 'data1');
     }
 
     /**

@@ -67,6 +67,7 @@ class Recurso extends \yii\db\ActiveRecord
             'rec_fknivel'       => 'Nivel',
             'recursoCarrera'    => 'Carreras',
             'palabrasc'         => 'Palabras Clave',
+            'archivos'          => 'Archivos', 
         ];
     }
 

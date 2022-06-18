@@ -9,6 +9,7 @@ use app\models\RecursoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * RecursoController implements the CRUD actions for Recurso model.
@@ -73,25 +74,22 @@ class RecursoController extends Controller
         $model = new Recurso();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                // echo ('<pre>');
-                // var_dump($model);
-                // var_dump($model->recursoCarreras);
-                // echo ('</pre>');
-                // die;
+            $loaded = $model->load($this->request->post());
+            $model->archivos = UploadedFile::getInstances($model, 'archivos');
+            $saved = $model->save();
+            if ($loaded && $saved) {
                 foreach ($model->recursoCarrera as $carrera) {
                     $carreras = new RecursoCarrera();
                     $carreras->reccar_fkrecurso = $model->rec_id;
                     $carreras->reccar_fkcarrera = $carrera;
-                    $carreras->save();
                 };
                 foreach ($model->palabrasc as $palabra) {
                     $palabras = Palabra::find()->where(['pal_fkrecurso' => $model->rec_id, 'pal_nombre' => $palabra])->one();
-                        $palabras = new Palabra();
-                        $palabras->pal_fkrecurso = $model->rec_id;
-                        $palabras->pal_nombre = $palabra;
-                        $palabras->save();
-                    }
+                    $palabras = new Palabra();
+                    $palabras->pal_fkrecurso = $model->rec_id;
+                    $palabras->pal_nombre = $palabra;
+                }
+
                 return $this->redirect(['view', 'rec_id' => $model->rec_id]);
             }
         } else {

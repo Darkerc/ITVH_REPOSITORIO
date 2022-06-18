@@ -1,3 +1,7 @@
+<?php
+
+use yii\bootstrap4\LinkPager;
+?>
 <div class="card">
     <h4 class="card-header bg-info">
         <?= $this->context->title ?>
@@ -8,11 +12,11 @@
                 <div class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between mb-3">
                         <h5 class="mb-1">
-                            <?= $item['title'] ?> - <span class="badge badge-info"><?= $item['type'] ?></span>
+                            <?= $item['title'] ?> - <span class="badge badge-info"><?= $item['titleChip'] ?></span>
                         </h5>
                         <span>
                             <small class="badge badge-info">
-                                Publicado en: <?= date_format(new DateTime($item['time']), 'd/m/Y')  ?>
+                                <?= $item['headerRight'] ?>
                             </small>
                         </span>
                     </div>
@@ -37,23 +41,9 @@
             <?php } ?>
         </div>
     </div>
-    <div class="card-footer text-muted p-0">
-        <ul class="pagination justify-content-center my-2">
-            <li class="page-item  <?= $_GET['page'] <= 1 ? 'disabled' : '' ?>">
-                <a class="page-link" href="<?= $this->context->changePage($_GET['page'] - 1) ?>">
-                    Anterior
-                </a>
-            </li>
-            <?php for ($i = 1; $i <= $this->context->dataProvider->pagination->pageCount; $i++) { ?>
-                <li class="page-item <?= $_GET['page'] == $i ? 'active' : '' ?>">
-                    <a class="page-link" href="<?= $this->context->changePage($i) ?>">
-                        <?= $i ?>
-                    </a>
-                </li>
-            <?php } ?>
-            <li class="page-item <?= $_GET['page'] >= $this->context->dataProvider->pagination->pageCount ? 'disabled' : '' ?>">
-                <a class="page-link" href="<?= $this->context->changePage($_GET['page'] + 1) ?>">Siguiente</a>
-            </li>
-        </ul>
+    <div class="card-footer text-muted p-0 d-flex justify-content-center">
+        <span class="pt-3">
+            <?= LinkPager::widget(['pagination' => $this->context->dataProvider->pagination]) ?>
+        </span>
     </div>
 </div>

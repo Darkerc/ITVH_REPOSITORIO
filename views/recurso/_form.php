@@ -27,7 +27,12 @@ $carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
 
 <div class="recurso-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'method' => 'POST',
+        'options' => [
+            'enctype' => 'multipart/form-data'
+        ]
+    ]); ?>
 
     <?= $form->field($model, 'rec_nombre', $config)->widget(LabelInPlace::classname()); ?>
 
@@ -60,7 +65,7 @@ $carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
         'data' => $carrera,
         'options' => ['placeholder' => 'Selecciona una carrera...', 'multiple' => true],
         'toggleAllSettings' => [
-            'selectLabel' => 'Seleccionar todo',
+            'selectLabel' => '',
             'unselectLabel' => 'Deseleccionar todo',
             'selectOptions' => ['class' => 'text-success'],
             'unselectOptions' => ['class' => 'text-danger'],
@@ -72,8 +77,14 @@ $carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
         ],
     ])->label('Carreras'); ?>
 
-    <?= $form->field($model, 'palabras')->widget(Select2::classname(), [
+    <?= $form->field($model, 'palabrasc')->widget(Select2::classname(), [
         'options' => ['placeholder' => 'Ingrese las palabras clave...', 'multiple' => true],
+        'toggleAllSettings' => [
+            'selectLabel' => '',
+            'unselectLabel' => 'Deseleccionar todo',
+            'selectOptions' => ['class' => 'text-success'],
+            'unselectOptions' => ['class' => 'text-danger'],
+        ],
         'pluginOptions' => [
             'tags' => true,
             'tokenSeparators' => [',', ' '],
@@ -83,14 +94,16 @@ $carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
 
     <div class="row">
         <div class="col col-12 form-group">
-            <label> Agregue su archivo </label>
             <?=
-            FileInput::widget([
-                'name' => 'attachment_49[]',
+            $form->field($model, 'archivos[]')->widget(FileInput::classname(), [
+                'name' => 'archivos[]',
                 'language' => 'es',
                 'options' => [
                     'multiple' => true
                 ],
+                'pluginOptions' => [
+                    'showUpload' => false
+                ]
             ]);
             ?>
         </div>

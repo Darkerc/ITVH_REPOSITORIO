@@ -27,6 +27,7 @@ class Recurso extends \yii\db\ActiveRecord
 {
     public $recursoCarrera;
     public $palabrasc;
+    public $archivos;
     /**
      * {@inheritdoc}
      */
@@ -47,6 +48,7 @@ class Recurso extends \yii\db\ActiveRecord
             [['rec_fkrecursotipo', 'rec_fknivel'], 'integer'],
             [['rec_fknivel'], 'exist', 'skipOnError' => true, 'targetClass' => Nivel::className(), 'targetAttribute' => ['rec_fknivel' => 'niv_id']],
             [['rec_fkrecursotipo'], 'exist', 'skipOnError' => true, 'targetClass' => RecursoTipo::className(), 'targetAttribute' => ['rec_fkrecursotipo' => 'rectip_id']],
+            [['archivos'], 'file', 'skipOnEmpty' => false, 'maxFiles' => 4]
         ];
     }
 
@@ -64,8 +66,22 @@ class Recurso extends \yii\db\ActiveRecord
             'rec_fkrecursotipo' => 'Tipo',
             'rec_fknivel'       => 'Nivel',
             'recursoCarrera'    => 'Carreras',
-            'palabrasc'          => 'Palabras Clave',
+            'palabrasc'         => 'Palabras Clave',
         ];
+    }
+
+    public function upload()
+    {
+        echo var_dump($this->archivos);
+        if ($this->validate()) { 
+            foreach ($this->archivos as $file) {
+                // Hacer logica de guardado aqui
+                // $file->saveAs('uploads/' . $file->baseName . '.' . $file->extension);
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

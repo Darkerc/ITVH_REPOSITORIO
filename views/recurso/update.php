@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Recurso */
 
-$this->title = 'Update Recurso: ' . $model->rec_id;
+$this->title = 'Actualizando: ' . $model->rec_nombre;
 $this->params['breadcrumbs'][] = ['label' => 'Recursos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->rec_id, 'url' => ['view', 'rec_id' => $model->rec_id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = ['label' => $model->rec_nombre, 'url' => ['view', 'rec_id' => $model->rec_id]];
+$this->params['breadcrumbs'][] = 'Actualizando';
 ?>
 <div class="recurso-update">
 

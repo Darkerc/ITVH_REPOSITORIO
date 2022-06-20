@@ -65,7 +65,7 @@
                     </tr>
                     <tr class="tr_item">
                         <td class="td_header">Fecha de publicacion</td>
-                        <td class="td_value"><?= $model->rec_registro ?></td>
+                        <td class="td_value"><?= date_format(new DateTime($model->rec_registro), 'd/m/Y') ?></td>
                     </tr>
                     <tr class="tr_item">
                         <td class="td_header">URL del recurso</td>

@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Recurso', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear un Recurso', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             return [
                 "title" => $model['rec_nombre'],
                 "description" => $model['rec_resumen'],
-                "time" => $model['rec_registro'],
+                "headerRight" => "Publicado en: " . date_format(new DateTime($model['rec_registro']), 'd/m/Y'),
                 "type" => $model['tipo'],
                 "footerRight" => $model['carrera'],
                 "footerLeft" => $model['autor'],

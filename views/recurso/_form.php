@@ -49,10 +49,20 @@ $carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
 
     <div class="row">
         <div class="col col-12 col-md-6 form-group">
-            <?= $form->field($model, 'rec_fkrecursotipo')->dropDownList($tipo, ['prompt' => 'Seleccione uno']); ?>
+            <?= $form->field($model, 'rec_fkrecursotipo')->widget(Select2::classname(), [
+                'data' => $tipo,
+                'options' => [
+                    'placeholder' => 'Seleccione un tipo',
+                ],
+            ])->label('Tipo'); ?>
         </div>
         <div class="col col-12 col-md-6 form-group">
-            <?= $form->field($model, 'rec_fknivel')->dropDownList($nivel, ['prompt' => 'Seleccione uno']) ?>
+            <?= $form->field($model, 'rec_fknivel')->widget(Select2::classname(), [
+                'data' => $nivel,
+                'options' => [
+                    'placeholder' => 'Seleccione un nivel',
+                ],
+            ])->label('Nivel'); ?>
         </div>
     </div>
 

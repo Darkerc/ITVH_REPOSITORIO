@@ -2,6 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\Autor;
+use Yii;
+use app\models\AutorRecurso;
 use app\models\Palabra;
 use app\models\Recurso;
 use app\models\RecursoArchivo;
@@ -88,10 +91,12 @@ class RecursoController extends Controller
                     $carreras->reccar_fkcarrera = $carrera;
                     $carreras->save();
                 };
-                /*foreach ($model->archivos as $archivo) {
-                    $archivos = new RecursoArchivo();
-                    $archivos->recarc_fkrecurso = $model->rec_id;
-                    $archivos->recarc_fkarchivo = $archivo;
+                //echo ('<pre>'); var_dump($model->autor); echo ('</pre>');
+               /* foreach ($model->autorRecursos as $autor) {
+                    $autores = new AutorRecurso();
+                    $autores->autrec_fkautor = $autor;
+                    $autores->autrec_fkrecurso = $model->rec_id;
+                    $autores->save();
                 };*/
                 foreach ($model->palabrasc as $palabra) {
                     $palabras = new Palabra();
@@ -100,8 +105,7 @@ class RecursoController extends Controller
                     $palabras->save();
                 }
 
-                $model->upload();
-
+                //$model->upload();
                 return $this->redirect(['view', 'rec_id' => $model->rec_id]);
             }
         } else {

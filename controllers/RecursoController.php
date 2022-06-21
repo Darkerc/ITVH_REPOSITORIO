@@ -73,6 +73,10 @@ class RecursoController extends Controller
         $model = new Recurso();
 
         if ($this->request->isPost) {
+            // echo '<pre>';
+            // echo var_dump($this->request->post());
+            // echo '</pre>';
+            // die;
             $loaded = $model->load($this->request->post());
             if (User::hasRole(['aut', false])){
                 // $date = DateTime::createFromFormat('Y-m-d H:i:s', 'now');

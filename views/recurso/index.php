@@ -19,9 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-    <?php if (User::hasRole(['aut', 'admon', false])) { ?>
-        <?= Html::a('Crear un Recurso', ['create'], ['class' => 'btn btn-success']) ?>
-    <?php }?>
+        <?php if (User::hasRole(['aut', 'admon', false])) { ?>
+            <?= Html::a('Crear un Recurso', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php } ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
@@ -42,25 +42,28 @@ $this->params['breadcrumbs'][] = $this->title;
         }
     ]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <?php if (User::hasRole(['aut', 'admon', false])) { ?>
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-            'rec_id',
-            'rec_nombre:ntext',
-            'rec_resumen:ntext',
-            'rec_registro',
-            //'rec_descripcion:ntext',
-            'tipo',
-            'nivel',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'rec_id' => $model->rec_id]);
-                }
+                'rec_id',
+                'rec_nombre:ntext',
+                'rec_resumen:ntext',
+                'rec_registro',
+                //'rec_descripcion:ntext',
+                'tipo',
+                'nivel',
+                [
+                    'class' => ActionColumn::className(),
+                    'urlCreator' => function ($action, $model, $key, $index, $column) {
+                        return Url::toRoute([$action, 'rec_id' => $model->rec_id]);
+                    }
+                ],
             ],
-        ],
-    ]);  ?>
+        ]);  ?>
+    <?php } ?>
+
 </div>

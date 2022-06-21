@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use webvimark\modules\UserManagement\models\User;
 
 
 /* @var $this yii\web\View */
@@ -17,14 +18,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Actualizar', ['update', 'rec_id' => $model->rec_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Eliminar', ['delete', 'rec_id' => $model->rec_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?php if (User::hasRole(['admon', 'aut', false])) { ?>
+            <?= Html::a('Actualizar', ['update', 'rec_id' => $model->rec_id], ['class' => 'btn btn-primary']) ?>
+        <?php } ?>
+
+        <?php if (User::hasRole(['admon', false])) { ?>
+            <?= Html::a('Eliminar', ['delete', 'rec_id' => $model->rec_id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Are you sure you want to delete this item?',
+                    'method' => 'post',
+                ],
+            ]) ?>
+        <?php } ?>
     </p>
 
     <?= $this->render('_card', [

@@ -26,6 +26,9 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
+
+    public $freeAccess = true;
+
     public function behaviors()
     {
         return [

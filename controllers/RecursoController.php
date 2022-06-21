@@ -4,11 +4,14 @@ namespace app\controllers;
 
 use app\models\Palabra;
 use app\models\Recurso;
+use app\models\RecursoArchivo;
 use app\models\RecursoCarrera;
 use app\models\RecursoSearch;
+use DateTime;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use webvimark\modules\UserManagement\models\User;
 use yii\web\UploadedFile;
 
 /**
@@ -19,19 +22,15 @@ class RecursoController extends Controller
     /**
      * @inheritDoc
      */
+    public $freeAccess = true;
+
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
+        return [
+            'ghost-access' => [
+                'class' => 'webvimark\modules\UserManagement\components\GhostAccessControl',
+            ],
+        ];
     }
 
     /**
@@ -75,6 +74,10 @@ class RecursoController extends Controller
 
         if ($this->request->isPost) {
             $loaded = $model->load($this->request->post());
+            if (User::hasRole(['aut', false])){
+                $date = new DateTime();
+                $model->rec_registro = $date->format('d M Y H:i:s A');
+            }
             $model->archivos = UploadedFile::getInstances($model, 'archivos');
             $saved = $model->save();
             if ($loaded && $saved) {
@@ -83,8 +86,12 @@ class RecursoController extends Controller
                     $carreras->reccar_fkrecurso = $model->rec_id;
                     $carreras->reccar_fkcarrera = $carrera;
                 };
+                /*foreach ($model->archivos as $archivo) {
+                    $archivos = new RecursoArchivo();
+                    $archivos->recarc_fkrecurso = $model->rec_id;
+                    $archivos->recarc_fkarchivo = $archivo;
+                };*/
                 foreach ($model->palabrasc as $palabra) {
-                    $palabras = Palabra::find()->where(['pal_fkrecurso' => $model->rec_id, 'pal_nombre' => $palabra])->one();
                     $palabras = new Palabra();
                     $palabras->pal_fkrecurso = $model->rec_id;
                     $palabras->pal_nombre = $palabra;
@@ -96,6 +103,8 @@ class RecursoController extends Controller
             $model->loadDefaultValues();
         }
 
+        //echo         var_dump($model->getErrors());
+       // die;
         return $this->render('create', [
             'model' => $model,
         ]);

@@ -99,10 +99,10 @@ $config = [
             ],
 
             // set your display timezone
-            'displayTimezone' => 'Asia/Kolkata',
+            'displayTimezone' => 'America/Mexico_City',
 
             // set your timezone for date saved to db
-            'saveTimezone' => 'UTC',
+            'saveTimezone' => 'America/Mexico_City',
 
             // automatically use kartik\widgets for each of the above formats
             'autoWidget' => true,

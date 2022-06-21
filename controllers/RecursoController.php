@@ -76,7 +76,9 @@ class RecursoController extends Controller
             $loaded = $model->load($this->request->post());
             if (User::hasRole(['aut', false])){
                 $date = new DateTime();
-                $model->rec_registro = $date->format('d M Y H:i:s A');
+                $model->rec_registro = $date->format('Y-m-d H:i:s');
+                //var_dump($model->rec_registro);
+                //die;
             }
             $model->archivos = UploadedFile::getInstances($model, 'archivos');
             $saved = $model->save();
@@ -85,6 +87,7 @@ class RecursoController extends Controller
                     $carreras = new RecursoCarrera();
                     $carreras->reccar_fkrecurso = $model->rec_id;
                     $carreras->reccar_fkcarrera = $carrera;
+                    $carreras->save();
                 };
                 /*foreach ($model->archivos as $archivo) {
                     $archivos = new RecursoArchivo();
@@ -95,6 +98,7 @@ class RecursoController extends Controller
                     $palabras = new Palabra();
                     $palabras->pal_fkrecurso = $model->rec_id;
                     $palabras->pal_nombre = $palabra;
+                    $palabras->save();
                 }
 
                 return $this->redirect(['view', 'rec_id' => $model->rec_id]);

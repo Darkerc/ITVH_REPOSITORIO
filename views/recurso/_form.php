@@ -205,7 +205,7 @@ $carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
 
         <div class="row">
             <div class="col col-12 form-group">
-                <?/*
+                <?
                 $form->field($model, 'archivos[]')->widget(FileInput::classname(), [
                     'name' => 'archivos[]',
                     'language' => 'es',
@@ -215,7 +215,7 @@ $carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
                     'pluginOptions' => [
                         'showUpload' => false
                     ]
-                ]);*/
+                ]);
                 ?>
             </div>
         </div>

@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use webvimark\modules\UserManagement\models\User;
 use app\widgets\CardSearchPagination;
 
 /* @var $this yii\web\View */
@@ -18,7 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
+    <?php if (User::hasRole(['aut', 'admon', false])) { ?>
         <?= Html::a('Crear un Recurso', ['create'], ['class' => 'btn btn-success']) ?>
+    <?php }?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 

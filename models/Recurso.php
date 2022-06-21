@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "recurso".
@@ -22,6 +23,7 @@ use Yii;
  * @property RecursoTipo $recFkrecursotipo
  * @property RecursoArchivo[] $recursoArchivos
  * @property RecursoCarrera[] $recursoCarreras
+ * @property UploadedFile[] $archivos
  */
 class Recurso extends \yii\db\ActiveRecord
 {
@@ -73,9 +75,15 @@ class Recurso extends \yii\db\ActiveRecord
 
     public function upload()
     {
-        echo var_dump($this->archivos);
         if ($this->validate()) { 
             foreach ($this->archivos as $file) {
+                $arc_nombre = "";
+                $arc_extencion = $file->extension;
+                $arc_original = $file->baseName;
+                $arc_visitas = 0; # Poner por defecto en DB
+                $arc_descargas = 0; # Poner por defecto en DB
+                $arc_mimetype = $file->mime_content_type;
+                $arc_fecha = $file->mime_content_type;
                 // Hacer logica de guardado aqui
                 // $file->saveAs('uploads/' . $file->baseName . '.' . $file->extension);
             }
@@ -177,11 +185,6 @@ class Recurso extends \yii\db\ActiveRecord
         $palabras = array_map(fn ($palabra) => $palabra->pal_nombre, $this->palabras);
         $carr = join(" - ", $palabras);
         return !$carr ? 'Sin Palabras Clave' : $carr;
-        // $palabrasn = "";
-        // foreach ($this->palabras as $palabra) {
-        //     $palabrasn .= $palabra->pal_nombre . ', ';
-        // };
-        // return !$palabrasn ? 'Sin palabras' : $palabrasn;
     }
 
     public function getAutor()

@@ -85,6 +85,7 @@ class RecursoController extends Controller
                     $carreras = new RecursoCarrera();
                     $carreras->reccar_fkrecurso = $model->rec_id;
                     $carreras->reccar_fkcarrera = $carrera;
+                    $carreras->save();
                 };
                 /*foreach ($model->archivos as $archivo) {
                     $archivos = new RecursoArchivo();
@@ -95,6 +96,7 @@ class RecursoController extends Controller
                     $palabras = new Palabra();
                     $palabras->pal_fkrecurso = $model->rec_id;
                     $palabras->pal_nombre = $palabra;
+                    $palabras->save();
                 }
 
                 return $this->redirect(['view', 'rec_id' => $model->rec_id]);

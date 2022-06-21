@@ -30,6 +30,7 @@ class Recurso extends \yii\db\ActiveRecord
     public $recursoCarrera;
     public $palabrasc;
     public $archivos;
+    //public $autores;
     /**
      * {@inheritdoc}
      */
@@ -70,6 +71,7 @@ class Recurso extends \yii\db\ActiveRecord
             'recursoCarrera'    => 'Carreras',
             'palabrasc'         => 'Palabras Clave',
             'archivos'          => 'Archivos', 
+            //'autores'           => 'Autores'
         ];
     }
 

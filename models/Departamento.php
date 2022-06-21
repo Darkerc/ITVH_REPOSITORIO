@@ -53,14 +53,4 @@ class Departamento extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Autor::className(), ['aut_fkdepartamento' => 'dep_id']);
     }
-
-    /**
-     * Gets query for [[DepartamentoCarreras]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getDepartamentoCarreras()
-    {
-        return $this->hasMany(DepartamentoCarrera::className(), ['depcar_fkdepartamento' => 'dep_id']);
-    }
 }

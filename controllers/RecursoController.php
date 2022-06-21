@@ -75,10 +75,9 @@ class RecursoController extends Controller
         if ($this->request->isPost) {
             $loaded = $model->load($this->request->post());
             if (User::hasRole(['aut', false])){
+                // $date = DateTime::createFromFormat('Y-m-d H:i:s', 'now');
                 $date = new DateTime();
                 $model->rec_registro = $date->format('Y-m-d H:i:s');
-                //var_dump($model->rec_registro);
-                //die;
             }
             $model->archivos = UploadedFile::getInstances($model, 'archivos');
             $saved = $model->save();
@@ -100,6 +99,8 @@ class RecursoController extends Controller
                     $palabras->pal_nombre = $palabra;
                     $palabras->save();
                 }
+
+                $model->upload();
 
                 return $this->redirect(['view', 'rec_id' => $model->rec_id]);
             }

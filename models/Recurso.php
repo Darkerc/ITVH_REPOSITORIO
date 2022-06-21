@@ -75,13 +75,18 @@ class Recurso extends \yii\db\ActiveRecord
 
     public function upload()
     {
-        if ($this->validate()) { 
+        if ($this->validate()) {
+            
+            // echo var_dump($this->getErrors());
+            $depto1 = $this->recursoCarrera;
+            // $depto2 = $this->recursoCarreras->reccarFkcarrera;
+            echo ('<pre>'); var_dump($depto1);  echo ('</pre>');
+            // echo ('<pre>'); var_dump($depto2);  echo ('</pre>');
+            die;
             foreach ($this->archivos as $file) {
-                $arc_nombre = "";
+                $arc_nombre = $this->rec_registro;
                 $arc_extencion = $file->extension;
                 $arc_original = $file->baseName;
-                $arc_visitas = 0; # Poner por defecto en DB
-                $arc_descargas = 0; # Poner por defecto en DB
                 $arc_mimetype = $file->mime_content_type;
                 $arc_fecha = $file->mime_content_type;
                 // Hacer logica de guardado aqui

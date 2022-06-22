@@ -109,7 +109,7 @@ class RecursoController extends Controller
                     $palabras->save();
                 }
 
-                //$model->upload();
+                $model->upload();
                 return $this->redirect(['view', 'rec_id' => $model->rec_id]);
             }
         } else {

@@ -51,7 +51,9 @@ class Recurso extends \yii\db\ActiveRecord
             [['rec_fkrecursotipo', 'rec_fknivel'], 'integer'],
             [['rec_fknivel'], 'exist', 'skipOnError' => true, 'targetClass' => Nivel::className(), 'targetAttribute' => ['rec_fknivel' => 'niv_id']],
             [['rec_fkrecursotipo'], 'exist', 'skipOnError' => true, 'targetClass' => RecursoTipo::className(), 'targetAttribute' => ['rec_fkrecursotipo' => 'rectip_id']],
-            [['archivos'], 'file', 'skipOnEmpty' => false, 'maxFiles' => 4]
+            [['archivos'], 'file', 'skipOnEmpty' => false, 'maxFiles' => 4],
+            [['archivos'], 'file', 'extensions' => 'jpg, gif, png, pdf'],
+            [['archivos'], 'file', 'maxSize' => '50000'],
         ];
     }
 
@@ -70,7 +72,7 @@ class Recurso extends \yii\db\ActiveRecord
             'rec_fknivel'       => 'Nivel',
             'recursoCarrera'    => 'Carreras',
             'palabrasc'         => 'Palabras Clave',
-            'archivos'          => 'Archivos', 
+            'archivos'          => 'Archivos',
             //'autores'           => 'Autores'
         ];
     }

@@ -49,6 +49,7 @@ AppAsset::register($this);
             'options' => ['class' => 'navbar-nav'],
             'items' => [
                 ['label' => 'Inicio', 'url' => Yii::$app->homeUrl],
+                ['label' => 'Recursos', 'url' => '/recurso/index'],
 				Yii::$app->user->isSuperadmin ? ( [
                     'label' => 'Frontend routes',
                     'items' => [
@@ -66,7 +67,7 @@ AppAsset::register($this);
                 ]): '',
                 Yii::$app->user->isGuest ? (
                     //['label' => 'Login', 'url' => ['/site/login']]
-                    ['label' => 'Iniciar session', 'url' => ['/user-management/auth/login']]
+                    ['label' => 'Iniciar sesion', 'url' => ['/user-management/auth/login']]
                 ) : ('<li>'
                     . Html::beginForm(['/user-management/auth/logout'], 'post', ['class' => 'form-inline'])
                     . Html::submitButton(

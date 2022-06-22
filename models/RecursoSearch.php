@@ -13,6 +13,8 @@ use app\models\RecursoCarrera;
 
 class RecursoSearch extends Recurso
 {
+    public $palabrasc;
+    public $recursoCarrera;
     /**
      * {@inheritdoc}
      */
@@ -20,7 +22,7 @@ class RecursoSearch extends Recurso
     {
         return [
             [['rec_id', 'rec_fkrecursotipo', 'rec_fknivel'], 'integer'],
-            [['rec_nombre', 'rec_resumen', 'rec_registro', 'rec_descripcion'], 'safe'],
+            [['rec_nombre', 'rec_resumen', 'rec_registro', 'rec_descripcion', 'palabrasc', 'recursoCarrera'], 'safe'],
         ];
     }
 
@@ -43,6 +45,8 @@ class RecursoSearch extends Recurso
     public function search($params)
     {
         $query = Recurso::find();
+        $query->joinWith(['palabras']);
+        $query->joinWith(['recursoCarreras']);
 
         // add conditions that should always apply here
 
@@ -71,6 +75,8 @@ class RecursoSearch extends Recurso
 
         $query->andFilterWhere(['like', 'rec_nombre', $this->rec_nombre])
             ->andFilterWhere(['like', 'rec_resumen', $this->rec_resumen])
+            ->andFilterWhere(['like', 'pal_nombre', $this->palabrasc])
+            ->andFilterWhere(['like', 'reccar_fkcarrera', $this->recursoCarrera])
             ->andFilterWhere(['like', 'rec_descripcion', $this->rec_descripcion]);
 
         //$carrera->andFilterWhere(['recursoCarrera' => $this->reccar_fkcarrera]);

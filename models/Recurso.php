@@ -52,8 +52,8 @@ class Recurso extends \yii\db\ActiveRecord
             [['rec_fknivel'], 'exist', 'skipOnError' => true, 'targetClass' => Nivel::className(), 'targetAttribute' => ['rec_fknivel' => 'niv_id']],
             [['rec_fkrecursotipo'], 'exist', 'skipOnError' => true, 'targetClass' => RecursoTipo::className(), 'targetAttribute' => ['rec_fkrecursotipo' => 'rectip_id']],
             [['archivos'], 'file', 'skipOnEmpty' => false, 'maxFiles' => 4],
-            [['archivos'], 'file', 'extensions' => 'jpg, gif, png, pdf'],
-            [['archivos'], 'file', 'maxSize' => '50000'],
+            //[['archivos'], 'file', 'extensions' => 'jpg, gif, png, pdf'],
+            //[['archivos'], 'file', 'maxSize' => '500000000'],
         ];
     }
 
@@ -84,7 +84,7 @@ class Recurso extends \yii\db\ActiveRecord
             foreach ($this->archivos as $file) {
                 $data = [
                     'Archivo' => [
-                        'arc_nombre' => "{$year}-{$this->rec_nombre}.{$file->extension}",
+                        'arc_nombre' => "{$year}-{$this->rec_nombre}-{$this->rec_id}.{$file->extension}",
                         'arc_extension' => $file->extension,
                         'arc_original' => $file->baseName,
                         'arc_mimetype' => $file->type,

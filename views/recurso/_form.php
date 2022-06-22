@@ -85,7 +85,7 @@ $carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
             'data' => $carrera,
             'options' => ['placeholder' => 'Selecciona una carrera...', 'multiple' => true],
             'toggleAllSettings' => [
-                'selectLabel' => '',
+                'selectLabel' => '-Selecionar todo',
                 'unselectLabel' => 'Deseleccionar todo',
                 'selectOptions' => ['class' => 'text-success'],
                 'unselectOptions' => ['class' => 'text-danger'],
@@ -100,7 +100,7 @@ $carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
         <?= $form->field($model, 'palabrasc')->widget(Select2::classname(), [
             'options' => ['placeholder' => 'Ingrese las palabras clave...', 'multiple' => true],
             'toggleAllSettings' => [
-                'selectLabel' => '',
+                'selectLabel' => 'Seleccionar todo',
                 'unselectLabel' => 'Deseleccionar todo',
                 'selectOptions' => ['class' => 'text-success'],
                 'unselectOptions' => ['class' => 'text-danger'],
@@ -147,10 +147,27 @@ $carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
             ]
         ]); ?>
 
-        <?= $form->field($model, 'rec_nombre', $config)->widget(LabelInPlace::classname()); ?>
+        <?= $form->field($model, 'rec_nombre', $config)->widget(LabelInPlace::classname(), [
+            'label' => 'Titulo',
+            'encodeLabel' => false,
+            'pluginOptions' => [
+                'labelPosition' => 'down',
+                'labelArrowDown' => ' <i class="fas fa-chevron-down"></i>',
+                'labelArrowUp' => ' <i class="fas fa-chevron-up"></i>',
+                'labelArrowRight' => ' <i class="fas fa-chevron-right"></i>',
+            ]
+        ]); ?>
 
         <?= $form->field($model, 'rec_resumen', $config)->widget(LabelInPlace::classname(), [
-            'type' => LabelInPlace::TYPE_TEXTAREA
+            'type' => LabelInPlace::TYPE_TEXTAREA,
+            'label' => 'Resumen',
+            'encodeLabel' => false,
+            'pluginOptions' => [
+                'labelPosition' => 'down',
+                'labelArrowDown' => ' <i class="fas fa-chevron-down"></i>',
+                'labelArrowUp' => ' <i class="fas fa-chevron-up"></i>',
+                'labelArrowRight' => ' <i class="fas fa-chevron-right"></i>',
+            ]
         ]); ?>
 
         <div class="row">
@@ -176,7 +193,7 @@ $carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
             'data' => $carrera,
             'options' => ['placeholder' => 'Selecciona una carrera...', 'multiple' => true],
             'toggleAllSettings' => [
-                'selectLabel' => '',
+                'selectLabel' => 'Seleccionar todo',
                 'unselectLabel' => 'Deseleccionar todo',
                 'selectOptions' => ['class' => 'text-success'],
                 'unselectOptions' => ['class' => 'text-danger'],
@@ -191,7 +208,7 @@ $carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
         <?= $form->field($model, 'palabrasc')->widget(Select2::classname(), [
             'options' => ['placeholder' => 'Ingrese las palabras clave...', 'multiple' => true],
             'toggleAllSettings' => [
-                'selectLabel' => '',
+                'selectLabel' => 'Seleccionar todo',
                 'unselectLabel' => 'Deseleccionar todo',
                 'selectOptions' => ['class' => 'text-success'],
                 'unselectOptions' => ['class' => 'text-danger'],

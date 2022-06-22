@@ -17,7 +17,7 @@ FontAwesomeAsset::register($this);
 
 $config = ['template' => "{input}\n{error}\n{hint}"];
 $autores = ArrayHelper::map(Autor::find()->all(), 'aut_id', 'aut_nombre');
-$palabras = ArrayHelper::map(Palabra::find()->all(), 'pal_id', 'pal_nombre');
+$palabras = ArrayHelper::map(Palabra::find()->all(), 'pal_nombre', 'pal_nombre');
 $carreras = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
 $tipo = ArrayHelper::map(RecursoTipo::find()->all(), 'rectip_id', 'rectip_nombre');
 $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
@@ -43,7 +43,7 @@ $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
                 'data' => $autores,
                 'maintainOrder' => true,
                 'options' => [
-                    'placeholder' => 'Selecciona un autor ...', 
+                    'placeholder' => 'Selecciona un autor ...',
                     'multiple' => true
                 ],
                 'toggleAllSettings'   => [
@@ -61,25 +61,10 @@ $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
 
         <div class="col col-12 col-md-6">
             <div class="form-group">
-                <label class="control-label">Palabras clave</label>
-                <?= Select2::widget([
-                    'name' => 'Palabras Clave',
+                <?= $form->field($model, 'palabrasc')->widget(Select2::classname(), [
                     'data' => $palabras,
-                    'maintainOrder' => true,
-                    'options' => [
-                        'placeholder' => 'Selecciona las palabras clave ...',
-                        'multiple' => true
-                    ],
-                    'toggleAllSettings' => [
-                        'selectLabel' => 'Seleccionar todo',
-                        'unselectLabel' => 'Deseleccionar todo',
-                        'selectOptions' => ['class' => 'text-success'],
-                        'unselectOptions' => ['class' => 'text-danger'],
-                    ],
-                    'pluginOptions' => [
-                        'tags' => true,
-                        'maximumInputLength' => 10
-                    ],
+                    'options' => ['dir' => 'rtl', 'placeholder' => '... Selecciona un tipo'],
+                    'pluginOptions' => ['allowClear' => true],
                 ]); ?>
             </div>
         </div>
@@ -88,41 +73,28 @@ $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
             <div class="form-group">
                 <?= $form->field($model, 'recursoCarrera')->widget(Select2::classname(), [
                     'data' => $carreras,
-                    'options' => [
-                        'placeholder' => 'Selecciona una carrera...',
-                        'multiple' => true
-                    ],
-                    'toggleAllSettings' => [
-                        'selectLabel' => 'Seleccionar todo',
-                        'unselectLabel' => 'Deseleccionar todo',
-                        'selectOptions' => ['class' => 'text-success'],
-                        'unselectOptions' => ['class' => 'text-danger'],
-                    ],
-                    'pluginOptions' => [
-                        'tags' => true,
-                        'tokenSeparators' => [',', ' '],
-                        'maximumInputLength' => 10
-                    ],
-                ])->label('Carreras'); ?>
+                    'options' => ['dir' => 'rtl', 'placeholder' => '... Selecciona un tipo'],
+                    'pluginOptions' => ['allowClear' => true],
+                ]); ?>
             </div>
         </div>
 
         <div class="col col-12 col-md-6">
             <?= $form->field($model, 'rec_fkrecursotipo')->widget(Select2::classname(), [
                 'data' => $tipo,
-                'options' => [
-                    'placeholder' => 'Seleccione un tipo',
-                ],
-            ])->label('Tipo'); ?>
+                'name' => 'float_state_04',
+                'options' => ['dir' => 'rtl', 'placeholder' => '... Selecciona un tipo'],
+                'pluginOptions' => ['allowClear' => true],
+            ]); ?>
         </div>
 
         <div class="col col-12 col-md-6">
-        <?= $form->field($model, 'rec_fknivel')->widget(Select2::classname(), [
+            <?= $form->field($model, 'rec_fknivel')->widget(Select2::classname(), [
                 'data' => $nivel,
-                'options' => [
-                    'placeholder' => 'Seleccione un nivel',
-                ],
-            ])->label('Nivel'); ?>
+                'name' => 'float_state_04',
+                'options' => ['dir' => 'rtl', 'placeholder' => '... Selecciona un nivel'],
+                'pluginOptions' => ['allowClear' => true],
+            ]); ?>
         </div>
 
         <div class="col col-12">
@@ -131,7 +103,14 @@ $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
                     'addon' => ['prepend' => ['content' => '<i class="fas fa-calendar-alt"></i>']],
                     'options' => ['class' => 'drp-container mb-2']
                 ])->widget(DateRangePicker::classname(), [
-                    'useWithAddon' => true
+                    'name' => 'date_range_3',
+                    'convertFormat' => true,
+                    'pluginOptions' => [
+                        'timePicker' => true,
+                        'timePickerIncrement' => 15,
+                        'locale' => ['format' => 'Y-m-d h:i A']
+                    ],
+                    'language' => 'es'
                 ]); ?>
             </div>
         </div>

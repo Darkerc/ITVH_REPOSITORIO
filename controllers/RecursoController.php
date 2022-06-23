@@ -81,11 +81,12 @@ class RecursoController extends Controller
             // echo '</pre>';
             // die;
             $loaded = $model->load($this->request->post());
-            if (User::hasRole(['aut', false])){
+            if (User::hasRole(['aut', false])) {
                 // $date = DateTime::createFromFormat('Y-m-d H:i:s', 'now');
                 $date = new DateTime();
                 $model->rec_registro = $date->format('Y-m-d H:i:s');
             }
+            $model->rec_descripcion = 'Nuevo, se creo el ' . $model->rec_registro . '';
             $model->archivos = UploadedFile::getInstances($model, 'archivos');
             $saved = $model->save();
             if ($loaded && $saved) {
@@ -96,7 +97,7 @@ class RecursoController extends Controller
                     $carreras->save();
                 };
                 //echo ('<pre>'); var_dump($model->autor); echo ('</pre>');
-               /* foreach ($model->autorRecursos as $autor) {
+                /* foreach ($model->autorRecursos as $autor) {
                     $autores = new AutorRecurso();
                     $autores->autrec_fkautor = $autor;
                     $autores->autrec_fkrecurso = $model->rec_id;
@@ -117,7 +118,7 @@ class RecursoController extends Controller
         }
 
         //echo         var_dump($model->getErrors());
-       // die;
+        // die;
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -140,6 +141,8 @@ class RecursoController extends Controller
             // var_dump($model->recursoCarrera);
             // echo ('</pre>');
             // die;
+            
+            //$model->rec_descripcion = 'Actualizacion, se actualizo el ' . date('Y-m-d H:i:s') . '';
             foreach ($model->recursoCarrera as $carrera) {
                 $carreras = RecursoCarrera::find()->where(['reccar_fkrecurso' => $model->rec_id, 'reccar_fkcarrera' => $carrera])->one();
                 if (isset($carreras)) {

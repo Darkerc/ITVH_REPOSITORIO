@@ -2,6 +2,9 @@
 
 use app\widgets\CardListData;
 use yii\bootstrap4\Carousel;
+use yii\helpers\ArrayHelper;
+use kartik\select2\Select2;
+use app\models\Recurso;
 
 $this->title = 'ITVH Repositorio';
 ?>
@@ -14,6 +17,8 @@ $this->title = 'ITVH Repositorio';
     // echo
     // var_dump($items);
     // die;
+    $recurso = ArrayHelper::map(Recurso::find()->all(), 'rec_id', 'rec_nombre');
+
     ?>
 
     <?= Carousel::widget(['items' => $recursos]); ?>
@@ -34,12 +39,20 @@ $this->title = 'ITVH Repositorio';
                     <div class="card-body">
                         <p class="card-text">
                         <div class="input-group mb-3">
-                            <input placeholder="Repositorio..." type="text" class="form-control d-block" style="min-height: 100% !important;">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary  btn-sm" type="button">
-                                    <i class="material-icons" style="color: site/busqueda000 !important;">search</i>
-                                </button>
-                            </div>
+                            <button class="btn btn-outline-secondary  btn-sm" type="button">
+                                <i class="material-icons" style="color: site/busqueda000 !important;">search</i>
+                            </button>
+                            <?= Select2::widget([
+                                'name' => 'state_10',
+                                'data' => $recurso,
+                                'options' => [
+                                    'placeholder' => 'Seleccione los repositorios ...',
+                                ],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ]
+                            ]);
+                            ?>
                         </div>
                         </p>
                     </div>

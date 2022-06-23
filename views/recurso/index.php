@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
         }
     ]); ?>
 
-    <?php if (User::hasRole(['aut', 'admon', false])) { ?>
+    <?php if (User::hasRole(['admon', false])) { ?>
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,

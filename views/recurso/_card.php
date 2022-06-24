@@ -7,8 +7,10 @@
 
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
+use webvimark\modules\UserManagement\models\User;
+
 $archivos = new ArrayDataProvider([
-    'allModels' => array_map(fn($modelRA) => $modelRA->recarcFkarchivo ,$model->recursoArchivos),
+    'allModels' => array_map(fn ($modelRA) => $modelRA->recarcFkarchivo, $model->recursoArchivos),
 ]);
 ?>
 
@@ -103,31 +105,46 @@ $archivos = new ArrayDataProvider([
                             ?>
                         </td>
                     </tr>
+                    <?php if (User::hasRole(['admon', false])) { ?>
+                        <?php if (isset($model->rec_descripcion)) { ?>
+                            <tr class="tr_item">
+                                <td class="td_header">Cambios</td>
+                                <td class="td_value"><?= $model->rec_descripcion ?></td>
+                            </tr>
+                        <?php } else { ?>
+                            <tr class="tr_item">
+                                <td class="td_header">Cambios</td>
+                                <td class="td_value">
+                                    <h4>SIN CAMBIOS</h4>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    <?php } ?>
                 </table>
             </div>
             <div style="width: 100%;">
-            <?=
-            GridView::widget([
-                'dataProvider' => $archivos,
-                'options' => [
-                    'class' => 'success',
-                ],
-                'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
-                    'arc_nombre',
-                    'arc_extension',
-                    'arc_visitas',
-                    'arc_descargas'
-                    // More complex one.
-                    // [
-                    //     'class' => 'yii\grid\DataColumn', // can be omitted, as it is the default
-                    //     'value' => function ($data) {
-                    //         return $data->arc_nombre; // $data['name'] for array data, e.g. using SqlDataProvider.
-                    //     },
-                    // ],
-                ],
-            ]);
-            ?>
+                <?=
+                GridView::widget([
+                    'dataProvider' => $archivos,
+                    'options' => [
+                        'class' => 'success',
+                    ],
+                    'columns' => [
+                        ['class' => 'yii\grid\SerialColumn'],
+                        'arc_nombre',
+                        'arc_extension',
+                        'arc_visitas',
+                        'arc_descargas'
+                        // More complex one.
+                        // [
+                        //     'class' => 'yii\grid\DataColumn', // can be omitted, as it is the default
+                        //     'value' => function ($data) {
+                        //         return $data->arc_nombre; // $data['name'] for array data, e.g. using SqlDataProvider.
+                        //     },
+                        // ],
+                    ],
+                ]);
+                ?>
             </div>
         </div>
     </div>

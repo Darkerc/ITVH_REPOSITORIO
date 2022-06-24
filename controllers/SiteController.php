@@ -76,13 +76,13 @@ class SiteController extends Controller
         $recursos = array_map(function ($recurso) {
             return [
                 'content' => '<img src="images/blanco.jpg"/>',
-                'caption' => '<h4 class="textblack">' . $recurso->rec_nombre . ':</h4> 
+                'caption' => '<h4 class="textblacktitle">' . $recurso->rec_nombre . '</h4> 
                                 <p class="textblack">' . $recurso->rec_resumen . '</p>
                                 <a  href="/recurso/view?rec_id=' . $recurso->rec_id . '">
                                 <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2"> Ver repositorio </button>
                                 </a>'
             ];
-        }, Recurso::find()->orderby('RAND()')->limit(3)->all() );
+        }, Recurso::find()->orderby('RAND()')->limit(6)->all() );
 
         $carreras = array_map(function ($carrera) {
             return [

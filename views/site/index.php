@@ -17,7 +17,7 @@ $this->title = 'ITVH Repositorio';
     // echo
     // var_dump($items);
     // die;
-    $recurso = ArrayHelper::map(Recurso::find()->orderBy(['rec_id'=>SORT_ASC])->all(), 'rec_id', 'rec_nombre');
+    $recurso = ArrayHelper::map(Recurso::find()->orderBy(['rec_id' => SORT_ASC])->all(), 'rec_id', 'rec_nombre');
 
     ?>
 
@@ -39,14 +39,11 @@ $this->title = 'ITVH Repositorio';
                     <div class="card-body">
                         <p class="card-text">
                         <div class="input-group mb-3">
-                            <button class="btn btn-outline-secondary  btn-sm" type="button">
-                                <i class="material-icons" style="color: site/busqueda000 !important;">search</i>
-                            </button>
                             <?= Select2::widget([
                                 'name' => 'state_10',
                                 'data' => $recurso,
                                 'options' => [
-                                    'placeholder' => 'Seleccione los repositorios ...',
+                                    'placeholder' => 'Busque los repositorios ...',
                                 ],
                                 'pluginOptions' => [
                                     'allowClear' => true

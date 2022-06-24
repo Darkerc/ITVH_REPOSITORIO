@@ -86,7 +86,7 @@ class RecursoController extends Controller
                 $date = new DateTime();
                 $model->rec_registro = $date->format('Y-m-d H:i:s');
             }
-            $model->rec_descripcion = 'Nuevo, se creo el ' . $model->rec_registro . '';
+            $model->rec_descripcion = json_encode([date('Y-m-d H:i:s') => 'Se creo el recurso']);
             $model->archivos = UploadedFile::getInstances($model, 'archivos');
             $saved = $model->save();
             if ($loaded && $saved) {
@@ -142,11 +142,19 @@ class RecursoController extends Controller
             // echo ('</pre>');
             // die;
 
-            if (isset($model->rec_descripcion)) {
-                $model->rec_descripcion = 'Actualización, se el actualizo el: ' . date("") . '';
+            $var = json_decode($model->rec_descripcion);
+            if (!empty($var)) {
+                $model->rec_descripcion = json_encode([date('Y-m-d H:i:s') => 'Se actualizo el recurso']);
+                $model->save();
             } else {
-                $model->rec_descripcion = 'Actualización, se el actualizo el: ' . date("") . '';
+                $model->rec_descripcion = json_encode([date('Y-m-d H:i:s') => 'Se actualizo el recurso']);
+                $model->save();
             }
+
+            /*echo '<pre>';
+            var_dump($model->rec_descripcion);
+            echo '</pre>';
+            die;*/
 
             foreach ($model->recursoCarrera as $carrera) {
                 $carreras = RecursoCarrera::find()->where(['reccar_fkrecurso' => $model->rec_id, 'reccar_fkcarrera' => $carrera])->one();

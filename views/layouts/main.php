@@ -67,11 +67,11 @@ AppAsset::register($this);
                 ]): '',
                 Yii::$app->user->isGuest ? (
                     //['label' => 'Login', 'url' => ['/site/login']]
-                    ['label' => 'Iniciar sesion', 'url' => ['/user-management/auth/login']]
+                    ['label' => 'Iniciar sesión', 'url' => ['/user-management/auth/login']]
                 ) : ('<li>'
                     . Html::beginForm(['/user-management/auth/logout'], 'post', ['class' => 'form-inline'])
                     . Html::submitButton(
-                        'Cerrar session (' . Yii::$app->user->identity->username . ')',
+                        'Cerrar sesión (' . Yii::$app->user->identity->username . ')',
                         ['class' => 'btn btn-link logout']
                     )
                     . Html::endForm()

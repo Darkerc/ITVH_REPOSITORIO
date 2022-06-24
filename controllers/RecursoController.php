@@ -141,8 +141,13 @@ class RecursoController extends Controller
             // var_dump($model->recursoCarrera);
             // echo ('</pre>');
             // die;
-            
-            //$model->rec_descripcion = 'Actualizacion, se actualizo el ' . date('Y-m-d H:i:s') . '';
+
+            if (isset($model->rec_descripcion)) {
+                $model->rec_descripcion = 'Actualización, se el actualizo el: ' . date("") . '';
+            } else {
+                $model->rec_descripcion = 'Actualización, se el actualizo el: ' . date("") . '';
+            }
+
             foreach ($model->recursoCarrera as $carrera) {
                 $carreras = RecursoCarrera::find()->where(['reccar_fkrecurso' => $model->rec_id, 'reccar_fkcarrera' => $carrera])->one();
                 if (isset($carreras)) {

@@ -82,7 +82,7 @@ class SiteController extends Controller
                                 <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2"> Ver repositorio </button>
                                 </a>'
             ];
-        }, Recurso::find()->orderby('RAND()')->limit(6)->all() );
+        }, Recurso::find()->orderby('RAND()')->limit(6)->all());
 
         $carreras = array_map(function ($carrera) {
             return [
@@ -172,11 +172,6 @@ class SiteController extends Controller
     public function actionSearch()
     {
         return $this->render('search');
-    }
-
-    public function actionRecurso()
-    {
-        return $this->render('recurso');
     }
 
     public function actionBusqueda()

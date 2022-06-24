@@ -13,9 +13,13 @@ use Yii;
  *
  * @property Carrera $reccarFkcarrera
  * @property Recurso $reccarFkrecurso
+ * @property int|null $count
+ * @property string|null $carrer
  */
 class RecursoCarrera extends \yii\db\ActiveRecord
 {
+    public $count;
+    public $carrer;
     /**
      * {@inheritdoc}
      */
@@ -76,5 +80,20 @@ class RecursoCarrera extends \yii\db\ActiveRecord
     public function getRecurso()
     {
         return $this->reccarFkrecurso->rec_nombre;
+    }
+
+    public static function getCareersCount()
+    {
+        $data = RecursoCarrera::find()
+            ->select(['carrera.car_nombre AS carrer, count(recurso_carrera.reccar_fkcarrera) AS count'])
+            ->join('INNER JOIN', 'carrera', 'recurso_carrera.reccar_fkcarrera = carrera.car_id')
+            ->groupBy(['reccar_fkcarrera'])
+            ->orderBy([
+                'count' => SORT_DESC,
+            ])
+            ->limit(10)
+            ->all();
+
+        return $data;
     }
 }

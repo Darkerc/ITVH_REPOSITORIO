@@ -11,6 +11,7 @@ use app\models\ContactForm;
 use app\models\Nivel;
 use app\models\Palabra;
 use app\models\Recurso;
+use app\models\RecursoCarrera;
 use app\models\RecursoSearch;
 use app\models\RecursoTipo;
 
@@ -84,13 +85,13 @@ class SiteController extends Controller
             ];
         }, Recurso::find()->orderby('RAND()')->limit(6)->all());
 
-        $carreras = array_map(function ($carrera) {
+        $carreras = array_map(function (RecursoCarrera $rCarrera) {
             return [
                 'href'  => 'site/busqueda',
-                'label' => $carrera->car_nombre,
-                'chip'  => rand(1, 1000)
+                'label' => $rCarrera->carrer,
+                'chip'  => $rCarrera->count
             ];
-        }, Carrera::find()->orderby('RAND()')->limit(6)->all());
+        }, RecursoCarrera::getCareersCount());
 
         $palabras = array_map(function ($palabra) {
             return [

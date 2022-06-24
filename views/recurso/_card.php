@@ -4,6 +4,12 @@
 // var_dump($model);
 // die;
 /** @var yii\web\View $this */
+
+use yii\data\ArrayDataProvider;
+use yii\grid\GridView;
+$archivos = new ArrayDataProvider([
+    'allModels' => array_map(fn($modelRA) => $modelRA->recarcFkarchivo ,$model->recursoArchivos),
+]);
 ?>
 
 <div class="site-index">
@@ -24,7 +30,7 @@
                         <td class="td_value">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item list-group-item-action">
-                                <?= $model->autor ?>
+                                    <?= $model->autor ?>
                                 </li>
                             </ul>
                         </td>
@@ -33,21 +39,21 @@
                         <td class="td_header">Carreras</td>
                         <td class="td_value">
                             <?php
-                                if(count($model->recursoCarreras) > 0) {
+                            if (count($model->recursoCarreras) > 0) {
                             ?>
-                            <?php foreach($model->recursoCarreras as $rCarrera) { ?>
-                                <li class="list-group-item list-group-item-action">
-                                    <?= $rCarrera->carrera ?>
-                                </li>
-                            <?php } ?>
+                                <?php foreach ($model->recursoCarreras as $rCarrera) { ?>
+                                    <li class="list-group-item list-group-item-action">
+                                        <?= $rCarrera->carrera ?>
+                                    </li>
+                                <?php } ?>
                             <?php
-                                } else {
+                            } else {
                             ?>
                                 <li class="list-group-item list-group-item-action">
                                     Sin carreras
                                 </li>
                             <?php
-                                }
+                            }
                             ?>
                         </td>
                     </tr>
@@ -71,78 +77,57 @@
                         <td class="td_header">URL del recurso</td>
                         <td class="td_value">
                             <a href="<?= $model->currentUrl ?>">
-                               <?= $model->currentUrl ?>
+                                <?= $model->currentUrl ?>
                             </a>
                         </td>
                     </tr>
                     <tr class="tr_item">
                         <td class="td_header">Palabras Clave</td>
                         <td class="td_value">
-                        <?php
-                                if(count($model->palabras) > 0) {
-                            ?>
-                            <?php foreach($model->palabras as $rPalabra) { ?>
-                                <li class="list-group-item list-group-item-action">
-                                    <?= $rPalabra->pal_nombre ?>
-                                </li>
-                            <?php } ?>
                             <?php
-                                } else {
+                            if (count($model->palabras) > 0) {
+                            ?>
+                                <?php foreach ($model->palabras as $rPalabra) { ?>
+                                    <li class="list-group-item list-group-item-action">
+                                        <?= $rPalabra->pal_nombre ?>
+                                    </li>
+                                <?php } ?>
+                            <?php
+                            } else {
                             ?>
                                 <li class="list-group-item list-group-item-action">
                                     Sin Palabras Clave
                                 </li>
                             <?php
-                                }
+                            }
                             ?>
                         </td>
                     </tr>
                 </table>
             </div>
-            <div class="col-12 mt-3">
-                <div class="card">
-                    <h5 class="card-header bg-info">Archivos del recurso:</h5>
-                    <div class="card-body p-0">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Tamaño</th>
-                                    <th scope="col">Tipo</th>
-                                    <th scope="col">Visitas</th>
-                                    <th scope="col">Descargas</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                    <td>@fat</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                    <td>@twitter</td>
-                                    <td>@twitter</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <div style="width: 100%;">
+            <?=
+            GridView::widget([
+                'dataProvider' => $archivos,
+                'options' => [
+                    'class' => 'success',
+                ],
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    'arc_nombre',
+                    'arc_extension',
+                    'arc_visitas',
+                    'arc_descargas'
+                    // More complex one.
+                    // [
+                    //     'class' => 'yii\grid\DataColumn', // can be omitted, as it is the default
+                    //     'value' => function ($data) {
+                    //         return $data->arc_nombre; // $data['name'] for array data, e.g. using SqlDataProvider.
+                    //     },
+                    // ],
+                ],
+            ]);
+            ?>
             </div>
         </div>
     </div>

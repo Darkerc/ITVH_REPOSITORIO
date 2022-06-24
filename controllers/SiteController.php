@@ -2,13 +2,9 @@
 
 namespace app\controllers;
 
-use app\models\Autor;
 use Yii;
-use yii\filters\AccessControl;
-use webvimark\modules\UserManagement\components\GhostAccessControl;
 use yii\web\Controller;
 use yii\web\Response;
-use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\Carrera;
 use app\models\ContactForm;
@@ -17,9 +13,6 @@ use app\models\Palabra;
 use app\models\Recurso;
 use app\models\RecursoSearch;
 use app\models\RecursoTipo;
-use yii\helpers\Html;
-use yii\data\ActiveDataProvider;
-use yii\helpers\ArrayHelper;
 
 class SiteController extends Controller
 {
@@ -89,7 +82,7 @@ class SiteController extends Controller
                                 <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2"> Ver repositorio </button>
                                 </a>'
             ];
-        }, Recurso::find()->orderby('RAND()')->limit(3)->all());
+        }, Recurso::find()->orderby('RAND()')->limit(3)->all() );
 
         $carreras = array_map(function ($carrera) {
             return [

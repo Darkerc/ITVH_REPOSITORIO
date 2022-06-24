@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Query;
 use yii\web\UploadedFile;
 
 /**
@@ -30,6 +31,7 @@ class Recurso extends \yii\db\ActiveRecord
     public $recursoCarrera;
     public $palabrasc;
     public $archivos;
+    public $autores;
     //public $autores;
     /**
      * {@inheritdoc}
@@ -47,7 +49,7 @@ class Recurso extends \yii\db\ActiveRecord
         return [
             [['rec_nombre', 'rec_resumen', 'rec_registro', 'rec_fkrecursotipo', 'rec_fknivel', 'recursoCarrera', 'palabrasc'], 'required', 'message' => '{attribute} no puede estar vacio'],
             [['rec_nombre', 'rec_resumen', 'rec_descripcion'], 'string'],
-            [['rec_registro', 'recursoCarrera', 'palabrasc'], 'safe'],
+            [['rec_registro', 'recursoCarrera', 'palabrasc', 'autores'], 'safe'],
             [['rec_fkrecursotipo', 'rec_fknivel'], 'integer'],
             [['rec_fknivel'], 'exist', 'skipOnError' => true, 'targetClass' => Nivel::className(), 'targetAttribute' => ['rec_fknivel' => 'niv_id']],
             [['rec_fkrecursotipo'], 'exist', 'skipOnError' => true, 'targetClass' => RecursoTipo::className(), 'targetAttribute' => ['rec_fkrecursotipo' => 'rectip_id']],
@@ -73,7 +75,7 @@ class Recurso extends \yii\db\ActiveRecord
             'recursoCarrera'    => 'Carreras',
             'palabrasc'         => 'Palabras Clave',
             'archivos'          => 'Archivos',
-            //'autores'           => 'Autores'
+            'autores'           => 'Autores'
         ];
     }
 
@@ -108,6 +110,7 @@ class Recurso extends \yii\db\ActiveRecord
             return false;
         }
     }
+
 
     /**
      * Gets query for [[AutorRecursos]].
@@ -208,9 +211,21 @@ class Recurso extends \yii\db\ActiveRecord
         return 'Sin autores';
     }
 
+    public function getAutores()
+    {
+        return 'Sin autores';
+    }
+
     public function getCurrentUrl()
     {
         $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         return $actual_link;
+    }
+
+    public static function getCareersCount()
+    {
+        $data = [];
+        return $data;
+    
     }
 }

@@ -37,26 +37,16 @@ $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
         </div>
 
         <div class="col col-12 col-md-6">
-            <label class="control-label">Autores</label>
-            <?= Select2::widget([
-                'name' => 'Autores',
-                'data' => $autores,
-                'maintainOrder' => true,
-                'options' => [
-                    'placeholder' => 'Selecciona un autor ...',
-                    'multiple' => true
-                ],
-                'toggleAllSettings'   => [
-                    'selectLabel'     => 'Seleccionar todo',
-                    'unselectLabel'   => 'Deseleccionar todo',
-                    'selectOptions'   => ['class' => 'text-success'],
-                    'unselectOptions' => ['class' => 'text-danger'],
-                ],
-                'pluginOptions' => [
-                    'tags' => true,
-                    'maximumInputLength' => 10
-                ],
-            ]); ?>
+            <div class="form-group">
+                <?= $form->field($model, 'autores')->widget(Select2::classname(), [
+                    'data' => $autores,
+                    'options' => ['dir' => 'rtl', 'placeholder' => '... Seleccionar los autores'],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                        'multiple' => true
+                    ],
+                ]); ?>
+            </div>
         </div>
 
         <div class="col col-12 col-md-6">

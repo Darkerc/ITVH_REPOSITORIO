@@ -13,11 +13,11 @@ $this->title = 'ITVH Repositorio';
         <h4>Repositorio institucional del ITVH</h4>
     </div>
 
-    <?
+    <?php
     // echo
     // var_dump($items);
     // die;
-    $recurso = ArrayHelper::map(Recurso::find()->all(), 'rec_id', 'rec_nombre');
+    $recurso = ArrayHelper::map(Recurso::find()->orderBy(['rec_id'=>SORT_ASC])->all(), 'rec_id', 'rec_nombre');
 
     ?>
 
@@ -50,6 +50,13 @@ $this->title = 'ITVH Repositorio';
                                 ],
                                 'pluginOptions' => [
                                     'allowClear' => true
+                                ],
+                                'pluginEvents' => [
+                                    "change" => "function(data) { 
+                                        // const resName = data.target.options[data.target.selectedIndex].text
+                                        const resId = data.target.value
+                                        window.location.href = '/recurso/view?rec_id=' + resId;
+                                    }",
                                 ]
                             ]);
                             ?>

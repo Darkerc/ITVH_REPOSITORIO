@@ -7,8 +7,9 @@
 
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
+
 $archivos = new ArrayDataProvider([
-    'allModels' => array_map(fn($modelRA) => $modelRA->recarcFkarchivo ,$model->recursoArchivos),
+    'allModels' => array_map(fn ($modelRA) => $modelRA->recarcFkarchivo, $model->recursoArchivos),
 ]);
 ?>
 
@@ -106,28 +107,24 @@ $archivos = new ArrayDataProvider([
                 </table>
             </div>
             <div style="width: 100%;">
-            <?=
-            GridView::widget([
-                'dataProvider' => $archivos,
-                'options' => [
-                    'class' => 'success',
-                ],
-                'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
-                    'arc_nombre',
-                    'arc_extension',
-                    'arc_visitas',
-                    'arc_descargas'
-                    // More complex one.
-                    // [
-                    //     'class' => 'yii\grid\DataColumn', // can be omitted, as it is the default
-                    //     'value' => function ($data) {
-                    //         return $data->arc_nombre; // $data['name'] for array data, e.g. using SqlDataProvider.
-                    //     },
-                    // ],
-                ],
-            ]);
-            ?>
+                <?=
+                GridView::widget([
+                    'dataProvider' => $archivos,
+                    'options' => [
+                        'class' => 'success',
+                    ],
+                    'columns' => [
+                        ['class' => 'yii\grid\SerialColumn'],
+                        'arc_nombre',
+                        'arc_extension',
+                        'arc_visitas',
+                        'arc_descargas',
+                        [
+                            'header' => 'Archivos'
+                        ]
+                    ],
+                ]);
+                ?>
             </div>
         </div>
     </div>

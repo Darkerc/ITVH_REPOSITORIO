@@ -11,10 +11,12 @@ class CardListData extends Widget
     public $mode = 'DEFAULT'; # 'DEFAULT' |'OUTLINED' | 'TREE'
     public $list_style_type = 'disc';
     public $data = [];
+    public $dataResultMapper = null;
 
     public function init()
     {
         parent::init();
+        $this->data = array_map($this->dataResultMapper, $this->data);
         if ($this->mode != 'TREE') {
             $this->data = [
                 [

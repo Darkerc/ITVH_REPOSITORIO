@@ -134,21 +134,10 @@ $archivos = new ArrayDataProvider([
                         'arc_nombre',
                         'arc_extension',
                         'arc_visitas',
-<<<<<<< HEAD
                         'arc_descargas',
                         [
                             'header' => 'Archivos'
                         ]
-=======
-                        'arc_descargas'
-                        // More complex one.
-                        // [
-                        //     'class' => 'yii\grid\DataColumn', // can be omitted, as it is the default
-                        //     'value' => function ($data) {
-                        //         return $data->arc_nombre; // $data['name'] for array data, e.g. using SqlDataProvider.
-                        //     },
-                        // ],
->>>>>>> 5ea94f45906ff69bcb226ddbe85984d11829a0a7
                     ],
                 ]);
                 ?>

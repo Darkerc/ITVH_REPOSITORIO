@@ -6,14 +6,11 @@ use Yii;
 use yii\web\Controller;
 use yii\web\Response;
 use app\models\LoginForm;
-use app\models\Carrera;
 use app\models\ContactForm;
-use app\models\Nivel;
 use app\models\Palabra;
 use app\models\Recurso;
-use app\models\RecursoCarrera;
+use app\models\RecursoArchivo;
 use app\models\RecursoSearch;
-use app\models\RecursoTipo;
 
 class SiteController extends Controller
 {
@@ -74,7 +71,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $recursos = array_map(function ($recurso) {
+        $recursos = array_map(function (Recurso $recurso) {
             return [
                 'content' => '<img src="images/blanco.jpg"/>',
                 'caption' => '<h4 class="textblacktitle">' . $recurso->rec_nombre . '</h4> 
@@ -85,22 +82,14 @@ class SiteController extends Controller
             ];
         }, Recurso::find()->orderby('RAND()')->limit(6)->all() );
 
-        $carreras = array_map(function (RecursoCarrera $rCarrera) {
-            return [
-                'href'  => 'site/busqueda',
-                'label' => $rCarrera->carrer,
-                'chip'  => $rCarrera->count
-            ];
-        }, RecursoCarrera::getCareersCount());
-
-        $palabras = array_map(function ($palabra) {
+        $palabras = array_map(function (Palabra $palabra) {
             return [
                 'href'  => 'site/busqueda',
                 'label' => $palabra->pal_nombre,
             ];
         }, Palabra::find()->orderby('RAND()')->limit(4)->all());
 
-        return $this->render('index', compact('recursos', 'carreras', 'palabras'));
+        return $this->render('index', compact('recursos'));
     }
 
     /**

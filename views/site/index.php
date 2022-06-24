@@ -1,10 +1,13 @@
 <?php
 
+use app\models\Palabra;
 use app\widgets\CardListData;
 use yii\bootstrap4\Carousel;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 use app\models\Recurso;
+use app\models\RecursoArchivo;
+use app\models\RecursoCarrera;
 
 $this->title = 'ITVH Repositorio';
 ?>
@@ -30,7 +33,14 @@ $this->title = 'ITVH Repositorio';
                     'titulo' => 'Repositorio por carreras',
                     'descripcion' => 'Carreras disponibles del instituto tecnologico de villahermosa',
                     'mode' => 'OUTLINED',
-                    'data' => $carreras
+                    'data' => RecursoCarrera::getCareersCount(),
+                    'dataResultMapper' => function (RecursoCarrera $rCarrera) {
+                        return [
+                            'href'  => 'site/busqueda',
+                            'label' => $rCarrera->carrer,
+                            'chip'  => $rCarrera->count
+                        ];
+                    }
                 ]) ?>
             </div>
             <div class="py-2 col-12 col-lg-5">
@@ -50,7 +60,6 @@ $this->title = 'ITVH Repositorio';
                                 ],
                                 'pluginEvents' => [
                                     "change" => "function(data) { 
-                                        // const resName = data.target.options[data.target.selectedIndex].text
                                         const resId = data.target.value
                                         window.location.href = '/recurso/view?rec_id=' + resId;
                                     }",
@@ -62,79 +71,48 @@ $this->title = 'ITVH Repositorio';
                     </div>
                 </div>
                 <?= CardListData::widget([
-                    'titulo' => 'Repositorio por Listado',
-                    'mode' => 'DEFAULT',
-                    'list_style_type' => 'decimal',
-                    'data' => [
-                        [
-                            'href'  => 'site/busqueda',
-                            'label' => 'Autor',
-                        ],
-                        [
-                            'href'  => 'site/busqueda',
-                            'label' => 'Titulo',
-                        ],
-                        [
-                            'href'  => 'site/busqueda',
-                            'label' => 'Fecha de publicacion',
-                        ],
-                        [
-                            'href'  => 'site/busqueda',
-                            'label' => 'Palabras clave',
-                        ],
-                    ]
-                ])  ?>
+                    'titulo' => 'Repositorios mas vistos',
+                    'descripcion' => 'Repositorios con mayor indice de visitas',
+                    'mode' => 'OUTLINED',
+                    'data' => RecursoArchivo::getMostVisits(),
+                    'dataResultMapper' => function (RecursoArchivo $item) {
+                        return [
+                            'href'  => "/recurso/view?rec_id={$item->recarc_fkrecurso}",
+                            'label' => $item->recarcFkrecurso->rec_nombre,
+                            'chip'  => $item->visitas
+                        ];
+                    }
+                ]) ?>
+
+                <?= CardListData::widget([
+                    'titulo' => 'Repositorios mas descargados',
+                    'descripcion' => 'Repositorios con mayor indice de descargas',
+                    'mode' => 'OUTLINED',
+                    'data' => RecursoArchivo::getMostDownloaded(),
+                    'dataResultMapper' => function (RecursoArchivo $item) {
+                        return [
+                            'href'  => "/recurso/view?rec_id={$item->recarc_fkrecurso}",
+                            'label' => $item->recarcFkrecurso->rec_nombre,
+                            'chip'  => $item->descargas
+                        ];
+                    }
+                ]) ?>
+
                 <?= CardListData::widget([
                     'titulo' => 'Repositorio por Listado',
                     'mode' => 'TREE',
                     'data' => [
                         [
-                            'group' => 'Autores',
-                            'items' => [
-                                [
-                                    'href'  => 'site/busqueda',
-                                    'label' => 'Autor',
-                                ],
-                                [
-                                    'href'  => 'site/busqueda',
-                                    'label' => 'Titulo',
-                                ],
-                                [
-                                    'href'  => 'site/busqueda',
-                                    'label' => 'Fecha de publicacion',
-                                ],
-                                [
-                                    'href'  => 'site/busqueda',
-                                    'label' => 'Palabras clave',
-                                ],
-                            ],
-                        ],
-                        [
                             'group' => 'Palabras clave',
-                            'items' => $palabras,
-                        ],
-                        [
-                            'group' => 'Ultimas fechas',
-                            'items' => [
-                                [
-                                    'href'  => 'site/busqueda',
-                                    'label' => '2022',
-                                ],
-                                [
-                                    'href'  => 'site/busqueda',
-                                    'label' => '2021',
-                                ],
-                                [
-                                    'href'  => 'site/busqueda',
-                                    'label' => '2020',
-                                ],
-                                [
-                                    'href'  => 'site/busqueda',
-                                    'label' => '2019',
-                                ],
-                            ],
+                            'items' => Palabra::find()->orderby('RAND()')->limit(4)->all()
                         ]
-                    ]
+                    ],
+                    'dataResultMapper' => function ($payload) {
+                        return [
+                            'group' => $payload['group'],
+                            'items' => array_map(fn ($item) => ['href'  => 'site/busqueda', 'label' => $item->pal_nombre,], $payload['items']),
+                        ];
+                    },
                 ]) ?>
             </div>
         </div>

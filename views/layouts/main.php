@@ -49,6 +49,7 @@ AppAsset::register($this);
             'options' => ['class' => 'navbar-nav'],
             'items' => [
                 ['label' => 'Inicio', 'url' => Yii::$app->homeUrl],
+                ['label' => 'Busqueda', 'url' => '/site/busqueda'],
                 ['label' => 'Recursos', 'url' => '/recurso/index'],
 				Yii::$app->user->isSuperadmin ? ( [
                     'label' => 'Frontend routes',

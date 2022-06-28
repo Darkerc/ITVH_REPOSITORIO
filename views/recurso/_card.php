@@ -5,13 +5,13 @@
 // die;
 /** @var yii\web\View $this */
 
+use yii\helpers\Html;
+use yii\grid\GridView;
 use app\models\Archivo;
 use app\models\RecursoArchivo;
-use yii\grid\GridView;
 use yii\data\ArrayDataProvider;
-use webvimark\modules\UserManagement\models\User;
-
 use kartik\icons\FontAwesomeAsset;
+use webvimark\modules\UserManagement\models\User;
 
 FontAwesomeAsset::register($this);
 
@@ -144,13 +144,10 @@ $archivos = new ArrayDataProvider([
                         'arc_descargas',
                         [
                             'class' => 'yii\grid\ActionColumn',
-                            'template' => '{myButton}',
+                            'template' => '{myButton}', 
                             'buttons' => [
-                                'myButton' => function ($url, $archivo, $key) {     // render your custom button
-                                    // return Html::a('<i class="bi-zoom-in"></i>', [$archivo->getArchivoURL()], ['class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary']);
-                                    return <<<EOD
-  
-                                    EOD;
+                                'myButton' => function($url, $archivo, $key) {     // render your custom button
+                                    return Html::a('<i class="bi-zoom-in"></i>', [$archivo->getArchivoURL()], ['class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary']);
                                 }
                             ]
                             // 'value' => function (Archivo $archivo) {

@@ -5,9 +5,11 @@
 // die;
 /** @var yii\web\View $this */
 
-use yii\data\ArrayDataProvider;
+use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\data\ArrayDataProvider;
 use webvimark\modules\UserManagement\models\User;
+
 
 $archivos = new ArrayDataProvider([
     'allModels' => array_map(fn ($modelRA) => $modelRA->recarcFkarchivo, $model->recursoArchivos),
@@ -136,7 +138,9 @@ $archivos = new ArrayDataProvider([
                         'arc_visitas',
                         'arc_descargas',
                         [
-                            'header' => 'Archivos'
+                            //'value'  => ''. Html::a('Ver', ['/producto/view'], ['class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary']) .'',
+                            'label' => 'Hola',
+                            'attribute' => 'Hola'
                         ]
                     ],
                 ]);

@@ -2,6 +2,8 @@
 
 use app\models\Carrera;
 use app\models\Nivel;
+use app\models\Palabra;
+use app\models\Recurso;
 use app\models\RecursoArchivo;
 use app\models\RecursoTipo;
 use kartik\datecontrol\DateControl;
@@ -14,6 +16,8 @@ use kartik\select2\Select2;
 
 use kartik\file\FileInput;
 use kartik\icons\FontAwesomeAsset;
+use webvimark\modules\UserManagement\models\User;
+
 FontAwesomeAsset::register($this);
 
 /* @var $this yii\web\View */
@@ -23,7 +27,6 @@ FontAwesomeAsset::register($this);
 $config = ['template' => "{input}\n{error}\n{hint}"];
 $tipo = ArrayHelper::map(RecursoTipo::find()->all(), 'rectip_id', 'rectip_nombre');
 $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
-$carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
 
 $files = array_map(fn(RecursoArchivo $ra) => [
             'caption' => $ra->recarcFkarchivo->arc_nombre,
@@ -64,23 +67,26 @@ $files = array_map(fn(RecursoArchivo $ra) => [
         ]
     ]); ?>
 
-    <?= $form->field($model, 'rec_registro')->widget(DateControl::classname(), [
-        'type' => 'datetime',
-        'ajaxConversion' => true,
-        'autoWidget' => true,
-        'widgetClass' => '',
-        'displayFormat' => 'dd-MM-yyyy HH:mm:ss A',
-        'saveFormat' => 'php:Y-m-d H:i:s',
-        'saveTimezone' => 'America/New_York',
-        'displayTimezone' => 'America/New_York',
-        'widgetOptions' => [
-            'pluginOptions' => [
-                'autoclose' => true,
-                'format' => 'dd-MM-yyyy HH:mm:ss A'
-            ]
-        ],
-        'language' => 'es'
-    ]); ?>
+    <?php if (User::hasRole(['admon', false])) { ?>
+        <?= $form->field($model, 'rec_registro')->widget(DateControl::classname(), [
+            'type' => 'datetime',
+            'ajaxConversion' => true,
+            'autoWidget' => true,
+            'widgetClass' => '',
+            'displayFormat' => 'dd-MM-yyyy HH:mm:ss A',
+            'saveFormat' => 'php:Y-m-d H:i:s',
+            'saveTimezone' => 'America/New_York',
+            'displayTimezone' => 'America/New_York',
+            'widgetOptions' => [
+                'pluginOptions' => [
+                    'autoclose' => true,
+                    'format' => 'dd-MM-yyyy HH:mm:ss A'
+                ]
+            ],
+            'language' => 'es'
+        ]); ?>
+    <?php } ?>
+
 
 
     <div class="row">
@@ -103,8 +109,8 @@ $files = array_map(fn(RecursoArchivo $ra) => [
     </div>
 
     <?= $form->field($model, 'recursoCarrera')->widget(Select2::classname(), [
-        'data' => $carrera,
-        'options' => ['placeholder' => 'Selecciona una carrera...', 'multiple' => true],
+        'data' => Carrera::map(),
+        'options' => ['placeholder' => 'Selecciona una carrera...', 'multiple' => true, 'value' => $model->CarreraId,],
         'toggleAllSettings' => [
             'selectLabel' => '-Selecionar todo',
             'unselectLabel' => 'Deseleccionar todo',
@@ -119,7 +125,8 @@ $files = array_map(fn(RecursoArchivo $ra) => [
     ])->label('Carreras'); ?>
 
     <?= $form->field($model, 'palabrasc')->widget(Select2::classname(), [
-        'options' => ['placeholder' => 'Ingrese las palabras clave...', 'multiple' => true],
+        'data' => Palabra::map($model->PalabraId),    
+        'options' => ['placeholder' => 'Ingrese las palabras clave...', 'multiple' => true, 'value' => $model->PalabraId,],
         'toggleAllSettings' => [
             'selectLabel' => 'Seleccionar todo',
             'unselectLabel' => 'Deseleccionar todo',
@@ -143,9 +150,9 @@ $files = array_map(fn(RecursoArchivo $ra) => [
                     'multiple' => true
                 ],
                 'pluginOptions' => [
-                    'initialPreview' => array_map(fn($f) => $f['downloadUrl'], $files),
+                    'initialPreview' => array_map(fn ($f) => $f['downloadUrl'], $files),
                     'showUpload' => false,
-                    'initialPreviewAsData'=>true,
+                    'initialPreviewAsData' => true,
                     'initialPreviewConfig' => $files
                 ]
             ]);

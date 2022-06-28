@@ -32,9 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
         "dataProviderResultsMapper" => function ($model) {
             return [
                 "title" => $model['rec_nombre'],
+                "titleChip" => $model['tipo'],
                 "description" => $model['rec_resumen'],
                 "headerRight" => "Publicado en: " . date_format(new DateTime($model['rec_registro']), 'd/m/Y'),
-                "type" => $model['tipo'],
                 "footerRight" => $model['carrera'],
                 "footerLeft" => $model['autor'],
                 "href" => '/recurso/view?rec_id=' . $model->rec_id . ''

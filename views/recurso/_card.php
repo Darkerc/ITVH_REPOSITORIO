@@ -9,6 +9,7 @@ use app\models\Archivo;
 use app\models\RecursoArchivo;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
+use yii\data\ArrayDataProvider;
 use webvimark\modules\UserManagement\models\User;
 
 use kartik\icons\FontAwesomeAsset;
@@ -142,7 +143,6 @@ $archivos = new ArrayDataProvider([
                         'arc_visitas',
                         'arc_descargas',
                         [
-                            'class' => 'yii\grid\ActionColumn',
                             'template' => '{myButton}', 
                             'buttons' => [
                                 'myButton' => function($url, $archivo, $key) {     // render your custom button
@@ -156,11 +156,6 @@ $archivos = new ArrayDataProvider([
                             //     return Html::a('Ver', [$archivo->getArchivoURL()], ['class' => 'btn']);
                             //  }
                         ]
-                    ],
-                ]);
-                ?>
-            </div>
-        </div>
     </div>
 </div>
 

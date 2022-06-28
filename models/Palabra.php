@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "palabra".
@@ -70,5 +71,9 @@ class Palabra extends \yii\db\ActiveRecord
             ->all();
 
         return $data;
+    }
+
+    public static function map($ids){
+        return ArrayHelper::map(Palabra::find()->where(['in', 'pal_id', $ids])->all(), 'pal_id', 'pal_nombre');
     }
 }

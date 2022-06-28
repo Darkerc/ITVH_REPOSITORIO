@@ -3,7 +3,6 @@
 use app\models\Carrera;
 use app\models\Nivel;
 use app\models\Palabra;
-use app\models\Recurso;
 use app\models\RecursoArchivo;
 use app\models\RecursoTipo;
 use kartik\datecontrol\DateControl;

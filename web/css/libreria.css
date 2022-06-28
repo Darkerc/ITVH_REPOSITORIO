@@ -45,3 +45,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+.bi-zoom-in {
+    background-image: url(../images/Flechaizquierda.png);
+}

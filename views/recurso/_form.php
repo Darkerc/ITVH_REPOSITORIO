@@ -10,11 +10,10 @@ use kartik\label\LabelInPlace;
 use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 // on your view layout file
-use kartik\icons\FontAwesomeAsset;
 use kartik\select2\Select2;
-use kartik\file\FileInput;
-use yii\helpers\Url;
 
+use kartik\file\FileInput;
+use kartik\icons\FontAwesomeAsset;
 FontAwesomeAsset::register($this);
 
 /* @var $this yii\web\View */
@@ -28,7 +27,7 @@ $carrera = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
 
 $files = array_map(fn(RecursoArchivo $ra) => [
             'caption' => $ra->recarcFkarchivo->arc_nombre,
-            'downloadUrl' => Url::home(true) . 'files/' . $ra->recarcFkarchivo->arc_nombre,
+            'downloadUrl' => $ra->recarcFkarchivo->getArchivoURL(),
             'type' => $ra->recarcFkarchivo->getKartikFileType()
         ], $model->recursoArchivos)
 ?>

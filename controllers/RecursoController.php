@@ -60,9 +60,9 @@ class RecursoController extends Controller
      */
     public function actionView($rec_id)
     {
-
+        $model = $this->findModel($rec_id);
         return $this->render('view', [
-            'model' => $this->findModel($rec_id),
+            'model' => $model,
         ]);
     }
 
@@ -135,13 +135,11 @@ class RecursoController extends Controller
     {
         $model = $this->findModel($rec_id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            // echo ('<pre>');
-            // var_dump($this->request->post());
-            // var_dump($model->recursoCarrera);
-            // echo ('</pre>');
-            // die;
+        $loaded = $model->load($this->request->post());
+        // $model->archivos = UploadedFile::getInstances($model, 'archivos');
+        $saved = $model->save();
 
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             $var = json_decode($model->rec_descripcion);
             if (!empty($var)) {
                 $model->rec_descripcion = json_encode([date('Y-m-d H:i:s') => 'Se actualizo el recurso']);
@@ -150,11 +148,6 @@ class RecursoController extends Controller
                 $model->rec_descripcion = json_encode([date('Y-m-d H:i:s') => 'Se actualizo el recurso']);
                 $model->save();
             }
-
-            /*echo '<pre>';
-            var_dump($model->rec_descripcion);
-            echo '</pre>';
-            die;*/
 
             foreach ($model->recursoCarrera as $carrera) {
                 $carreras = RecursoCarrera::find()->where(['reccar_fkrecurso' => $model->rec_id, 'reccar_fkcarrera' => $carrera])->one();
@@ -168,11 +161,7 @@ class RecursoController extends Controller
                     $carreras->save();
                 }
             }
-            // echo ('<pre>');
-            // var_dump($this->request->post());
-            // var_dump($model->palabras);
-            // echo ('</pre>');
-            // die;
+
             foreach ($model->palabrasc as $palabra) {
                 $palabras = Palabra::find()->where(['pal_fkrecurso' => $model->rec_id, 'pal_nombre' => $palabra])->one();
                 if (isset($palabras)) {

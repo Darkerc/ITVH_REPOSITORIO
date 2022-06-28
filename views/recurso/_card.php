@@ -5,12 +5,17 @@
 // die;
 /** @var yii\web\View $this */
 
+use app\models\Archivo;
+use app\models\RecursoArchivo;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use webvimark\modules\UserManagement\models\User;
 
+use kartik\icons\FontAwesomeAsset;
+FontAwesomeAsset::register($this);
+
 $archivos = new ArrayDataProvider([
-    'allModels' => array_map(fn ($modelRA) => $modelRA->recarcFkarchivo, $model->recursoArchivos),
+    'allModels' => array_map(fn (RecursoArchivo $modelRA) => $modelRA->recarcFkarchivo, $model->recursoArchivos),
 ]);
 ?>
 
@@ -122,6 +127,7 @@ $archivos = new ArrayDataProvider([
                     <?php } ?>
                 </table>
             </div>
+            
             <div style="width: 100%;">
                 <?=
                 GridView::widget([
@@ -136,7 +142,19 @@ $archivos = new ArrayDataProvider([
                         'arc_visitas',
                         'arc_descargas',
                         [
-                            'header' => 'Archivos'
+                            'class' => 'yii\grid\ActionColumn',
+                            'template' => '{myButton}', 
+                            'buttons' => [
+                                'myButton' => function($url, $archivo, $key) {     // render your custom button
+                                    // return Html::a('<i class="bi-zoom-in"></i>', [$archivo->getArchivoURL()], ['class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary']);
+                                    return <<<EOD
+  
+                                    EOD;
+                                }
+                            ]
+                            // 'value' => function (Archivo $archivo) {
+                            //     return Html::a('Ver', [$archivo->getArchivoURL()], ['class' => 'btn']);
+                            //  }
                         ]
                     ],
                 ]);
@@ -145,3 +163,4 @@ $archivos = new ArrayDataProvider([
         </div>
     </div>
 </div>
+

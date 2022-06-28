@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "archivo".
@@ -65,6 +66,10 @@ class Archivo extends \yii\db\ActiveRecord
     public function getRecursoArchivos()
     {
         return $this->hasMany(RecursoArchivo::className(), ['recarc_fkarchivo' => 'arc_id']);
+    }
+
+    public function getArchivoURL() {
+        return Url::home(true) . 'files/' . $this->arc_nombre;
     }
 
     public function getKartikFileType() {

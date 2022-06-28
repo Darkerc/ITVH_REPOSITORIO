@@ -11,16 +11,10 @@ use kartik\daterange\DateRangePicker;
 use kartik\form\ActiveForm;
 use kartik\icons\FontAwesomeAsset;
 use kartik\label\LabelInPlace;
-use yii\helpers\ArrayHelper;
 
 FontAwesomeAsset::register($this);
 
 $config = ['template' => "{input}\n{error}\n{hint}"];
-$autores = ArrayHelper::map(Autor::find()->all(), 'aut_id', 'aut_nombre');
-$palabras = ArrayHelper::map(Palabra::getPalabrasCounted(), 'pal_nombre', 'pal_nombre');
-$carreras = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
-$tipo = ArrayHelper::map(RecursoTipo::find()->all(), 'rectip_id', 'rectip_nombre');
-$nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
 ?>
 
 <div>
@@ -39,7 +33,7 @@ $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
         <div class="col col-12 col-md-6">
             <div class="form-group">
                 <?= $form->field($model, 'autores')->widget(Select2::classname(), [
-                    'data' => $autores,
+                    'data' => Autor::map(),
                     'options' => ['dir' => 'rtl', 'placeholder' => '... Seleccionar los autores'],
                     'pluginOptions' => [
                         'allowClear' => true,
@@ -52,7 +46,7 @@ $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
         <div class="col col-12 col-md-6">
             <div class="form-group">
                 <?= $form->field($model, 'palabrasc')->widget(Select2::classname(), [
-                    'data' => $palabras,
+                    'data' => Palabra::mapcount(),
                     'options' => ['dir' => 'rtl', 'placeholder' => '... Selecciona un tipo'],
                     'pluginOptions' => [
                         'allowClear' => true,
@@ -64,7 +58,7 @@ $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
         <div class="col col-12">
             <div class="form-group">
                 <?= $form->field($model, 'recursoCarrera')->widget(Select2::classname(), [
-                    'data' => $carreras,
+                    'data' => Carrera::map(),
                     'options' => ['dir' => 'rtl', 'placeholder' => '... Selecciona un tipo'],
                     'pluginOptions' => ['allowClear' => true],
                 ]); ?>
@@ -73,7 +67,7 @@ $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
 
         <div class="col col-12 col-md-6">
             <?= $form->field($model, 'rec_fkrecursotipo')->widget(Select2::classname(), [
-                'data' => $tipo,
+                'data' => RecursoTipo::map(),
                 'name' => 'float_state_04',
                 'options' => ['dir' => 'rtl', 'placeholder' => '... Selecciona un tipo'],
                 'pluginOptions' => ['allowClear' => true],
@@ -82,7 +76,7 @@ $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
 
         <div class="col col-12 col-md-6">
             <?= $form->field($model, 'rec_fknivel')->widget(Select2::classname(), [
-                'data' => $nivel,
+                'data' => Nivel::map(),
                 'name' => 'float_state_04',
                 'options' => ['dir' => 'rtl', 'placeholder' => '... Selecciona un nivel'],
                 'pluginOptions' => ['allowClear' => true],

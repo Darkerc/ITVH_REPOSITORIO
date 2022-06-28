@@ -24,8 +24,6 @@ FontAwesomeAsset::register($this);
 /* @var $form yii\widgets\ActiveForm */
 
 $config = ['template' => "{input}\n{error}\n{hint}"];
-$tipo = ArrayHelper::map(RecursoTipo::find()->all(), 'rectip_id', 'rectip_nombre');
-$nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
 
 $files = array_map(fn(RecursoArchivo $ra) => [
             'caption' => $ra->recarcFkarchivo->arc_nombre,
@@ -91,7 +89,7 @@ $files = array_map(fn(RecursoArchivo $ra) => [
     <div class="row">
         <div class="col col-12 col-md-6 form-group">
             <?= $form->field($model, 'rec_fkrecursotipo')->widget(Select2::classname(), [
-                'data' => $tipo,
+                'data' => RecursoTipo::map(),
                 'options' => [
                     'placeholder' => 'Seleccione un tipo',
                 ],
@@ -99,7 +97,7 @@ $files = array_map(fn(RecursoArchivo $ra) => [
         </div>
         <div class="col col-12 col-md-6 form-group">
             <?= $form->field($model, 'rec_fknivel')->widget(Select2::classname(), [
-                'data' => $nivel,
+                'data' => Nivel::map(),
                 'options' => [
                     'placeholder' => 'Seleccione un nivel',
                 ],

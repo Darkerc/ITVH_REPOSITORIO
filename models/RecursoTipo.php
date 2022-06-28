@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "recurso_tipo".
@@ -51,5 +52,9 @@ class RecursoTipo extends \yii\db\ActiveRecord
     public function getRecursos()
     {
         return $this->hasMany(Recurso::className(), ['rec_fkrecursotipo' => 'rectip_id']);
+    }
+
+    public static function map(){
+        return ArrayHelper::map(RecursoTipo::find()->all(), 'rectip_id', 'rectip_nombre');
     }
 }

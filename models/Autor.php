@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "autor".
@@ -116,5 +117,9 @@ class Autor extends \yii\db\ActiveRecord
     public function getAutorRecursos()
     {
         return $this->hasMany(AutorRecurso::className(), ['autrec_fkautor' => 'aut_id']);
+    }
+
+    public static function map(){
+        return ArrayHelper::map(Autor::find()->all(), 'aut_id', 'aut_nombre');
     }
 }

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "nivel".
@@ -51,5 +52,9 @@ class Nivel extends \yii\db\ActiveRecord
     public function getRecursos()
     {
         return $this->hasMany(Recurso::className(), ['rec_fknivel' => 'niv_id']);
+    }
+    
+    public static function map(){
+        return ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
     }
 }

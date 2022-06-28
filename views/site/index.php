@@ -110,7 +110,7 @@ $this->title = 'ITVH Repositorio';
                     'dataResultMapper' => function ($payload) {
                         return [
                             'group' => $payload['group'],
-                            'items' => array_map(fn ($item) => ['href'  => 'site/busqueda', 'label' => $item->pal_nombre,], $payload['items']),
+                            'items' => array_map(fn ($item) => ['href'  => 'site/busqueda', 'label' => $item->pal_nombre], $payload['items']),
                         ];
                     },
                 ]) ?>

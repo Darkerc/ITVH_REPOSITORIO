@@ -66,4 +66,16 @@ class Archivo extends \yii\db\ActiveRecord
     {
         return $this->hasMany(RecursoArchivo::className(), ['recarc_fkarchivo' => 'arc_id']);
     }
+
+    public function getKartikFileType() {
+        switch ($this->arc_extension) {
+            case 'jpg':
+            case 'png':
+            case 'jpeg':
+            case 'gif':
+                return 'image';
+            default:
+                return $this->arc_extension;
+        }
+    }
 }

@@ -10,11 +10,13 @@ use Yii;
  * @property int $pal_id
  * @property string|null $pal_nombre
  * @property int|null $pal_fkrecurso
+ * @property int|null $count
  *
  * @property Recurso $palFkrecurso
  */
 class Palabra extends \yii\db\ActiveRecord
 {
+    public $count;
     /**
      * {@inheritdoc}
      */
@@ -55,5 +57,18 @@ class Palabra extends \yii\db\ActiveRecord
     public function getPalFkrecurso()
     {
         return $this->hasOne(Recurso::className(), ['rec_id' => 'pal_fkrecurso']);
+    }
+
+    public static function getPalabrasCounted()
+    {
+        $data = Palabra::find()
+            ->select(['COUNT(palabra.pal_id) AS count, palabra.pal_nombre'])
+            ->groupBy(['pal_nombre'])
+            ->orderBy([
+                'count' => SORT_DESC,
+            ])
+            ->all();
+
+        return $data;
     }
 }

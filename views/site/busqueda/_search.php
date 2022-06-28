@@ -17,7 +17,7 @@ FontAwesomeAsset::register($this);
 
 $config = ['template' => "{input}\n{error}\n{hint}"];
 $autores = ArrayHelper::map(Autor::find()->all(), 'aut_id', 'aut_nombre');
-$palabras = ArrayHelper::map(Palabra::find()->all(), 'pal_nombre', 'pal_nombre');
+$palabras = ArrayHelper::map(Palabra::getPalabrasCounted(), 'pal_nombre', 'pal_nombre');
 $carreras = ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
 $tipo = ArrayHelper::map(RecursoTipo::find()->all(), 'rectip_id', 'rectip_nombre');
 $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
@@ -54,7 +54,9 @@ $nivel = ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');
                 <?= $form->field($model, 'palabrasc')->widget(Select2::classname(), [
                     'data' => $palabras,
                     'options' => ['dir' => 'rtl', 'placeholder' => '... Selecciona un tipo'],
-                    'pluginOptions' => ['allowClear' => true],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                    ],
                 ]); ?>
             </div>
         </div>

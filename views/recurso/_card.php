@@ -113,36 +113,6 @@ $archivos = new ArrayDataProvider([
                             ?>
                         </td>
                     </tr>
-                    <tr class="tr_item">
-                        <td class="td_value">
-                            <?php Modal::begin([
-                                'title' => 'Hello world',
-                                'toggleButton' => ['label' => 'click me'],
-                            ]);
-
-                            echo GridView::widget([
-                                'dataProvider' => $archivos,
-                                'filterModel' => $searchModel,
-                                'columns' => [
-                                    'arc_nombre',
-                                    'arc_extension',
-                                    'arc_visitas',
-                                    'arc_descargas',
-                                ],
-                                'toolbar' => [
-                                    '{export}',
-                                    '{toggleData}'
-                                ]
-                            ]);
-                                //$this->render('update', [
-                                //'model' => $model,
-                                //]);
-                            ;
-
-                            Modal::end();
-                            ?>
-                        </td>
-                    </tr>
                     <?php if (User::hasRole(['admon', false])) { ?>
                         <?php if (isset($model->rec_descripcion)) { ?>
                             <tr class="tr_item">

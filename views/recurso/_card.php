@@ -8,7 +8,6 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use app\models\Archivo;
-use yii\bootstrap4\Modal;
 use app\models\RecursoArchivo;
 use yii\data\ArrayDataProvider;
 use kartik\icons\FontAwesomeAsset;
@@ -161,8 +160,8 @@ $archivos = new ArrayDataProvider([
                             // 'value' => function (Archivo $archivo) {
                             //     return Html::a('Ver', [$archivo->getArchivoURL()], ['class' => 'btn']);
                             //  }
+                            ]
                         ]
-                    ]
                 ]);
                 ?>
             </div>

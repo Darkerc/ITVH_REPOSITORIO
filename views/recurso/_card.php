@@ -8,7 +8,6 @@
 use yii\helpers\Html;
 use app\models\Archivo;
 use kartik\grid\GridView;
-use yii\bootstrap4\Modal;
 use app\models\RecursoArchivo;
 use yii\data\ArrayDataProvider;
 use kartik\icons\FontAwesomeAsset;
@@ -131,18 +130,35 @@ $archivos = new ArrayDataProvider([
                 </table>
             </div>
 
-            <?php Modal::begin([
-                'title' => '<h2>Hello world</h2>',
-                'toggleButton' => ['label' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
-                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-              </svg>'],
-                'bodyOptions' => ['class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary']
-            ]);
+            <?php
 
-            echo 'Say hello...';
+                // $im = new Imagick();
 
-            Modal::end();
+                // $im->setResolution(100,100);
+                // $im->readimage('/home/darkerc/Escritorio/repositorio/web/files/test.pdf[0]'); 
+                // $im->setImageFormat('jpg');    
+                // $im->writeImage('thumb.jpg');
+                // echo '<img src="data:image/jpg;base64,'.base64_encode($im->getImageBlob()).'" alt="" />';
+                // $im->clear(); 
+                // $im->destroy();
+
+                $blobs = $model->recursoArchivos[0]->recarcFkarchivo->getBlobFiles();
+                for ($i=0; $i < count($blobs); $i++) { 
+                    echo '<img src="data:image/jpg;base64,'.$blobs[$i].'" alt="" />';
+                }
+
+                // $image = file_get_contents('/home/darkerc/Escritorio/repositorio/web/files/test.pdf');
+                // echo '<pre>';
+                // echo var_dump($image);
+                // echo '</pre>';
+
+                // $imagick = new Imagick();
+                // $imagick->readImage($image);
+                // $imagick->setResolution(150, 150);
+                // $imagick->destroy();
+
+                // $imagick->read('http://localhost:8080/files/2022-Recurso%20con%20archivos-1141.pdf');
+                // $imagick->writeImages('myimage.jpg', false);
             ?>
 
             <div style="width: 100%;">
@@ -160,7 +176,8 @@ $archivos = new ArrayDataProvider([
                             'template' => '{myButtonview}{myButton}',
                             'buttons' => [
                                 'myButton' => function ($url, $archivo, $key) {     // render your custom button
-                                    return Html::a('<img src="/images/view.svg" />', $archivo->getArchivoURL(), ['class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary', 'title' => 'Ver']);
+                                    // return Html::a('<img src="/images/view.svg" />', $archivo->getArchivoURL(), ['class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary', 'title' => 'Ver']);
+                                    return ;
                                 },
                                 'myButtonview' => function ($url, $archivo, $key) {     // render your custom button
                                     return Html::a('<img src="/images/download.svg" />', $archivo->getArchivoURL(), ['class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary', 'title' => 'Descargar']);

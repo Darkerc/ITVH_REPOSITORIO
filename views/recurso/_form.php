@@ -107,7 +107,7 @@ $files = array_map(fn(RecursoArchivo $ra) => [
 
     <?= $form->field($model, 'recursoCarrera')->widget(Select2::classname(), [
         'data' => Carrera::map(),
-        'options' => ['placeholder' => 'Selecciona una carrera...', 'multiple' => true, 'value' => $model->CarreraId,],
+        'options' => ['placeholder' => 'Selecciona una carrera...', 'multiple' => true, 'value' => $model->CarreraId],
         'toggleAllSettings' => [
             'selectLabel' => '-Selecionar todo',
             'unselectLabel' => 'Deseleccionar todo',
@@ -119,11 +119,22 @@ $files = array_map(fn(RecursoArchivo $ra) => [
             'tokenSeparators' => [',', ' '],
             'maximumInputLength' => 20
         ],
+        'pluginEvents' => [
+            "select2:unselecting" => "function(data) { 
+                console.log('unselecting', data)
+            }",
+            "select2:unselect" => "function(data) { 
+                console.log('unselect', data)
+            }",
+            "select2:open" => "function(data) { 
+                console.log('open', data)
+            }",
+        ]
     ])->label('Carreras'); ?>
 
     <?= $form->field($model, 'palabrasc')->widget(Select2::classname(), [
         'data' => Palabra::map($model->PalabraId),    
-        'options' => ['placeholder' => 'Ingrese las palabras clave...', 'multiple' => true, 'value' => $model->PalabraId,],
+        'options' => ['placeholder' => 'Ingrese las palabras clave...', 'multiple' => true, 'value' => $model->PalabraId],
         'toggleAllSettings' => [
             'selectLabel' => 'Seleccionar todo',
             'unselectLabel' => 'Deseleccionar todo',

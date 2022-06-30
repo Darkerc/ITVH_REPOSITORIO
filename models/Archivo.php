@@ -83,4 +83,26 @@ class Archivo extends \yii\db\ActiveRecord
                 return $this->arc_extension;
         }
     }
+
+    public function getBlobFiles() {
+        $im = new \Imagick();
+        $im->setResolution(100,100);
+        $blobs = [];      
+        $i = 0;
+        
+        // Yii::getAlias('@webroot') . '/files/' . $this->arc_nombre . "[$i]"
+        while ($i < 5) {
+            $im->readimage("/home/darkerc/Escritorio/repositorio/web/files/2022-Recurso con archivos-1141.pdf[0]");
+            // $filename =  Yii::getAlias('@webroot') . '/files/' . $this->arc_nombre . "[$i]";
+            $im->setImageFormat('jpg');    
+            $im->writeImage('thumb.jpg');
+            array_push($blobs, base64_encode($im->getImageBlob()));
+            $i = $i + 1;
+            $im->clear(); 
+        }
+        
+        $im->destroy();
+
+        return $blobs;
+    }
 }

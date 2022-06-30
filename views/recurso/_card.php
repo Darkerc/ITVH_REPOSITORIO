@@ -138,6 +138,38 @@ $archivos = new ArrayDataProvider([
                     <?php } ?>
                 </table>
             </div>
+
+            <?php
+
+                // $im = new Imagick();
+
+                // $im->setResolution(100,100);
+                // $im->readimage('/home/darkerc/Escritorio/repositorio/web/files/test.pdf[0]'); 
+                // $im->setImageFormat('jpg');    
+                // $im->writeImage('thumb.jpg');
+                // echo '<img src="data:image/jpg;base64,'.base64_encode($im->getImageBlob()).'" alt="" />';
+                // $im->clear(); 
+                // $im->destroy();
+
+                $blobs = $model->recursoArchivos[0]->recarcFkarchivo->getBlobFiles();
+                for ($i=0; $i < count($blobs); $i++) { 
+                    echo '<img src="data:image/jpg;base64,'.$blobs[$i].'" alt="" />';
+                }
+
+                // $image = file_get_contents('/home/darkerc/Escritorio/repositorio/web/files/test.pdf');
+                // echo '<pre>';
+                // echo var_dump($image);
+                // echo '</pre>';
+
+                // $imagick = new Imagick();
+                // $imagick->readImage($image);
+                // $imagick->setResolution(150, 150);
+                // $imagick->destroy();
+
+                // $imagick->read('http://localhost:8080/files/2022-Recurso%20con%20archivos-1141.pdf');
+                // $imagick->writeImages('myimage.jpg', false);
+            ?>
+
             <div style="width: 100%;">
                 <?php
                 $this->registerJs("$(function() {

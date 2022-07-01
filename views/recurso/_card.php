@@ -12,7 +12,7 @@ use app\models\RecursoArchivo;
 use yii\data\ArrayDataProvider;
 use kartik\icons\FontAwesomeAsset;
 use webvimark\modules\UserManagement\models\User;
-
+use yii\bootstrap4\Modal;
 
 FontAwesomeAsset::register($this);
 
@@ -131,34 +131,21 @@ $archivos = new ArrayDataProvider([
             </div>
 
             <?php
+            $models = $archivos->getModels();
 
-                // $im = new Imagick();
+            foreach ($models as $key => $value) {
+                Modal::begin([
+                    'id' => "modal-{$value->arc_id}",
+                    'title' => '<h2>' . $value->arc_nombre . '</h2>',
+                    'size'=>'modal-lg'
+                ]);
 
-                // $im->setResolution(100,100);
-                // $im->readimage('/home/darkerc/Escritorio/repositorio/web/files/test.pdf[0]'); 
-                // $im->setImageFormat('jpg');    
-                // $im->writeImage('thumb.jpg');
-                // echo '<img src="data:image/jpg;base64,'.base64_encode($im->getImageBlob()).'" alt="" />';
-                // $im->clear(); 
-                // $im->destroy();
+                    if ($value->arc_extension == 'pdf') {
+                        echo $value->renderPDFBook($this);
+                    }
 
-                $blobs = $model->recursoArchivos[0]->recarcFkarchivo->getBlobFiles();
-                for ($i=0; $i < count($blobs); $i++) { 
-                    echo '<img src="data:image/jpg;base64,'.$blobs[$i].'" alt="" />';
-                }
-
-                // $image = file_get_contents('/home/darkerc/Escritorio/repositorio/web/files/test.pdf');
-                // echo '<pre>';
-                // echo var_dump($image);
-                // echo '</pre>';
-
-                // $imagick = new Imagick();
-                // $imagick->readImage($image);
-                // $imagick->setResolution(150, 150);
-                // $imagick->destroy();
-
-                // $imagick->read('http://localhost:8080/files/2022-Recurso%20con%20archivos-1141.pdf');
-                // $imagick->writeImages('myimage.jpg', false);
+                Modal::end();
+            }
             ?>
 
             <div style="width: 100%;">
@@ -173,14 +160,20 @@ $archivos = new ArrayDataProvider([
                         [
                             'class' => 'kartik\grid\ActionColumn',
                             'header' => ' ',
-                            'template' => '{myButtonview}{myButton}',
+                            'template' => '{btnView}{btnDownload}',
                             'buttons' => [
-                                'myButton' => function ($url, $archivo, $key) {     // render your custom button
-                                    // return Html::a('<img src="/images/view.svg" />', $archivo->getArchivoURL(), ['class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary', 'title' => 'Ver']);
-                                    return ;
+                                'btnView' => function ($url, Archivo $archivo, $key) {     // render your custom button
+                                    return Html::a('<img src="/images/view.svg" />', null, [
+                                        'class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary', 
+                                        'title' => 'Ver', 
+                                        'id' => $archivo->arc_id
+                                    ]);
                                 },
-                                'myButtonview' => function ($url, $archivo, $key) {     // render your custom button
-                                    return Html::a('<img src="/images/download.svg" />', $archivo->getArchivoURL(), ['class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary', 'title' => 'Descargar']);
+                                'btnDownload' => function ($url, Archivo $archivo, $key) {     // render your custom button
+                                    return Html::a('<img src="/images/download.svg" />', $archivo->getArchivoURL(), [
+                                        'class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary', 
+                                        'title' => 'Descargar',
+                                    ]);
                                 }
                             ]
                         ]

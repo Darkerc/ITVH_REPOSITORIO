@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\helpers\Url;
+use yii\web\View;
 
 /**
  * This is the model class for table "archivo".
@@ -86,23 +87,53 @@ class Archivo extends \yii\db\ActiveRecord
 
     public function getBlobFiles() {
         $im = new \Imagick();
-        $im->setResolution(100,100);
-        $blobs = [];      
+        $im->setResolution(150,150);
+        $blobs = [];  
+        $isReadeable = true;    
         $i = 0;
         
-        // Yii::getAlias('@webroot') . '/files/' . $this->arc_nombre . "[$i]"
-        while ($i < 5) {
-            $im->readimage("/home/darkerc/Escritorio/repositorio/web/files/2022-Recurso con archivos-1141.pdf[0]");
-            // $filename =  Yii::getAlias('@webroot') . '/files/' . $this->arc_nombre . "[$i]";
+        while ($isReadeable) {
+            $filename =  Yii::getAlias('@webroot') . '/files/' . $this->arc_nombre . "[$i]";
+            try {
+                $im->readimage($filename);
+            } catch (\Throwable $_) {
+                $isReadeable = false;
+                break;
+            }
             $im->setImageFormat('jpg');    
             $im->writeImage('thumb.jpg');
             array_push($blobs, base64_encode($im->getImageBlob()));
-            $i = $i + 1;
             $im->clear(); 
+            $i = $i + 1;
         }
-        
         $im->destroy();
 
         return $blobs;
+    }
+
+    public function renderPDFBook(View $view) {
+        $strImages = array_reduce($this->getBlobFiles(), fn($str, $blob) => $str . '<img src="data:image/jpg;base64,' . $blob . '" />' , "");
+
+        $view->registerJs(
+            <<<STR
+                $("#{$this->arc_id}{$this->arc_nombre}").turn({
+                    autoCenter: true
+                });
+            STR,
+            View::POS_READY,
+            "{$this->arc_id}{$this->arc_nombre}"
+        );
+
+        $str = <<<EOD
+            <div id="{$this->arc_id}{$this->arc_nombre}" style="height: 80vh;">
+                <div class="hard"> {$this->arc_nombre} </div>
+                <div class="hard"></div>
+                {$strImages}
+                <div class="hard"></div>
+                <div class="hard"></div>
+            </div>
+        EOD;
+        
+        return $str;
     }
 }

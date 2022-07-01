@@ -57,6 +57,19 @@ class ArchivoController extends Controller
     }
 
     /**
+     * Displays a single Archivo model.
+     * @param int $arc_id Arc ID
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionFileView($arc_id)
+    {
+        return $this->render('FileView', [
+            'model' => $this->findModel($arc_id),
+        ]);
+    }
+
+    /**
      * Creates a new Archivo model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response

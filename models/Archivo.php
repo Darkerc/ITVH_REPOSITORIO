@@ -97,6 +97,7 @@ class Archivo extends \yii\db\ActiveRecord
 
         while ($isReadeable) {
             $filename =  Yii::getAlias('@webroot') . '/files/' . $this->arc_nombre . "[$i]";
+            //var_dump($filename);
             try {
                 $im->readimage($filename);
             } catch (\Throwable $_) {
@@ -108,7 +109,9 @@ class Archivo extends \yii\db\ActiveRecord
             array_push($blobs, base64_encode($im->getImageBlob()));
             $im->clear();
             $i = $i + 1;
+            //var_dump($im);
         }
+        die;
         $im->destroy();
 
         return $blobs;

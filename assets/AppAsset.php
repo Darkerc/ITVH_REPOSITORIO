@@ -26,10 +26,6 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'bundle/index.js',
-        'js/turn.html4.min.js',
-        'js/zoom.min.js',
-        'js/scissor.min.js',
-        'js/hash.js',
         'js/turn.min.js',
     ];
     public $depends = [

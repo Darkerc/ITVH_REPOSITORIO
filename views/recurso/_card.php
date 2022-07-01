@@ -13,6 +13,8 @@ use yii\data\ArrayDataProvider;
 use kartik\icons\FontAwesomeAsset;
 use webvimark\modules\UserManagement\models\User;
 use yii\bootstrap4\Modal;
+use kartik\dialog\Dialog;
+use yii\web\JsExpression;
 
 FontAwesomeAsset::register($this);
 
@@ -130,23 +132,6 @@ $archivos = new ArrayDataProvider([
                 </table>
             </div>
 
-            <?php
-            $models = $archivos->getModels();
-
-            foreach ($models as $key => $value) {
-                Modal::begin([
-                    'id' => "modal-{$value->arc_id}",
-                    'title' => '<h2>' . $value->arc_nombre . '</h2>',
-                    'size'=>'modal-lg'
-                ]);
-
-                    if ($value->arc_extension == 'pdf') {
-                        echo $value->renderPDFBook($this);
-                    }
-
-                Modal::end();
-            }
-            ?>
 
             <div style="width: 100%;">
                 <?=
@@ -163,15 +148,16 @@ $archivos = new ArrayDataProvider([
                             'template' => '{btnView}{btnDownload}',
                             'buttons' => [
                                 'btnView' => function ($url, Archivo $archivo, $key) {     // render your custom button
-                                    return Html::a('<img src="/images/view.svg" />', null, [
-                                        'class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary', 
-                                        'title' => 'Ver', 
+                                    // "/archivo/file-view?arc_id={$archivo->arc_id}"
+                                    return Html::a('<img src="/images/view.svg" />', "/archivo/file-view?arc_id={$archivo->arc_id}", [
+                                        'class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary',
+                                        'title' => 'Ver',
                                         'id' => $archivo->arc_id
                                     ]);
                                 },
                                 'btnDownload' => function ($url, Archivo $archivo, $key) {     // render your custom button
                                     return Html::a('<img src="/images/download.svg" />', $archivo->getArchivoURL(), [
-                                        'class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary', 
+                                        'class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary',
                                         'title' => 'Descargar',
                                     ]);
                                 }

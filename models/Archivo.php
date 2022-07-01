@@ -69,11 +69,13 @@ class Archivo extends \yii\db\ActiveRecord
         return $this->hasMany(RecursoArchivo::className(), ['recarc_fkarchivo' => 'arc_id']);
     }
 
-    public function getArchivoURL() {
+    public function getArchivoURL()
+    {
         return Url::home(true) . 'files/' . $this->arc_nombre;
     }
 
-    public function getKartikFileType() {
+    public function getKartikFileType()
+    {
         switch ($this->arc_extension) {
             case 'jpg':
             case 'png':
@@ -85,13 +87,14 @@ class Archivo extends \yii\db\ActiveRecord
         }
     }
 
-    public function getBlobFiles() {
+    public function getBlobFiles()
+    {
         $im = new \Imagick();
-        $im->setResolution(150,150);
-        $blobs = [];  
-        $isReadeable = true;    
+        $im->setResolution(150, 150);
+        $blobs = [];
+        $isReadeable = true;
         $i = 0;
-        
+
         while ($isReadeable) {
             $filename =  Yii::getAlias('@webroot') . '/files/' . $this->arc_nombre . "[$i]";
             try {
@@ -100,10 +103,10 @@ class Archivo extends \yii\db\ActiveRecord
                 $isReadeable = false;
                 break;
             }
-            $im->setImageFormat('jpg');    
+            $im->setImageFormat('jpg');
             $im->writeImage('thumb.jpg');
             array_push($blobs, base64_encode($im->getImageBlob()));
-            $im->clear(); 
+            $im->clear();
             $i = $i + 1;
         }
         $im->destroy();
@@ -111,21 +114,12 @@ class Archivo extends \yii\db\ActiveRecord
         return $blobs;
     }
 
-    public function renderPDFBook(View $view) {
-        $strImages = array_reduce($this->getBlobFiles(), fn($str, $blob) => $str . '<img src="data:image/jpg;base64,' . $blob . '" />' , "");
+    public function renderPDFBook()
+    {
+        $strImages = array_reduce($this->getBlobFiles(), fn ($str, $blob) => $str . '<img src="data:image/jpg;base64,' . $blob . '" />', "");
 
-        $view->registerJs(
-            <<<STR
-                $("#{$this->arc_id}{$this->arc_nombre}").turn({
-                    autoCenter: true
-                });
-            STR,
-            View::POS_READY,
-            "{$this->arc_id}{$this->arc_nombre}"
-        );
-
-        $str = <<<EOD
-            <div id="{$this->arc_id}{$this->arc_nombre}" style="height: 80vh;">
+        $book = <<<EOD
+            <div class="book_file" id="{$this->arc_id}" style="height: 70vh;">
                 <div class="hard"> {$this->arc_nombre} </div>
                 <div class="hard"></div>
                 {$strImages}
@@ -133,7 +127,15 @@ class Archivo extends \yii\db\ActiveRecord
                 <div class="hard"></div>
             </div>
         EOD;
-        
-        return $str;
+
+        $js = <<<STR
+                $("#{$this->arc_id}").turn({
+                    autoCenter: true
+                });
+            STR;
+
+
+
+        return ['book' => $book, 'js' => $js];
     }
 }

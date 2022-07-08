@@ -62,6 +62,9 @@ $config = [
     ],
     'params' => $params,
     'modules' => [
+        'pdfjs' => [
+            'class' => '\yii2assets\pdfjs\Module',
+        ],
         'gridview' =>  [
             'class' => '\kartik\grid\Module'
         ],

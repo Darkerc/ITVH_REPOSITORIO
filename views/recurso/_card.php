@@ -93,6 +93,14 @@ $archivos = new ArrayDataProvider([
                         </td>
                     </tr>
                     <tr class="tr_item">
+                        <td class="td_header">URL del recurso</td>
+                        <td class="td_value">
+                            <a href="<?= $imagick ?>">
+                                <?= $model->currentUrl ?>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="tr_item">
                         <td class="td_header">Palabras Clave</td>
                         <td class="td_value">
                             <?php
@@ -134,6 +142,24 @@ $archivos = new ArrayDataProvider([
 
 
             <div style="width: 100%;">
+                <?php
+                $this->registerJs("$(function() {
+                    $('#popupModal').click(function(e) {
+                      e.preventDefault();
+                      $('#modal').modal('show').find('.modal-content')
+                      .load($(this).attr('href'));
+                    });
+                 });");
+
+                Modal::begin([
+                    'id' => 'modal',
+                    'title' => '<h2>' . $model->rec_nombre . '</h2>',
+                ]);
+                echo '<pre>';
+                var_dump($model->rec_resumen);
+                echo '<pre>';
+                Modal::end();
+                ?>
                 <?=
                 GridView::widget([
                     'dataProvider' => $archivos,

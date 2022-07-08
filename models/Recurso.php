@@ -86,7 +86,7 @@ class Recurso extends \yii\db\ActiveRecord
             foreach ($this->archivos as $file) {
                 $data = [
                     'Archivo' => [
-                        'arc_nombre' => "{$year}-{$this->rec_nombre}-{$this->rec_id}.{$file->extension}",
+                        'arc_nombre' => preg_replace('/\s+/', '', "{$year}-{$this->rec_nombre}-{$this->rec_id}.{$file->extension}"),
                         'arc_extension' => $file->extension,
                         'arc_original' => $file->baseName,
                         'arc_mimetype' => $file->type,

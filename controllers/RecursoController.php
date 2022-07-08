@@ -85,10 +85,29 @@ class RecursoController extends Controller
                 // $date = DateTime::createFromFormat('Y-m-d H:i:s', 'now');
                 $date = new DateTime();
                 $model->rec_registro = $date->format('Y-m-d H:i:s');
+                //Yii::$app->user->identity->id;
+                /* if ($loaded && $saved) {
+                    foreach ($model->autores as $autor) {
+                        $autor = new RecursoCarrera();
+                        $autor->autcar_fkrecurso = $model->rec_id;
+                        $autor->autcar_fkautor = Yii::$app->user->identity->id;
+                        $autor->save();
+                    };
+                }*/
             }
             $model->rec_descripcion = json_encode([date('Y-m-d H:i:s') => 'Se creo el recurso']);
             $model->archivos = UploadedFile::getInstances($model, 'archivos');
             $saved = $model->save();
+            /*if (User::hasRole(['aut', false])) {
+                if ($loaded && $saved) {
+                    foreach ($model->autores as $autor) {
+                        $autor = new AutorRecurso();
+                        $autor->autcar_fkrecurso = $model->rec_id;
+                        $autor->autcar_fkautor = Yii::$app->user->identity->id;
+                        $autor->save();
+                    };
+                }
+            }*/
             if ($loaded && $saved) {
                 foreach ($model->recursoCarrera as $carrera) {
                     $carreras = new RecursoCarrera();

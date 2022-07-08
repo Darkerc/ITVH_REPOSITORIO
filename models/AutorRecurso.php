@@ -67,4 +67,9 @@ class AutorRecurso extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Recurso::className(), ['rec_id' => 'autrec_fkrecurso']);
     }
+
+    public function getAutor()
+    {
+        return $this->autrecFkautor->aut_nombre;
+    }
 }

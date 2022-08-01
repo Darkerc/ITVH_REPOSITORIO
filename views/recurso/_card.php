@@ -12,9 +12,6 @@ use app\models\RecursoArchivo;
 use yii\data\ArrayDataProvider;
 use kartik\icons\FontAwesomeAsset;
 use webvimark\modules\UserManagement\models\User;
-use yii\bootstrap4\Modal;
-use kartik\dialog\Dialog;
-use yii\web\JsExpression;
 
 FontAwesomeAsset::register($this);
 

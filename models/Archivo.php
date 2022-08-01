@@ -3,8 +3,8 @@
 namespace app\models;
 
 use Yii;
-use yii\helpers\Url;
 use yii\web\View;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "archivo".
@@ -111,7 +111,6 @@ class Archivo extends \yii\db\ActiveRecord
             $i = $i + 1;
             //var_dump($im);
         }
-        die;
         $im->destroy();
 
         return $blobs;
@@ -140,5 +139,17 @@ class Archivo extends \yii\db\ActiveRecord
 
 
         return ['book' => $book, 'js' => $js];
+    }
+
+    public function actionDownload()
+    {
+        $path = Yii::getAlias('@webroot') . '/files';
+
+        $file = $path . $this->arc_nombre;
+
+        if (file_exists($file)) {
+
+            Yii::$app->response->sendFile($file);
+        }
     }
 }

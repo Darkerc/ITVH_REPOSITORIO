@@ -218,13 +218,9 @@ class Recurso extends \yii\db\ActiveRecord
 
     public function getAutor()
     {
-        return 'Sin autores';
+        return array_map(fn ($autores) => $autores->autcar_fkautor, $this->autorRecursos);
     }
 
-    public function getAutores()
-    {
-        return 'Sin autores';
-    }
 
     public function getCurrentUrl()
     {

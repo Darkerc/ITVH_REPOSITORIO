@@ -12,9 +12,6 @@ use app\models\RecursoArchivo;
 use yii\data\ArrayDataProvider;
 use kartik\icons\FontAwesomeAsset;
 use webvimark\modules\UserManagement\models\User;
-use yii\bootstrap4\Modal;
-use kartik\dialog\Dialog;
-use yii\web\JsExpression;
 
 FontAwesomeAsset::register($this);
 
@@ -39,11 +36,23 @@ $archivos = new ArrayDataProvider([
                     <tr class="tr_item">
                         <td class="td_header">Autor(es)</td>
                         <td class="td_value">
-                            <ul class="list-group list-group-flush">
+                            <?php
+                            if (count($model->autorRecursos) > 0) {
+                            ?>
+                                <?php foreach ($model->autorRecursos as $rAutor) { ?>
+                                    <li class="list-group-item list-group-item-action">
+                                        <?= $rAutor->autor ?>
+                                    </li>
+                                <?php } ?>
+                            <?php
+                            } else {
+                            ?>
                                 <li class="list-group-item list-group-item-action">
-                                    <?= $model->autor ?>
+                                    Sin Autor(es)
                                 </li>
-                            </ul>
+                            <?php
+                            }
+                            ?>
                         </td>
                     </tr>
                     <tr class="tr_item">
@@ -88,14 +97,6 @@ $archivos = new ArrayDataProvider([
                         <td class="td_header">URL del recurso</td>
                         <td class="td_value">
                             <a href="<?= $model->currentUrl ?>">
-                                <?= $model->currentUrl ?>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="tr_item">
-                        <td class="td_header">URL del recurso</td>
-                        <td class="td_value">
-                            <a href="<?= $imagick ?>">
                                 <?= $model->currentUrl ?>
                             </a>
                         </td>
@@ -150,15 +151,6 @@ $archivos = new ArrayDataProvider([
                       .load($(this).attr('href'));
                     });
                  });");
-
-                Modal::begin([
-                    'id' => 'modal',
-                    'title' => '<h2>' . $model->rec_nombre . '</h2>',
-                ]);
-                echo '<pre>';
-                var_dump($model->rec_resumen);
-                echo '<pre>';
-                Modal::end();
                 ?>
                 <?=
                 GridView::widget([

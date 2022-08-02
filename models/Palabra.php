@@ -73,7 +73,11 @@ class Palabra extends \yii\db\ActiveRecord
         return $data;
     }
 
-    public static function map($ids){
+    public static function map(){
+        return ArrayHelper::map(Palabra::find()->all(), 'pal_id', 'pal_nombre');
+    }
+
+    public static function mapById($ids){
         return ArrayHelper::map(Palabra::find()->where(['in', 'pal_id', $ids])->all(), 'pal_id', 'pal_nombre');
     }
 

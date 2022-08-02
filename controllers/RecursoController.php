@@ -124,6 +124,55 @@ class RecursoController extends Controller
         ]);
     }
 
+    public function actionDeleteRecursoField($rec_id) {
+        // $model = $this->findModel($rec_id);
+        // $propertyName = array_keys($this->request->post())[0];
+        // $propertyValue = array_values($this->request->post())[0];
+
+        // switch ($propertyName) {
+        //     case 'recursocarrera': {
+        //         $carrera = RecursoCarrera::findOne()
+        //         $carrera->reccar_fkrecurso = $model->rec_id;
+        //         $carrera->reccar_fkcarrera = $propertyValue;
+        //         $carrera->save();
+        //         break;
+        //     }
+        //     default: {
+        //         $model->updateAttributes([$propertyName => $propertyValue]);
+        //         break;
+        //     }
+        // }
+
+        // header('Content-Type: application/json; charset=utf-8');
+        // echo json_encode($this->request->post());
+        // exit();
+    }
+
+    public function actionUpdateRecursoField($rec_id) {
+        $model = $this->findModel($rec_id);
+        $propertyName = array_keys($this->request->post())[0];
+        $propertyValue = array_values($this->request->post())[0];
+
+        switch ($propertyName) {
+            case 'recursocarrera': {
+                $carrera = new RecursoCarrera();
+                $carrera->reccar_fkrecurso = $model->rec_id;
+                $carrera->reccar_fkcarrera = $propertyValue;
+                $carrera->save();
+                break;
+            }
+            default: {
+                $model->updateAttributes([$propertyName => $propertyValue]);
+                break;
+            }
+        }
+
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($this->request->post());
+        exit();
+    }
+
     /**
      * Updates an existing Recurso model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -134,48 +183,6 @@ class RecursoController extends Controller
     public function actionUpdate($rec_id)
     {
         $model = $this->findModel($rec_id);
-
-        $loaded = $model->load($this->request->post());
-        // $model->archivos = UploadedFile::getInstances($model, 'archivos');
-        $saved = $model->save();
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            $var = json_decode($model->rec_descripcion);
-            if (!empty($var)) {
-                $model->rec_descripcion = json_encode([date('Y-m-d H:i:s') => 'Se actualizo el recurso']);
-                $model->save();
-            } else {
-                $model->rec_descripcion = json_encode([date('Y-m-d H:i:s') => 'Se actualizo el recurso']);
-                $model->save();
-            }
-
-            foreach ($model->recursoCarrera as $carrera) {
-                $carreras = RecursoCarrera::find()->where(['reccar_fkrecurso' => $model->rec_id, 'reccar_fkcarrera' => $carrera])->one();
-                if (isset($carreras)) {
-                    $carreras->reccar_fkcarrera = $carrera;
-                    $carreras->update();
-                } else {
-                    $carreras = new RecursoCarrera();
-                    $carreras->reccar_fkrecurso = $model->rec_id;
-                    $carreras->reccar_fkcarrera = $carrera;
-                    $carreras->save();
-                }
-            }
-
-            foreach ($model->palabrasc as $palabra) {
-                $palabras = Palabra::find()->where(['pal_fkrecurso' => $model->rec_id, 'pal_nombre' => $palabra])->one();
-                if (isset($palabras)) {
-                    $palabras->pal_nombre = $palabra;
-                    $palabras->update();
-                } else {
-                    $palabras = new Palabra();
-                    $palabras->pal_fkrecurso = $model->rec_id;
-                    $palabras->pal_nombre = $palabra;
-                    $palabras->save();
-                }
-            }
-            return $this->redirect(['view', 'rec_id' => $model->rec_id]);
-        }
 
         return $this->render('update', [
             'model' => $model,

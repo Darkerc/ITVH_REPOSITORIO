@@ -27,6 +27,7 @@ class AppAsset extends AssetBundle
     public $js = [
         'bundle/index.js',
         'js/turn.min.js',
+        'js/notify.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

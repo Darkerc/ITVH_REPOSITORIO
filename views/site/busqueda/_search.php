@@ -19,73 +19,72 @@ $config = ['template' => "{input}\n{error}\n{hint}"];
 
 <div>
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['busqueda'],
-        'method' => 'get',
-        'class' => 'row'
-    ]); ?>
+    <div class="jumbotron p-3">
+        <?= Html::tag('h3', 'Filtros') ?>
+        <?php $form = ActiveForm::begin([
+            'action' => ['busqueda'],
+            'method' => 'get',
+        ]) ?>
 
-    <div class="row">
-        <div class="col col-12">
-            <?= $form->field($model, 'rec_nombre', $config)->widget(LabelInPlace::classname()); ?>
-        </div>
+        <?= $form->field($searchModel, 'rec_nombre')->widget(LabelInPlace::classname(), [
+            'label' => 'Titulo',
+            'encodeLabel' => false,
+        ]); ?>
 
-        <div class="col col-12 col-md-6">
-            <div class="form-group">
-                <?= $form->field($model, 'autores')->widget(Select2::classname(), [
-                    'data' => Autor::map(),
-                    'options' => ['dir' => 'rtl', 'placeholder' => '... Seleccionar los autores'],
-                    'pluginOptions' => [
-                        'allowClear' => true,
-                        'multiple' => true
+        <div class="row">
+            <div class="col col-12 col-md-6 form-group">
+                <?= $form->field($searchModel, 'rec_fkrecursotipo')->widget(Select2::classname(), [
+                    'data' => RecursoTipo::map(),
+                    'options' => [
+                        'placeholder' => 'Seleccione un tipo',
                     ],
-                ]); ?>
+                ])->label('Tipo'); ?>
             </div>
-        </div>
-
-        <div class="col col-12 col-md-6">
-            <div class="form-group">
-                <?= $form->field($model, 'palabrasc')->widget(Select2::classname(), [
-                    'data' => Palabra::mapcount(),
-                    'options' => ['dir' => 'rtl', 'placeholder' => '... Selecciona un tipo'],
-                    'pluginOptions' => [
-                        'allowClear' => true,
+            <div class="col col-12 col-md-6 form-group">
+                <?= $form->field($searchModel, 'rec_fknivel')->widget(Select2::classname(), [
+                    'data' => Nivel::map(),
+                    'options' => [
+                        'placeholder' => 'Seleccione un nivel',
                     ],
-                ]); ?>
+                ])->label('Nivel'); ?>
             </div>
         </div>
 
+        <?= $form->field($searchModel, 'recursoCarrera')->widget(Select2::classname(), [
+            'data' => Carrera::map(),
+            'options' => ['placeholder' => 'Selecciona una carrera...', 'multiple' => true],
+            'toggleAllSettings' => [
+                'selectLabel' => '-Selecionar todo',
+                'unselectLabel' => 'Deseleccionar todo',
+                'selectOptions' => ['class' => 'text-success'],
+                'unselectOptions' => ['class' => 'text-danger'],
+            ],
+            'pluginOptions' => [
+                'tags' => true,
+                'tokenSeparators' => [',', ' '],
+                'maximumInputLength' => 20
+            ],
+        ])->label('Carreras'); ?>
+
+        <?= $form->field($searchModel, 'palabrasc')->widget(Select2::classname(), [
+            'data' => Palabra::map(),
+            'options' => ['placeholder' => 'Ingrese las palabras clave...', 'multiple' => true],
+            'toggleAllSettings' => [
+                'selectLabel' => 'Seleccionar todo',
+                'unselectLabel' => 'Deseleccionar todo',
+                'selectOptions' => ['class' => 'text-success'],
+                'unselectOptions' => ['class' => 'text-danger'],
+            ],
+            'pluginOptions' => [
+                'tags' => true,
+                'tokenSeparators' => [',', ' '],
+                'maximumInputLength' => 15
+            ],
+        ])->label('Palabras Clave');  ?>
+
         <div class="col col-12">
             <div class="form-group">
-                <?= $form->field($model, 'recursoCarrera')->widget(Select2::classname(), [
-                    'data' => Carrera::map(),
-                    'options' => ['dir' => 'rtl', 'placeholder' => '... Selecciona un tipo'],
-                    'pluginOptions' => ['allowClear' => true],
-                ]); ?>
-            </div>
-        </div>
-
-        <div class="col col-12 col-md-6">
-            <?= $form->field($model, 'rec_fkrecursotipo')->widget(Select2::classname(), [
-                'data' => RecursoTipo::map(),
-                'name' => 'float_state_04',
-                'options' => ['dir' => 'rtl', 'placeholder' => '... Selecciona un tipo'],
-                'pluginOptions' => ['allowClear' => true],
-            ]); ?>
-        </div>
-
-        <div class="col col-12 col-md-6">
-            <?= $form->field($model, 'rec_fknivel')->widget(Select2::classname(), [
-                'data' => Nivel::map(),
-                'name' => 'float_state_04',
-                'options' => ['dir' => 'rtl', 'placeholder' => '... Selecciona un nivel'],
-                'pluginOptions' => ['allowClear' => true],
-            ]); ?>
-        </div>
-
-        <div class="col col-12">
-            <div class="form-group">
-                <?= $form->field($model, 'rec_registro', [
+                <?= $form->field($searchModel, 'rec_registro', [
                     'addon' => ['prepend' => ['content' => '<i class="fas fa-calendar-alt"></i>']],
                     'options' => ['class' => 'drp-container mb-2']
                 ])->widget(DateRangePicker::classname(), [
@@ -100,19 +99,17 @@ $config = ['template' => "{input}\n{error}\n{hint}"];
                 ]); ?>
             </div>
         </div>
-    </div>
 
-    <!-- <?= $form->field($model, 'rec_registro') ?> -->
 
-    <div class="row form-group">
-        <div class="col col-12 col-md-6">
-            <?= Html::submitButton('Buscar', ['class' => 'btn btn-success btn-block']) ?>
+        <div class="row form-group">
+            <div class="col col-12 col-md-6">
+                <?= Html::resetButton('Limpiar', ['class' => 'btn btn-warning btn-block']) ?>
+            </div>
+            <div class="col col-12 col-md-6">
+                <?= Html::submitButton('Buscar...', ['class' => 'btn btn-primary btn-block']) ?>
+            </div>
         </div>
-        <div class="col col-12 col-md-6">
-            <?= Html::resetButton('Limpiar', ['class' => 'btn btn-warning btn-block']) ?>
-        </div>
+
+        <?php ActiveForm::end(); ?>
+
     </div>
-
-    <?php ActiveForm::end(); ?>
-
-</div>

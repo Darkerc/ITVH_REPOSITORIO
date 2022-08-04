@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Autor;
 use app\models\Carrera;
 use app\models\Nivel;
 use app\models\Palabra;
@@ -143,7 +144,7 @@ $files = array_map(fn (RecursoArchivo $ra) => [
     ])->label('Carreras'); ?>
 
     <?= $form->field($model, 'palabrasc')->widget(Select2::classname(), [
-        'data' => Palabra::mapById($model->PalabraId),    
+        'data' => Palabra::mapById($model->PalabraId),
         'value' => $model->PalabraId,
         'options' => ['placeholder' => 'Ingrese las palabras clave...', 'multiple' => true],
         'toggleAllSettings' => [
@@ -194,12 +195,18 @@ $files = array_map(fn (RecursoArchivo $ra) => [
             UPDATE: '/recurso/update-recurso-field?rec_id=<?= $model->rec_id ?>',
             DELETE: '/recurso/delete-recurso-field?rec_id=<?= $model->rec_id ?>'
         }
-        
-        const updateProperty = ({ key, value, url }) => {
+
+        const updateProperty = ({
+            key,
+            value,
+            url
+        }) => {
             $.notify("Cambiando informacion...", "info");
             $.ajax(url, {
                 type: 'POST', // http method
-                data: {[key]: value}, 
+                data: {
+                    [key]: value
+                },
                 // data to submit
                 success: function(data, status, xhr) {
                     $.notify("Realizado con exito", "success");
@@ -213,14 +220,22 @@ $files = array_map(fn (RecursoArchivo $ra) => [
         window.onChangeSelectValues = (event, type = 'UPDATE') => {
             const modelPropertyName = event.target.id.split('recurso-').pop()
             switch (modelPropertyName) {
-                case 'recursocarrera':{
+                case 'recursocarrera': {
                     const modelPropertyValue = event.params.data.id
-                    updateProperty({ key: modelPropertyName, value: modelPropertyValue, url: URL[type] })
+                    updateProperty({
+                        key: modelPropertyName,
+                        value: modelPropertyValue,
+                        url: URL[type]
+                    })
                     break;
                 }
                 default: {
                     const modelPropertyValue = event.target.value
-                    updateProperty({ key: modelPropertyName, value: modelPropertyValue, url: URL[type] })
+                    updateProperty({
+                        key: modelPropertyName,
+                        value: modelPropertyValue,
+                        url: URL[type]
+                    })
                     break;
                 }
             }
@@ -229,14 +244,22 @@ $files = array_map(fn (RecursoArchivo $ra) => [
         window.onChangeTextValues = (modelPropertyName) => {
             const elementId = `recurso-${modelPropertyName}`
             const element = document.getElementById(elementId)
-            updateProperty({ key: modelPropertyName, value: element.value, url: URL.UPDATE })
+            updateProperty({
+                key: modelPropertyName,
+                value: element.value,
+                url: URL.UPDATE
+            })
         }
 
         window.onChangeDateValues = (event, modelPropertyName) => {
             const elementId = `recurso-${modelPropertyName}`
             var DateTime = luxon.DateTime;
             const newDate = DateTime.fromJSDate(new Date(event.date)).toFormat('yyyy-MM-dd hh:mm:ss')
-            updateProperty({ key: modelPropertyName, value: newDate, url: URL.UPDATE })
+            updateProperty({
+                key: modelPropertyName,
+                value: newDate,
+                url: URL.UPDATE
+            })
         }
     }
 </script>

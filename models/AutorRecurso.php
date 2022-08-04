@@ -70,6 +70,10 @@ class AutorRecurso extends \yii\db\ActiveRecord
 
     public function getAutor()
     {
-        return $this->autrecFkautor->aut_nombre;
+        $nombre   = $this->autrecFkautor->aut_nombre;
+        $paterno  = $this->autrecFkautor->aut_paterno;
+        $materno  = $this->autrecFkautor->aut_materno;
+        $completo = "{$nombre} {$paterno} {$materno}";
+        return $completo;
     }
 }

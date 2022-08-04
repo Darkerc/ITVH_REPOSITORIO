@@ -218,7 +218,9 @@ class Recurso extends \yii\db\ActiveRecord
 
     public function getAutor()
     {
-        return array_map(fn ($autores) => $autores->autcar_fkautor, $this->autorRecursos);
+        $autor = array_map(fn ($autor) => $autor->autor, $this->autorRecursos);
+        $carr = join(' - ', $autor);
+        return !$carr ? 'Sin autor(es)' : $carr;
     }
 
 

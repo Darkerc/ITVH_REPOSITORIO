@@ -1,7 +1,7 @@
 <?php $IS_OUTLINED = $mode != 'OUTLINED' ?>
 
 <div class="card my-3">
-    <h4 class="card-header" style="background: <?= $color ?> ;">
+    <h4 class="card-header textwhite" style="background: <?= $color ?> ;">
         <?= $titulo ?>
     </h4>
     <div class="card-body">

@@ -46,6 +46,14 @@
     overflow: hidden;
 }
 
+.textwhite {
+    color: rgb(255, 255, 255);
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 .bi-zoom-in {
     background-image: url(../images/Flechaizquierda.png);
 }

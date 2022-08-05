@@ -62,7 +62,7 @@ $this->title = 'ITVH Repositorio';
             </div>
             <div class="py-2 col-12 col-lg-5">
                 <div class="card my-3">
-                    <h5 class="card-header" style="background: #FF8800;">Buscar repositorios </h5>
+                    <h5 class="card-header textwhite" style="background: #4CD64C;">Buscar repositorios </h5>
                     <div class="card-body">
                         <p class="card-text">
                             <label>Por Nombre:</label>
@@ -87,7 +87,7 @@ $this->title = 'ITVH Repositorio';
                         </div>
                         </p>
                         <p>
-                            <?= Html::a('Búsqueda Avanzada', 'site/busqueda', ['class' => 'btn btn-info', 'style' => 'width:100%;']) ?>
+                            <?= Html::a('Búsqueda Avanzada', 'site/busqueda', ['class' => 'btn textwhite', 'style' => 'width:100%; background:#4CD64C; ']) ?>
                         </p>
                     </div>
                 </div>
@@ -95,7 +95,7 @@ $this->title = 'ITVH Repositorio';
                     'titulo' => 'Repositorios más vistos',
                     'descripcion' => 'Repositorios con mayor índice de visitas',
                     'mode' => 'OUTLINED',
-                    'color' => '#FF8800',
+                    'color' => '#4CD64C',
                     'data' => RecursoArchivo::getMostVisits(),
                     'dataResultMapper' => function (RecursoArchivo $item) {
                         return [
@@ -110,7 +110,7 @@ $this->title = 'ITVH Repositorio';
                     'titulo' => 'Repositorios más descargados',
                     'descripcion' => 'Repositorios con mayor índice de descargas',
                     'mode' => 'OUTLINED',
-                    'color' => '#FF8800',                    
+                    'color' => '#4CD64C',                    
                     'data' => RecursoArchivo::getMostDownloaded(),
                     'dataResultMapper' => function (RecursoArchivo $item) {
                         return [

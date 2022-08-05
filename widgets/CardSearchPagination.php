@@ -7,7 +7,7 @@ use yii\base\Widget;
 class CardSearchPagination extends Widget
 {
 
-    public $title = "Resultados de busqueda";
+    public $title = "Resultados de la búsqueda";
     public $dataProvider = null;
     public $dataProviderResultsMapper = null;
     public $items = [];

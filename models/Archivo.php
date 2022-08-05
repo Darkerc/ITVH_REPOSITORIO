@@ -50,7 +50,7 @@ class Archivo extends \yii\db\ActiveRecord
         return [
             'arc_id'        => 'ID',
             'arc_nombre'    => 'Nombre',
-            'arc_extension' => 'Extension',
+            'arc_extension' => 'Extensión',
             'arc_original'  => 'Nombre Original',
             'arc_visitas'   => 'Visitas',
             'arc_descargas' => 'Descargas',

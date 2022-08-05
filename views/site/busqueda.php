@@ -6,7 +6,7 @@ $this->title = 'ITVH Repositorio - Buscar';
 ?>
 <div class="site-index">
     <div class="py-3 text-center bg-transparent brand">
-        <h4>Repositorio institucional del ITVH</h4>
+        <h4>Repositorio Institucional del Tecnológico Nacional de México Campus Villahermosa</h4>
     </div>
     <div class="body-content">
         <div class="row">

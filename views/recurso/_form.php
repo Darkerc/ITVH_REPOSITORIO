@@ -43,7 +43,7 @@ $files = array_map(fn (RecursoArchivo $ra) => [
 
     <div class="d-flex mb-3">
         <?= $form->field($model, 'rec_nombre', array_merge($config, ['options' => ['class' => 'w-100']]))->widget(LabelInPlace::classname(), [
-            'label' => 'Titulo',
+            'label' => 'Título',
             'encodeLabel' => false,
             'pluginOptions' => [
                 'labelPosition' => 'down',

@@ -9,6 +9,7 @@ class CardListData extends Widget
     public $titulo = '';
     public $descripcion = '';
     public $mode = 'DEFAULT'; # 'DEFAULT' |'OUTLINED' | 'TREE'
+    public $color = '#17a2b8';
     public $list_style_type = 'disc';
     public $data = [];
     public $dataResultMapper = null;
@@ -30,9 +31,10 @@ class CardListData extends Widget
     {
         $titulo = $this->titulo;
         $mode = $this->mode;
+        $color = $this->color;
         $descripcion = $this->descripcion;
         $list_style_type = $this->list_style_type;
         $data = $this->data;
-        return $this->render('_cardListData', compact('titulo', 'descripcion', 'list_style_type','mode', 'data'));
+        return $this->render('_cardListData', compact('titulo', 'descripcion', 'list_style_type','mode', 'color', 'data'));
     }
 }

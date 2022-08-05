@@ -76,38 +76,14 @@ class RecursoController extends Controller
         $model = new Recurso();
 
         if ($this->request->isPost) {
-            // echo '<pre>';
-            // echo var_dump($this->request->post());
-            // echo '</pre>';
-            // die;
             $loaded = $model->load($this->request->post());
             if (User::hasRole(['aut', false])) {
-                // $date = DateTime::createFromFormat('Y-m-d H:i:s', 'now');
                 $date = new DateTime();
                 $model->rec_registro = $date->format('Y-m-d H:i:s');
-                //Yii::$app->user->identity->id;
-                /* if ($loaded && $saved) {
-                    foreach ($model->autores as $autor) {
-                        $autor = new RecursoCarrera();
-                        $autor->autcar_fkrecurso = $model->rec_id;
-                        $autor->autcar_fkautor = Yii::$app->user->identity->id;
-                        $autor->save();
-                    };
-                }*/
             }
             $model->rec_descripcion = json_encode([date('Y-m-d H:i:s') => 'Se creo el recurso']);
             $model->archivos = UploadedFile::getInstances($model, 'archivos');
             $saved = $model->save();
-            /*if (User::hasRole(['aut', false])) {
-                if ($loaded && $saved) {
-                    foreach ($model->autores as $autor) {
-                        $autor = new AutorRecurso();
-                        $autor->autcar_fkrecurso = $model->rec_id;
-                        $autor->autcar_fkautor = Yii::$app->user->identity->id;
-                        $autor->save();
-                    };
-                }
-            }*/
             if ($loaded && $saved) {
                 foreach ($model->recursoCarrera as $carrera) {
                     $carreras = new RecursoCarrera();
@@ -115,13 +91,20 @@ class RecursoController extends Controller
                     $carreras->reccar_fkcarrera = $carrera;
                     $carreras->save();
                 };
-                //echo ('<pre>'); var_dump($model->autor); echo ('</pre>');
-                /* foreach ($model->autorRecursos as $autor) {
-                    $autores = new AutorRecurso();
-                    $autores->autrec_fkautor = $autor;
-                    $autores->autrec_fkrecurso = $model->rec_id;
-                    $autores->save();
-                };*/
+                if (User::hasRole(['aut', false])) {
+                    $autor = new AutorRecurso();
+                    $autor->autrec_fkrecurso = $model->rec_id;
+                    $autor->autrec_fkautor = Autor::autorId();
+                    $autor->save();
+                };
+                if (User::hasRole(['admon', false])) {
+                    foreach ($model->autores as $autor) {
+                        $autor = new AutorRecurso();
+                        $autor->autrec_fkrecurso = $model->rec_id;
+                        $autor->autrec_fkautor = $autor;
+                        $autor->save(); 
+                    }
+                };
                 foreach ($model->palabrasc as $palabra) {
                     $palabras = new Palabra();
                     $palabras->pal_fkrecurso = $model->rec_id;
@@ -179,7 +162,8 @@ class RecursoController extends Controller
         exit();
     }
 
-    public function actionUpdateRecursoField($rec_id) {
+    public function actionUpdateRecursoField($rec_id)
+    {
         $model = $this->findModel($rec_id);
         $propertyName = array_keys($this->request->post())[0];
         $propertyValue = array_values($this->request->post())[0];
@@ -226,6 +210,14 @@ class RecursoController extends Controller
     {
         $model = $this->findModel($rec_id);
 
+        $var = json_decode($model->rec_descripcion);
+        if (!empty($var)) {
+            $model->rec_descripcion = json_encode([date('Y-m-d H:i:s') => 'Se actualizo el recurso']);
+            $model->save();
+        } else {
+            $model->rec_descripcion = json_encode([date('Y-m-d H:i:s') => 'Se actualizo el recurso']);
+            $model->save();
+        }
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -259,38 +251,5 @@ class RecursoController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    public function actionPublicacion()
-    {
-        $searchModel = new RecursoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-
-        return $this->render('publicacion', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    public function actionAutor()
-    {
-        $searchModel = new RecursoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-
-        return $this->render('autor', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    public function actionTitulo()
-    {
-        $searchModel = new RecursoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-
-        return $this->render('titulo', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
     }
 }

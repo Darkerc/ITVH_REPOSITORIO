@@ -8,12 +8,13 @@ use kartik\select2\Select2;
 use app\models\Recurso;
 use app\models\RecursoArchivo;
 use app\models\RecursoCarrera;
+use yii\helpers\Html;
 
 $this->title = 'ITVH Repositorio';
 ?>
 <div class="site-index">
     <div class="py-3 text-center bg-transparent brand">
-        <h4>Repositorio institucional del ITVH</h4>
+        <h4>Repositorio Institucional del Tecnológico Nacional de México Campus Villahermosa</h4>
     </div>
 
     <?php
@@ -31,7 +32,7 @@ $this->title = 'ITVH Repositorio';
             <div class="py-2 col-12 col-lg-7">
                 <?= CardListData::widget([
                     'titulo' => 'Repositorio por carreras',
-                    'descripcion' => 'Carreras disponibles del instituto tecnologico de villahermosa',
+                    'descripcion' => 'Carreras disponibles en el Campus Villahermosa',
                     'mode' => 'OUTLINED',
                     'data' => RecursoCarrera::getCareersCount(),
                     'dataResultMapper' => function (RecursoCarrera $rCarrera) {
@@ -42,12 +43,29 @@ $this->title = 'ITVH Repositorio';
                         ];
                     }
                 ]) ?>
+                <?= CardListData::widget([
+                    'titulo' => 'Repositorio Por Listado de Palabras Clave',
+                    'mode' => 'TREE',
+                    'data' => [
+                        [
+                            'group' => 'Palabras clave',
+                            'items' => Palabra::find()->orderby('RAND()')->limit(4)->all()
+                        ]
+                    ],
+                    'dataResultMapper' => function ($payload) {
+                        return [
+                            'group' => $payload['group'],
+                            'items' => array_map(fn ($item) => ['href'  => 'site/busqueda', 'label' => $item->pal_nombre], $payload['items']),
+                        ];
+                    },
+                ]) ?>
             </div>
             <div class="py-2 col-12 col-lg-5">
                 <div class="card my-3">
-                    <h5 class="card-header bg-info">Buscar repositorios</h5>
+                    <h5 class="card-header" style="background: #FF8800;">Buscar repositorios </h5>
                     <div class="card-body">
                         <p class="card-text">
+                            <label>Por Nombre:</label>
                         <div class="input-group mb-3">
                             <?= Select2::widget([
                                 'name' => 'state_10',
@@ -68,12 +86,16 @@ $this->title = 'ITVH Repositorio';
                             ?>
                         </div>
                         </p>
+                        <p>
+                            <?= Html::a('Búsqueda Avanzada', 'site/busqueda', ['class' => 'btn btn-info', 'style' => 'width:100%;']) ?>
+                        </p>
                     </div>
                 </div>
                 <?= CardListData::widget([
-                    'titulo' => 'Repositorios mas vistos',
-                    'descripcion' => 'Repositorios con mayor indice de visitas',
+                    'titulo' => 'Repositorios más vistos',
+                    'descripcion' => 'Repositorios con mayor índice de visitas',
                     'mode' => 'OUTLINED',
+                    'color' => '#FF8800',
                     'data' => RecursoArchivo::getMostVisits(),
                     'dataResultMapper' => function (RecursoArchivo $item) {
                         return [
@@ -85,9 +107,10 @@ $this->title = 'ITVH Repositorio';
                 ]) ?>
 
                 <?= CardListData::widget([
-                    'titulo' => 'Repositorios mas descargados',
-                    'descripcion' => 'Repositorios con mayor indice de descargas',
+                    'titulo' => 'Repositorios más descargados',
+                    'descripcion' => 'Repositorios con mayor índice de descargas',
                     'mode' => 'OUTLINED',
+                    'color' => '#FF8800',                    
                     'data' => RecursoArchivo::getMostDownloaded(),
                     'dataResultMapper' => function (RecursoArchivo $item) {
                         return [
@@ -96,23 +119,6 @@ $this->title = 'ITVH Repositorio';
                             'chip'  => $item->descargas
                         ];
                     }
-                ]) ?>
-
-                <?= CardListData::widget([
-                    'titulo' => 'Repositorio por Listado',
-                    'mode' => 'TREE',
-                    'data' => [
-                        [
-                            'group' => 'Palabras clave',
-                            'items' => Palabra::find()->orderby('RAND()')->limit(4)->all()
-                        ]
-                    ],
-                    'dataResultMapper' => function ($payload) {
-                        return [
-                            'group' => $payload['group'],
-                            'items' => array_map(fn ($item) => ['href'  => 'site/busqueda', 'label' => $item->pal_nombre], $payload['items']),
-                        ];
-                    },
                 ]) ?>
             </div>
         </div>

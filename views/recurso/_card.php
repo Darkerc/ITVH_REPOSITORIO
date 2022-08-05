@@ -26,7 +26,7 @@ $archivos = new ArrayDataProvider([
             <div class="col-12 mt-3">
                 <table class="table table-hover">
                     <tr class="tr_item">
-                        <td class="td_header">Titulo</td>
+                        <td class="td_header">Título</td>
                         <td class="td_value"><?= $model->rec_nombre ?></td>
                     </tr>
                     <tr class="tr_item">
@@ -90,7 +90,7 @@ $archivos = new ArrayDataProvider([
                         </td>
                     </tr>
                     <tr class="tr_item">
-                        <td class="td_header">Fecha de publicacion</td>
+                        <td class="td_header">Fecha de publicación</td>
                         <td class="td_value"><?= date_format(new DateTime($model->rec_registro), 'd/m/Y') ?></td>
                     </tr>
                     <tr class="tr_item">

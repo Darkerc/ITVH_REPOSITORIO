@@ -47,7 +47,7 @@ class Recurso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rec_nombre', 'rec_resumen', 'rec_registro', 'rec_fkrecursotipo', 'rec_fknivel', 'recursoCarrera', 'palabrasc'], 'required', 'message' => '{attribute} no puede estar vacio'],
+            [['rec_nombre', 'rec_resumen', 'rec_registro', 'rec_fkrecursotipo', 'rec_fknivel', 'recursoCarrera', 'palabrasc'], 'required', 'message' => '{attribute} no puede estar vacío'],
             [['rec_nombre', 'rec_resumen', 'rec_descripcion'], 'string'],
             [['rec_registro', 'recursoCarrera', 'palabrasc', 'autores'], 'safe'],
             [['rec_fkrecursotipo', 'rec_fknivel'], 'integer'],
@@ -69,7 +69,7 @@ class Recurso extends \yii\db\ActiveRecord
             'rec_nombre'        => 'Título',
             'rec_resumen'       => 'Resumen',
             'rec_registro'      => 'Fecha de Registro',
-            'rec_descripcion'   => 'Descripcion',
+            'rec_descripcion'   => 'Descripción',
             'rec_fkrecursotipo' => 'Tipo',
             'rec_fknivel'       => 'Nivel',
             'recursoCarrera'    => 'Carreras',
@@ -218,7 +218,9 @@ class Recurso extends \yii\db\ActiveRecord
 
     public function getAutor()
     {
-        return array_map(fn ($autores) => $autores->autcar_fkautor, $this->autorRecursos);
+        $autor = array_map(fn ($autor) => $autor->autor, $this->autorRecursos);
+        $carr = join(' - ', $autor);
+        return !$carr ? 'Sin autor(es)' : $carr;
     }
 
     public function getCurrentUrl()

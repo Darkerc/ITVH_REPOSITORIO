@@ -122,4 +122,8 @@ class Autor extends \yii\db\ActiveRecord
     public static function map(){
         return ArrayHelper::map(Autor::find()->all(), 'aut_id', 'aut_nombre');
     }
+
+    public static function autorId(){
+        return self::find()->where(['aut_fkuser' => Yii::$app->user->identity->id])->one()->aut_id;
+    }
 }

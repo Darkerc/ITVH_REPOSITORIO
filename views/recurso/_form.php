@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Autor;
 use app\models\Carrera;
 use app\models\Nivel;
 use app\models\Palabra;
@@ -42,7 +43,7 @@ $files = array_map(fn (RecursoArchivo $ra) => [
 
     <div class="d-flex mb-3">
         <?= $form->field($model, 'rec_nombre', array_merge($config, ['options' => ['class' => 'w-100']]))->widget(LabelInPlace::classname(), [
-            'label' => 'Titulo',
+            'label' => 'Título',
             'encodeLabel' => false,
             'pluginOptions' => [
                 'labelPosition' => 'down',
@@ -246,45 +247,9 @@ $files = array_map(fn (RecursoArchivo $ra) => [
         window.onChangeSelectValues = (element, event, type = 'UPDATE') => {
             const modelPropertyName = event.target.id.split('recurso-').pop()
             switch (modelPropertyName) {
-                case 'recursocarrera': {
+                case 'recursocarrera':{
                     const modelPropertyValue = event.params.data.id
-                    updateProperty({
-                        key: modelPropertyName,
-                        value: modelPropertyValue,
-                        url: URL[type]
-                    })
-                    break;
-                }
-                case 'palabrasc': {
-                    const modelPropertyValue = event.params.data.id
-                    updateProperty({
-                        key: modelPropertyName,
-                        value: modelPropertyValue,
-                        url: URL[type],
-                        onSuccess: (pal_id) => {
-                            const selectId = event.currentTarget.id
-                            const $select = $(`#${selectId}`)
-                            const values = $select.val();
-                            if (values) {
-                                const i = values.indexOf(modelPropertyValue);
-                                if (i >= 0) {
-                                    values.splice(i, 1);
-                                    $select.val(values).change();
-                                }
-                            }
-                            if (type === 'UPDATE') {
-                                const newOption = new Option(modelPropertyValue, pal_id, true, true);
-                                $select.append(newOption).trigger('change');
-                            } else if (type === 'DELETE') {
-                                $select.select2('open').trigger('change');
-                                $select.select2('open').trigger('change');
-                            }
-                        },
-                        onError: () => {
-                            console.log(modelPropertyValue)
-                            console.log(event)
-                        }
-                    })
+                    updateProperty({ key: modelPropertyName, value: modelPropertyValue, url: URL[type] })
                     break;
                 }
                 default: {

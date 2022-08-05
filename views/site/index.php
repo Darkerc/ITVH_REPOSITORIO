@@ -2,6 +2,7 @@
 
 use app\models\Palabra;
 use app\widgets\CardListData;
+use app\widgets\CardContainer;
 use yii\bootstrap4\Carousel;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
@@ -61,36 +62,34 @@ $this->title = 'ITVH Repositorio';
                 ]) ?>
             </div>
             <div class="py-2 col-12 col-lg-5">
-                <div class="card my-3">
-                    <h5 class="card-header textwhite" style="background: #4CD64C;">Buscar repositorios </h5>
-                    <div class="card-body">
-                        <p class="card-text">
-                            <label>Por Nombre:</label>
-                        <div class="input-group mb-3">
-                            <?= Select2::widget([
-                                'name' => 'state_10',
-                                'data' => $recurso,
-                                'options' => [
-                                    'placeholder' => 'Busque los repositorios ...',
-                                ],
-                                'pluginOptions' => [
-                                    'allowClear' => true
-                                ],
-                                'pluginEvents' => [
-                                    "change" => "function(data) { 
-                                        const resId = data.target.value
-                                        window.location.href = '/recurso/view?rec_id=' + resId;
-                                    }",
-                                ]
-                            ]);
-                            ?>
-                        </div>
-                        </p>
-                        <p>
-                            <?= Html::a('Búsqueda Avanzada', 'site/busqueda', ['class' => 'btn textwhite', 'style' => 'width:100%; background:#4CD64C; ']) ?>
-                        </p>
+                <?php CardContainer::begin([ 'title' => 'Buscar repositorio', 'color' => '#4CD64C' ]); ?>
+                    <p class="card-text">
+                        <label>Por Nombre:</label>
+                    <div class="input-group mb-3">
+                        <?= Select2::widget([
+                            'name' => 'state_10',
+                            'data' => $recurso,
+                            'options' => [
+                                'placeholder' => 'Busque los repositorios ...',
+                            ],
+                            'pluginOptions' => [
+                                'allowClear' => true
+                            ],
+                            'pluginEvents' => [
+                                "change" => "function(data) { 
+                                    const resId = data.target.value
+                                    window.location.href = '/recurso/view?rec_id=' + resId;
+                                }",
+                            ]
+                        ]);
+                        ?>
                     </div>
-                </div>
+                    </p>
+                    <p>
+                        <?= Html::a('Búsqueda Avanzada', 'site/busqueda', ['class' => 'btn textwhite', 'style' => 'width:100%; background:#4CD64C; ']) ?>
+                    </p>
+                <?php CardContainer::end(); ?>
+
                 <?= CardListData::widget([
                     'titulo' => 'Repositorios más vistos',
                     'descripcion' => 'Repositorios con mayor índice de visitas',
@@ -110,7 +109,7 @@ $this->title = 'ITVH Repositorio';
                     'titulo' => 'Repositorios más descargados',
                     'descripcion' => 'Repositorios con mayor índice de descargas',
                     'mode' => 'OUTLINED',
-                    'color' => '#4CD64C',                    
+                    'color' => '#4CD64C',
                     'data' => RecursoArchivo::getMostDownloaded(),
                     'dataResultMapper' => function (RecursoArchivo $item) {
                         return [

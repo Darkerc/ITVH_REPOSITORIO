@@ -1,7 +1,7 @@
 <?php
-
 use yii\bootstrap4\LinkPager;
 ?>
+
 <div class="card">
     <h4 class="card-header bg-info">
         <?= $this->context->title ?>

@@ -12,6 +12,7 @@ use app\models\RecursoArchivo;
 use yii\data\ArrayDataProvider;
 use kartik\icons\FontAwesomeAsset;
 use webvimark\modules\UserManagement\models\User;
+use app\widgets\TableViewer;
 
 FontAwesomeAsset::register($this);
 
@@ -24,121 +25,51 @@ $archivos = new ArrayDataProvider([
     <div class="body-content">
         <div class="row">
             <div class="col-12 mt-3">
-                <table class="table table-hover">
-                    <tr class="tr_item">
-                        <td class="td_header">Título</td>
-                        <td class="td_value"><?= $model->rec_nombre ?></td>
-                    </tr>
-                    <tr class="tr_item">
-                        <td class="td_header">Resumen</td>
-                        <td class="td_value"><?= $model->rec_resumen ?></td>
-                    </tr>
-                    <tr class="tr_item">
-                        <td class="td_header">Autor(es)</td>
-                        <td class="td_value">
-                            <?php
-                            if (count($model->autorRecursos) > 0) {
-                            ?>
-                                <?php foreach ($model->autorRecursos as $rAutor) { ?>
-                                    <li class="list-group-item list-group-item-action">
-                                        <?= $rAutor->autor ?>
-                                    </li>
-                                <?php } ?>
-                            <?php
-                            } else {
-                            ?>
-                                <li class="list-group-item list-group-item-action">
-                                    Sin Autor(es)
-                                </li>
-                            <?php
-                            }
-                            ?>
-                        </td>
-                    </tr>
-                    <tr class="tr_item">
-                        <td class="td_header">Carreras</td>
-                        <td class="td_value">
-                            <?php
-                            if (count($model->recursoCarreras) > 0) {
-                            ?>
-                                <?php foreach ($model->recursoCarreras as $rCarrera) { ?>
-                                    <li class="list-group-item list-group-item-action">
-                                        <?= $rCarrera->carrera ?>
-                                    </li>
-                                <?php } ?>
-                            <?php
-                            } else {
-                            ?>
-                                <li class="list-group-item list-group-item-action">
-                                    Sin carreras
-                                </li>
-                            <?php
-                            }
-                            ?>
-                        </td>
-                    </tr>
-                    <tr class="tr_item">
-                        <td class="td_header">Nivel</td>
-                        <td class="td_value">
-                            <?= $model->nivel ?>
-                        </td>
-                    </tr>
-                    <tr class="tr_item">
-                        <td class="td_header">Tipo</td>
-                        <td class="td_value">
-                            <?= $model->tipo ?>
-                        </td>
-                    </tr>
-                    <tr class="tr_item">
-                        <td class="td_header">Fecha de publicación</td>
-                        <td class="td_value"><?= date_format(new DateTime($model->rec_registro), 'd/m/Y') ?></td>
-                    </tr>
-                    <tr class="tr_item">
-                        <td class="td_header">URL del recurso</td>
-                        <td class="td_value">
-                            <a href="<?= $model->currentUrl ?>">
-                                <?= $model->currentUrl ?>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="tr_item">
-                        <td class="td_header">Palabras Clave</td>
-                        <td class="td_value">
-                            <?php
-                            if (count($model->palabras) > 0) {
-                            ?>
-                                <?php foreach ($model->palabras as $rPalabra) { ?>
-                                    <li class="list-group-item list-group-item-action">
-                                        <?= $rPalabra->pal_nombre ?>
-                                    </li>
-                                <?php } ?>
-                            <?php
-                            } else {
-                            ?>
-                                <li class="list-group-item list-group-item-action">
-                                    Sin Palabras Clave
-                                </li>
-                            <?php
-                            }
-                            ?>
-                        </td>
-                    </tr>
-                    <?php if (User::hasRole(['admon', false])) { ?>
-                        <?php if (isset($model->rec_descripcion)) { ?>
-                            <tr class="tr_item">
-                                <td class="td_header">Cambios</td>
-                                <td class="td_value"><?= $model->rec_descripcion ?></td>
-                            </tr>
-                        <?php } else { ?>
-                            <tr class="tr_item">
-                                <td class="td_header">Cambios</td>
-                                <td class="td_value">
-                                    <h4>SIN CAMBIOS</h4>
-                                </td>
-                            </tr>
-                        <?php } ?>
-                    <?php } ?>
-                </table>
+                <?= TableViewer::widget([
+                   'data' => [
+                        [
+                            'header' => 'Título',
+                            'values' => $model->rec_nombre
+                        ],
+                        [
+                            'header' => 'Resumen',
+                            'values' => $model->rec_resumen
+                        ],
+                        [
+                            'header' => 'Autor(es)',
+                            'values' => array_map(fn($rAutor) => $rAutor->autor, $model->autorRecursos)
+                        ],
+                        [
+                            'header' => 'Carreras',
+                            'values' => array_map(fn($rCarrera) => $rCarrera->carrera, $model->recursoCarreras)
+                        ],
+                        [
+                            'header' => 'Nivel',
+                            'values' => $model->nivel
+                        ],
+                        [
+                            'header' => 'Tipo',
+                            'values' => $model->tipo
+                        ],
+                        [
+                            'header' => 'Fecha de publicación',
+                            'values' => date_format(new DateTime($model->rec_registro), 'd/m/Y')
+                        ],
+                        [
+                            'header' => 'URL del recurso',
+                            'values' => Html::a($model->currentUrl, $model->currentUrl)
+                        ],
+                        [
+                            'header' => 'Palabras Clave',
+                            'values' => array_map(fn($rPalabra) => $rPalabra->pal_nombre, $model->palabras)
+                        ],
+                        [
+                            'header' => 'Cambios',
+                            'values' => array_map(fn($rPalabra) => $rPalabra->pal_nombre, $model->palabras),
+                            'hide' => !User::hasRole(['admon', false])
+                        ],
+                   ]
+                ]) ?>
             </div>
 
 

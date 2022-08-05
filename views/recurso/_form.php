@@ -42,6 +42,10 @@ $files = array_map(fn (RecursoArchivo $ra) => [
     ]); ?>
 
     <div class="d-flex mb-3">
+        <?= $isUpdated ? Html::a('Regresar <img src="/images/regresar.png"> ', Yii::$app->request->referrer, ['class' => 'btn btn-warning btn-lg px-5']) : '' ?>
+    </div>
+
+    <div class="d-flex mb-3">
         <?= $form->field($model, 'rec_nombre', array_merge($config, ['options' => ['class' => 'w-100']]))->widget(LabelInPlace::classname(), [
             'label' => 'Título',
             'encodeLabel' => false,
@@ -205,6 +209,7 @@ $files = array_map(fn (RecursoArchivo $ra) => [
     </div>
 
     <div class="d-flex justify-content-end form-group mt-5">
+        <?= !$isUpdated ? Html::a('Regresar <img src="/images/regresar.png"> ', Yii::$app->request->referrer, ['class' => 'btn btn-warning btn-lg px-5']) : '' ?>
         <?= !$isUpdated ? Html::submitButton('Guardar', ['class' => 'btn btn-success btn-lg px-5']) : '' ?>
     </div>
 
@@ -247,9 +252,13 @@ $files = array_map(fn (RecursoArchivo $ra) => [
         window.onChangeSelectValues = (element, event, type = 'UPDATE') => {
             const modelPropertyName = event.target.id.split('recurso-').pop()
             switch (modelPropertyName) {
-                case 'recursocarrera':{
+                case 'recursocarrera': {
                     const modelPropertyValue = event.params.data.id
-                    updateProperty({ key: modelPropertyName, value: modelPropertyValue, url: URL[type] })
+                    updateProperty({
+                        key: modelPropertyName,
+                        value: modelPropertyValue,
+                        url: URL[type]
+                    })
                     break;
                 }
                 default: {

@@ -144,51 +144,74 @@ class RecursoController extends Controller
     }
 
     public function actionDeleteRecursoField($rec_id) {
-        // $model = $this->findModel($rec_id);
-        // $propertyName = array_keys($this->request->post())[0];
-        // $propertyValue = array_values($this->request->post())[0];
+        $model = $this->findModel($rec_id);
+        $propertyName = array_keys($this->request->post())[0];
+        $propertyValue = array_values($this->request->post())[0];
+        $data = null;
 
-        // switch ($propertyName) {
-        //     case 'recursocarrera': {
-        //         $carrera = RecursoCarrera::findOne()
-        //         $carrera->reccar_fkrecurso = $model->rec_id;
-        //         $carrera->reccar_fkcarrera = $propertyValue;
-        //         $carrera->save();
-        //         break;
-        //     }
-        //     default: {
-        //         $model->updateAttributes([$propertyName => $propertyValue]);
-        //         break;
-        //     }
-        // }
+        switch ($propertyName) {
+            case 'recursocarrera': {
+                $rCarrera = RecursoCarrera::findOne([
+                    'reccar_fkcarrera' => $propertyValue,
+                    'reccar_fkrecurso' => $rec_id
+                ]);
+                $rCarrera->delete();
+                $data = $rCarrera->reccar_id;
+                break;
+            }
+            case 'palabrasc': {
+                $palabra = Palabra::findOne([
+                    'pal_id' => $propertyValue
+                ]);
+                $palabra->delete();
+                $data = $palabra->pal_id;
+                break;
+            }
+            default: {
+                $model->updateAttributes([$propertyName => $propertyValue]);
+                $data = $model;
+                break;
+            }
+        }
 
-        // header('Content-Type: application/json; charset=utf-8');
-        // echo json_encode($this->request->post());
-        // exit();
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($data);
+        exit();
     }
 
     public function actionUpdateRecursoField($rec_id) {
         $model = $this->findModel($rec_id);
         $propertyName = array_keys($this->request->post())[0];
         $propertyValue = array_values($this->request->post())[0];
+        $data = null;
 
         switch ($propertyName) {
             case 'recursocarrera': {
-                $carrera = new RecursoCarrera();
-                $carrera->reccar_fkrecurso = $model->rec_id;
-                $carrera->reccar_fkcarrera = $propertyValue;
-                $carrera->save();
+                $rCarrera = new RecursoCarrera();
+                $rCarrera->reccar_fkrecurso = $model->rec_id;
+                $rCarrera->reccar_fkcarrera = $propertyValue;
+                $rCarrera->save();
+                $data = $rCarrera->reccar_id;
+                break;
+            }
+            case 'palabrasc': {
+                $palabras = new Palabra();
+                $palabras->pal_fkrecurso = $model->rec_id;
+                $palabras->pal_nombre = $propertyValue;
+                $palabras->save();
+                $data = $palabras->pal_id;
                 break;
             }
             default: {
                 $model->updateAttributes([$propertyName => $propertyValue]);
+                $data = $model->rec_id;
                 break;
             }
         }
 
 
         header('Content-Type: application/json; charset=utf-8');
-        echo json_encode($this->request->post());
+        echo json_encode($data);
         exit();
     }
 

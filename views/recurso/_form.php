@@ -88,9 +88,9 @@ $files = array_map(fn (RecursoArchivo $ra) => [
             ],
             'language' => 'es',
             'widgetOptions' => [
-                'pluginEvents' => [
-                    "changeDate" => "e => onChangeDateValues(e, 'rec_registro')",
-                ],
+                'pluginEvents' => $isUpdated ? [
+                    "changeDate" => "e => window.onChangeDateValues(e, 'rec_registro')",
+                ] : []
             ]
         ]); ?>
     <?php } ?>
@@ -103,8 +103,8 @@ $files = array_map(fn (RecursoArchivo $ra) => [
                     'placeholder' => 'Seleccione un tipo',
                 ],
                 'pluginEvents' => $isUpdated ? [
-                    "select2:select" => "e => window.onChangeSelectValues(e, 'UPDATE')",
-                    "select2:unselect" => "e => window.onChangeSelectValues(e, 'DELETE')"
+                    "select2:select" => "function(e){ window.onChangeSelectValues(this, e, 'UPDATE') }",
+                    "select2:unselect" => "function(e){ window.onChangeSelectValues(this, e, 'DELETE') }"
                 ] : []
             ])->label('Tipo'); ?>
         </div>
@@ -115,20 +115,39 @@ $files = array_map(fn (RecursoArchivo $ra) => [
                     'placeholder' => 'Seleccione un nivel',
                 ],
                 'pluginEvents' => $isUpdated ? [
-                    "select2:select" => "e => window.onChangeSelectValues(e, 'UPDATE')",
-                    "select2:unselect" => "e => window.onChangeSelectValues(e, 'DELETE')"
+                    "select2:select" => "function(e){ window.onChangeSelectValues(this, e, 'UPDATE') }",
+                    "select2:unselect" => "function(e){ window.onChangeSelectValues(this, e, 'DELETE') }"
                 ] : []
             ])->label('Nivel'); ?>
         </div>
     </div>
 
+    <?php if (User::hasRole(['admon', false])) { ?>
+        <?= $form->field($model, 'autores')->widget(Select2::classname(), [
+            'options' => ['placeholder' => 'Selecciona una autor...', 'multiple' => true, 'value' => $model->autor],
+            'toggleAllSettings' => [
+                'unselectLabel' => 'Deseleccionar todo',
+                'selectOptions' => ['class' => 'd-none'],
+                'unselectOptions' => ['class' => 'text-danger'],
+            ],
+            'pluginOptions' => [
+                'tags' => true,
+                'tokenSeparators' => [',', ' '],
+                'maximumInputLength' => 20
+            ],
+            'pluginEvents' => $isUpdated ? [
+                "select2:select" => "function(e){ window.onChangeSelectValues(this, e, 'UPDATE') }",
+                "select2:unselect" => "function(e){ window.onChangeSelectValues(this, e, 'DELETE') }"
+            ] : []
+        ]); ?>
+    <?php } ?>
+
     <?= $form->field($model, 'recursoCarrera')->widget(Select2::classname(), [
         'data' => Carrera::map(),
         'options' => ['placeholder' => 'Selecciona una carrera...', 'multiple' => true, 'value' => $model->CarreraId],
         'toggleAllSettings' => [
-            'selectLabel' => '-Selecionar todo',
             'unselectLabel' => 'Deseleccionar todo',
-            'selectOptions' => ['class' => 'text-success'],
+            'selectOptions' => ['class' => 'd-none'],
             'unselectOptions' => ['class' => 'text-danger'],
         ],
         'pluginOptions' => [
@@ -137,26 +156,30 @@ $files = array_map(fn (RecursoArchivo $ra) => [
             'maximumInputLength' => 20
         ],
         'pluginEvents' => $isUpdated ? [
-            "select2:select" => "e => onChangeSelectValues(e, 'UPDATE')",
-            "select2:unselect" => "e => onChangeSelectValues(e, 'DELETE')"
+            "select2:select" => "function(e){ window.onChangeSelectValues(this, e, 'UPDATE') }",
+            "select2:unselect" => "function(e){ window.onChangeSelectValues(this, e, 'DELETE') }"
         ] : []
     ])->label('Carreras'); ?>
 
     <?= $form->field($model, 'palabrasc')->widget(Select2::classname(), [
-        'data' => Palabra::mapById($model->PalabraId),    
+        'data' => Palabra::mapById($model->PalabraId),
         'value' => $model->PalabraId,
-        'options' => ['placeholder' => 'Ingrese las palabras clave...', 'multiple' => true],
+        'options' => ['placeholder' => 'Ingrese las palabras clave...', 'multiple' => true, 'value' => $model->PalabraId],
         'toggleAllSettings' => [
             'selectLabel' => 'Seleccionar todo',
             'unselectLabel' => 'Deseleccionar todo',
-            'selectOptions' => ['class' => 'text-success'],
+            'selectOptions' => ['class' => 'd-none'],
             'unselectOptions' => ['class' => 'text-danger'],
         ],
         'pluginOptions' => [
             'tags' => true,
             'tokenSeparators' => [',', ' '],
-            'maximumInputLength' => 15
+            'maximumInputLength' => 15,
         ],
+        'pluginEvents' => $isUpdated ? [
+            "select2:select" => "function(e){ window.onChangeSelectValues(this, e, 'UPDATE') }",
+            "select2:unselect" => "function(e){ window.onChangeSelectValues(this, e, 'DELETE') }"
+        ] : []
     ])->label('Palabras Clave');  ?>
 
     <div class="row">
@@ -181,7 +204,7 @@ $files = array_map(fn (RecursoArchivo $ra) => [
     </div>
 
     <div class="d-flex justify-content-end form-group mt-5">
-        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success btn-lg px-5']) ?>
+        <?= !$isUpdated ? Html::submitButton('Guardar', ['class' => 'btn btn-success btn-lg px-5']) : '' ?>
     </div>
 
     <?php ActiveForm::end(); ?>
@@ -194,33 +217,83 @@ $files = array_map(fn (RecursoArchivo $ra) => [
             UPDATE: '/recurso/update-recurso-field?rec_id=<?= $model->rec_id ?>',
             DELETE: '/recurso/delete-recurso-field?rec_id=<?= $model->rec_id ?>'
         }
-        
-        const updateProperty = ({ key, value, url }) => {
+
+        const updateProperty = ({
+            key,
+            value,
+            url,
+            onSuccess = (data) => {},
+            onError = (error) => {}
+        }) => {
             $.notify("Cambiando informacion...", "info");
             $.ajax(url, {
                 type: 'POST', // http method
-                data: {[key]: value}, 
+                data: {
+                    [key]: value
+                },
                 // data to submit
                 success: function(data, status, xhr) {
                     $.notify("Realizado con exito", "success");
+                    onSuccess(data)
                 },
                 error: function(jqXhr, textStatus, errorMessage) {
                     $.notify("A ocurrido un error, intente de nuevo", "error");
+                    onError(errorMessage)
                 }
             });
         }
 
-        window.onChangeSelectValues = (event, type = 'UPDATE') => {
+        window.onChangeSelectValues = (element, event, type = 'UPDATE') => {
             const modelPropertyName = event.target.id.split('recurso-').pop()
             switch (modelPropertyName) {
-                case 'recursocarrera':{
+                case 'recursocarrera': {
                     const modelPropertyValue = event.params.data.id
-                    updateProperty({ key: modelPropertyName, value: modelPropertyValue, url: URL[type] })
+                    updateProperty({
+                        key: modelPropertyName,
+                        value: modelPropertyValue,
+                        url: URL[type]
+                    })
+                    break;
+                }
+                case 'palabrasc': {
+                    const modelPropertyValue = event.params.data.id
+                    updateProperty({
+                        key: modelPropertyName,
+                        value: modelPropertyValue,
+                        url: URL[type],
+                        onSuccess: (pal_id) => {
+                            const selectId = event.currentTarget.id
+                            const $select = $(`#${selectId}`)
+                            const values = $select.val();
+                            if (values) {
+                                const i = values.indexOf(modelPropertyValue);
+                                if (i >= 0) {
+                                    values.splice(i, 1);
+                                    $select.val(values).change();
+                                }
+                            }
+                            if (type === 'UPDATE') {
+                                const newOption = new Option(modelPropertyValue, pal_id, true, true);
+                                $select.append(newOption).trigger('change');
+                            } else if (type === 'DELETE') {
+                                $select.select2('open').trigger('change');
+                                $select.select2('open').trigger('change');
+                            }
+                        },
+                        onError: () => {
+                            console.log(modelPropertyValue)
+                            console.log(event)
+                        }
+                    })
                     break;
                 }
                 default: {
                     const modelPropertyValue = event.target.value
-                    updateProperty({ key: modelPropertyName, value: modelPropertyValue, url: URL[type] })
+                    updateProperty({
+                        key: modelPropertyName,
+                        value: modelPropertyValue,
+                        url: URL[type]
+                    })
                     break;
                 }
             }
@@ -229,14 +302,22 @@ $files = array_map(fn (RecursoArchivo $ra) => [
         window.onChangeTextValues = (modelPropertyName) => {
             const elementId = `recurso-${modelPropertyName}`
             const element = document.getElementById(elementId)
-            updateProperty({ key: modelPropertyName, value: element.value, url: URL.UPDATE })
+            updateProperty({
+                key: modelPropertyName,
+                value: element.value,
+                url: URL.UPDATE
+            })
         }
 
         window.onChangeDateValues = (event, modelPropertyName) => {
             const elementId = `recurso-${modelPropertyName}`
             var DateTime = luxon.DateTime;
             const newDate = DateTime.fromJSDate(new Date(event.date)).toFormat('yyyy-MM-dd hh:mm:ss')
-            updateProperty({ key: modelPropertyName, value: newDate, url: URL.UPDATE })
+            updateProperty({
+                key: modelPropertyName,
+                value: newDate,
+                url: URL.UPDATE
+            })
         }
     }
 </script>

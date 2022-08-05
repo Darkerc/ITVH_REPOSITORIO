@@ -26,7 +26,8 @@ $this->title = 'ITVH Repositorio - Buscar';
                         "description" => $model['rec_resumen'],
                         "headerRight" => "Publicado en: " . date_format(new DateTime($model['rec_registro']), 'd/m/Y'),
                         "footerRight" => $model['carrera'],
-                        "footerLeft" => $model['autor'],
+                        "footerLeft" => end($model['autor']),
+                        // "footerLeft" => array_map(fn($autor) => $autor, $model['autor']),
                         "href" => '/recurso/view?rec_id=' . $model->rec_id . ''
                     ];
                 }

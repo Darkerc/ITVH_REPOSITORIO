@@ -67,7 +67,7 @@ $config = ['template' => "{input}\n{error}\n{hint}"];
         ])->label('Carreras'); ?>
 
         <?= $form->field($searchModel, 'palabrasc')->widget(Select2::classname(), [
-            'data' => Palabra::map(),
+            'data' => Palabra::mapcount(),
             'options' => ['placeholder' => 'Ingrese las palabras clave...', 'multiple' => true],
             'toggleAllSettings' => [
                 'selectLabel' => 'Seleccionar todo',

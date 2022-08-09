@@ -132,6 +132,9 @@ class RecursoController extends Controller
         $propertyValue = array_values($this->request->post())[0];
         $data = null;
 
+        $model->rec_descripcion = json_encode([date('Y-m-d H:i:s') => 'Se actualizo el recurso']);
+        $model->save(false, ['rec_descripcion']);
+
         switch ($propertyName) {
             case 'recursocarrera': {
                 $rCarrera = RecursoCarrera::findOne([
@@ -168,6 +171,9 @@ class RecursoController extends Controller
         $propertyName = array_keys($this->request->post())[0];
         $propertyValue = array_values($this->request->post())[0];
         $data = null;
+
+        $model->rec_descripcion = json_encode([date('Y-m-d H:i:s') => 'Se actualizo el recurso']);
+        $model->save(false, ['rec_descripcion']);
 
         switch ($propertyName) {
             case 'recursocarrera': {
@@ -209,15 +215,7 @@ class RecursoController extends Controller
     public function actionUpdate($rec_id)
     {
         $model = $this->findModel($rec_id);
-
-        $var = json_decode($model->rec_descripcion);
-        if (!empty($var)) {
-            $model->rec_descripcion = json_encode([date('Y-m-d H:i:s') => 'Se actualizo el recurso']);
-            $model->save();
-        } else {
-            $model->rec_descripcion = json_encode([date('Y-m-d H:i:s') => 'Se actualizo el recurso']);
-            $model->save();
-        }
+        
         return $this->render('update', [
             'model' => $model,
         ]);

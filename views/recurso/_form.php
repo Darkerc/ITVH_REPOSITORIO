@@ -29,7 +29,7 @@ $config = ['template' => "{input}\n{error}\n{hint}"];
 $files = array_map(fn (RecursoArchivo $ra) => [
     'caption' => $ra->recarcFkarchivo->arc_nombre,
     'downloadUrl' => $ra->recarcFkarchivo->getArchivoURL(),
-    'type' => $ra->recarcFkarchivo->getKartikFileType()
+    'type' => $ra->recarcFkarchivo->getKartikFileType(),
 ], $model->recursoArchivos)
 ?>
 
@@ -94,7 +94,7 @@ $files = array_map(fn (RecursoArchivo $ra) => [
             'language' => 'es',
             'widgetOptions' => [
                 'pluginEvents' => $isUpdated ? [
-                    "changeDate" => "e => window.onChangeDateValues(e, 'rec_registro')",
+                    "changeDate" => "e => window.onDateChanged(e, 'rec_registro')",
                 ] : []
             ]
         ]); ?>
@@ -151,9 +151,10 @@ $files = array_map(fn (RecursoArchivo $ra) => [
         'data' => Carrera::map(),
         'options' => ['placeholder' => 'Selecciona una carrera...', 'multiple' => true, 'value' => $model->CarreraId],
         'toggleAllSettings' => [
-            'unselectLabel' => 'Deseleccionar todo',
+            'selectLabel' => '',
+            'unselectLabel' => '',
             'selectOptions' => ['class' => 'd-none'],
-            'unselectOptions' => ['class' => 'text-danger'],
+            'unselectOptions' => ['class' => 'd-none'],
         ],
         'pluginOptions' => [
             'tags' => true,
@@ -167,14 +168,15 @@ $files = array_map(fn (RecursoArchivo $ra) => [
     ])->label('Carreras'); ?>
 
     <?= $form->field($model, 'palabrasc')->widget(Select2::classname(), [
+        'id' => 'test',
         'data' => Palabra::mapById($model->PalabraId),
         'value' => $model->PalabraId,
         'options' => ['placeholder' => 'Ingrese las palabras clave...', 'multiple' => true, 'value' => $model->PalabraId],
         'toggleAllSettings' => [
-            'selectLabel' => 'Seleccionar todo',
-            'unselectLabel' => 'Deseleccionar todo',
+            'selectLabel' => '',
+            'unselectLabel' => '',
             'selectOptions' => ['class' => 'd-none'],
-            'unselectOptions' => ['class' => 'text-danger'],
+            'unselectOptions' => ['class' => 'd-none'],
         ],
         'pluginOptions' => [
             'tags' => true,
@@ -201,7 +203,8 @@ $files = array_map(fn (RecursoArchivo $ra) => [
                     'showUpload' => false,
                     'showRemove' => false,
                     'initialPreviewAsData' => true,
-                    'initialPreviewConfig' => $files
+                    'initialPreviewConfig' => $files,
+
                 ]
             ]);
             ?>
@@ -261,6 +264,35 @@ $files = array_map(fn (RecursoArchivo $ra) => [
                     })
                     break;
                 }
+                case 'palabrasc': {
+                    const modelPropertyValue = type === 'DELETE' ? event.params.data.id : event.params.data.text
+                    if (type === 'DELETE') {
+                        updateProperty({
+                            key: modelPropertyName,
+                            value: modelPropertyValue,
+                            url: URL[type],
+                            onSuccess(pal_id) {
+                                $(`#recurso-palabrasc option[value="${modelPropertyValue}"]`).remove().trigger('change');
+                            }
+                        })
+                    } else if (type === 'UPDATE') {
+                        updateProperty({
+                            key: modelPropertyName,
+                            value: modelPropertyValue,
+                            url: URL[type],
+                            onSuccess(pal_id) {
+                                $(`#recurso-palabrasc option[value="${modelPropertyValue}"]`).remove().trigger('change');
+                                var data = {
+                                    id: pal_id,
+                                    text: modelPropertyValue
+                                };
+                                var newOption = new Option(data.text, data.id, true, true);
+                                $('#recurso-palabrasc').append(newOption).trigger('change');
+                            }
+                        })
+                    }
+                    break;
+                }
                 default: {
                     const modelPropertyValue = event.target.value
                     updateProperty({
@@ -283,7 +315,7 @@ $files = array_map(fn (RecursoArchivo $ra) => [
             })
         }
 
-        window.onChangeDateValues = (event, modelPropertyName) => {
+        window.onDateChanged = (event, modelPropertyName) => {
             const elementId = `recurso-${modelPropertyName}`
             var DateTime = luxon.DateTime;
             const newDate = DateTime.fromJSDate(new Date(event.date)).toFormat('yyyy-MM-dd hh:mm:ss')

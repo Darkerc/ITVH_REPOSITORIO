@@ -53,6 +53,11 @@ class Nivel extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Recurso::className(), ['rec_fknivel' => 'niv_id']);
     }
+
+    public function getCarreras()
+    {
+        return $this->hasMany(Carrera::className(), ['car_fknivel' => 'niv_id']);
+    }
     
     public static function map(){
         return ArrayHelper::map(Nivel::find()->all(), 'niv_id', 'niv_nombre');

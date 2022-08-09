@@ -158,7 +158,7 @@ $files = array_map(fn (RecursoArchivo $ra) => [
         'pluginOptions' => [
             'tags' => true,
             'tokenSeparators' => [',', ' '],
-            'maximumInputLength' => 20
+            'maximumInputLength' => 20,
         ],
         'pluginEvents' => $isUpdated ? [
             "select2:select" => "function(e){ window.onChangeSelectValues(this, e, 'UPDATE') }",
@@ -178,8 +178,8 @@ $files = array_map(fn (RecursoArchivo $ra) => [
         ],
         'pluginOptions' => [
             'tags' => true,
-            'tokenSeparators' => [',', ' '],
             'maximumInputLength' => 15,
+            'maximumSelectionLength' => 5,
         ],
         'pluginEvents' => $isUpdated ? [
             "select2:select" => "function(e){ window.onChangeSelectValues(this, e, 'UPDATE') }",

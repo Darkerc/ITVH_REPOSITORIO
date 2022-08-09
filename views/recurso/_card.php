@@ -23,7 +23,7 @@ $archivos = new ArrayDataProvider([
 
 <div class="site-index">
     <div class="body-content">
-        <div class="row">
+        <div class="row mb-3">
             <div class="col-12 mt-3">
                 <?= TableViewer::widget([
                    'data' => [
@@ -65,7 +65,7 @@ $archivos = new ArrayDataProvider([
                         ],
                         [
                             'header' => 'Cambios',
-                            'values' => array_map(fn($rPalabra) => $rPalabra->pal_nombre, $model->palabras),
+                            'values' => $model->rec_descripcion,
                             'hide' => !User::hasRole(['admon', false])
                         ],
                    ]

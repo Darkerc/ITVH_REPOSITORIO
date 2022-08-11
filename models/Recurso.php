@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-use yii\db\Query;
 use yii\web\UploadedFile;
 
 /**

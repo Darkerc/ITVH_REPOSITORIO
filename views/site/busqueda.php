@@ -11,8 +11,9 @@ $this->title = 'ITVH Repositorio - Buscar';
     <div class="body-content">
         <div class="row">
 
-            <?= $this->render('busqueda/_search', ['searchModel' => $searchModel]); ?>
-
+            <div class="col-12">
+                <?= $this->render('busqueda/_search', ['searchModel' => $searchModel]); ?>
+            </div>
             <div class="col-12 mt-3">
                 <?= CardSearchPagination::widget([
                     "dataProvider" => $dataProvider,

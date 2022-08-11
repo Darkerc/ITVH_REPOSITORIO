@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+use kartik\dialog\Dialog;
 use webvimark\modules\UserManagement\models\User;
 
 
@@ -12,6 +12,8 @@ $this->title = $model->rec_nombre;
 $this->params['breadcrumbs'][] = ['label' => 'Recursos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
+echo Dialog::widget(['overrideYiiConfirm' => true]);
 ?>
 <div class="recurso-view">
 
@@ -26,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a('Eliminar', ['delete', 'rec_id' => $model->rec_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
-                    'confirm' => '¿Estás seguro de eliminar este recurso? <h3>'.$model->rec_nombre.'</h3>',
+                    'confirm' => '¿Estás seguro de eliminar este recurso? <h3>' . $model->rec_nombre . '</h3>',
                     'method' => 'post',
                 ],
             ]) ?>

@@ -10,10 +10,13 @@ use app\models\Recurso;
 use app\models\RecursoArchivo;
 use app\models\RecursoCarrera;
 use yii\helpers\Html;
-
+use app\models\Visitas;
 $this->title = 'ITVH Repositorio';
 ?>
-<div class="site-index">
+<div class="site-index ">
+    <div class="py-1 bg-transparent brand d-flex justify-content-end">
+        NUMERO DE VISITAS: <?= Visitas::getCount() ?>
+    </div>
     <div class="py-3 text-center bg-transparent brand">
         <h4>Repositorio Institucional del Tecnológico Nacional de México Campus Villahermosa</h4>
     </div>

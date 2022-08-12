@@ -1,18 +1,7 @@
 <?php
-
-use app\models\Carrera;
-use app\models\Nivel;
-use app\models\Palabra;
-use app\models\RecursoTipo;
 use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
 use webvimark\modules\UserManagement\models\User;
 use app\widgets\CardSearchPagination;
-use kartik\label\LabelInPlace;
-use kartik\select2\Select2;
-use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\RecursoSearch */

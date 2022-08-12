@@ -9,8 +9,8 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Palabra;
 use app\models\Recurso;
-use app\models\RecursoArchivo;
 use app\models\RecursoSearch;
+use app\models\Visitas;
 
 class SiteController extends Controller
 {
@@ -71,6 +71,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        Visitas::addVisit();
+
         $recursos = array_map(function (Recurso $recurso) {
             return [
                 'content' => '<img src="images/blanco.jpg"/>',

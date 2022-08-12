@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use webvimark\modules\UserManagement\models\User;
 
 /**
  * This is the model class for table "autor".
@@ -129,7 +130,7 @@ class Autor extends \yii\db\ActiveRecord
 
     // Devuelve true si el autor es un alumno o si el recurso solamente cuenta solamente con un solo autor
     public static function isAllowedToEdit($user_id, $rec_id) {
-        if (User::hasRole(['admon', false])): return true;
+        if (User::hasRole(['admon', false])) return true;
 
         $autor = Autor::findOne(['aut_fkuser' => $user_id]);
         $recurso = Recurso::findOne(['rec_id' => $rec_id]);

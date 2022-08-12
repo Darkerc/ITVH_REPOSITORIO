@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Autor;
 use yii\helpers\Html;
 use kartik\dialog\Dialog;
 use webvimark\modules\UserManagement\models\User;
@@ -20,7 +21,7 @@ echo Dialog::widget(['overrideYiiConfirm' => true]);
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if (User::hasRole(['admon', 'aut', false])) { ?>
+        <?php if (User::hasRole(['admon', 'aut', false]) && Autor::isAllowedToEdit(Yii::$app->user->identity->id, $model->rec_id)) {?>
             <?= Html::a('Actualizar', ['update', 'rec_id' => $model->rec_id], ['class' => 'btn btn-primary']) ?>
         <?php } ?>
 

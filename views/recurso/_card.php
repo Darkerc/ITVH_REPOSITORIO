@@ -26,7 +26,7 @@ $archivos = new ArrayDataProvider([
         <div class="row mb-3">
             <div class="col-12 mt-3">
                 <?= TableViewer::widget([
-                   'data' => [
+                    'data' => [
                         [
                             'header' => 'Título',
                             'values' => $model->rec_nombre
@@ -37,11 +37,11 @@ $archivos = new ArrayDataProvider([
                         ],
                         [
                             'header' => 'Autor(es)',
-                            'values' => array_map(fn($rAutor) => $rAutor->autor, $model->autorRecursos)
+                            'values' => array_map(fn ($rAutor) => $rAutor->autor, $model->autorRecursos)
                         ],
                         [
                             'header' => 'Carreras',
-                            'values' => array_map(fn($rCarrera) => $rCarrera->carrera, $model->recursoCarreras)
+                            'values' => array_map(fn ($rCarrera) => $rCarrera->carrera, $model->recursoCarreras)
                         ],
                         [
                             'header' => 'Nivel',
@@ -61,28 +61,19 @@ $archivos = new ArrayDataProvider([
                         ],
                         [
                             'header' => 'Palabras Clave',
-                            'values' => array_map(fn($rPalabra) => $rPalabra->pal_nombre, $model->palabras)
+                            'values' => array_map(fn ($rPalabra) => $rPalabra->pal_nombre, $model->palabras)
                         ],
                         [
                             'header' => 'Cambios',
                             'values' => $model->rec_descripcion,
                             'hide' => !User::hasRole(['admon', false])
                         ],
-                   ]
+                    ]
                 ]) ?>
             </div>
 
 
             <div style="width: 100%;">
-                <?php
-                $this->registerJs("$(function() {
-                    $('#popupModal').click(function(e) {
-                      e.preventDefault();
-                      $('#modal').modal('show').find('.modal-content')
-                      .load($(this).attr('href'));
-                    });
-                 });");
-                ?>
                 <?=
                 GridView::widget([
                     'dataProvider' => $archivos,

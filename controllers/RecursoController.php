@@ -7,13 +7,11 @@ use Yii;
 use app\models\AutorRecurso;
 use app\models\Palabra;
 use app\models\Recurso;
-use app\models\RecursoArchivo;
 use app\models\RecursoCarrera;
 use app\models\RecursoSearch;
 use DateTime;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use webvimark\modules\UserManagement\models\User;
 use yii\web\UploadedFile;
 
@@ -25,7 +23,7 @@ class RecursoController extends Controller
     /**
      * @inheritDoc
      */
-    public $freeAccess = true;
+    public $freeAccessActions = ['index', 'view'];
 
     public function behaviors()
     {
@@ -96,8 +94,7 @@ class RecursoController extends Controller
                     $autor->autrec_fkrecurso = $model->rec_id;
                     $autor->autrec_fkautor = Autor::autorId();
                     $autor->save();
-                };
-                if (User::hasRole(['admon', false])) {
+                }else if (User::hasRole(['admon', false])) {
                     foreach ($model->autores as $autor) {
                         $autor = new AutorRecurso();
                         $autor->autrec_fkrecurso = $model->rec_id;
@@ -249,5 +246,16 @@ class RecursoController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionMisRecursos()
+    {
+        $searchModel = new RecursoSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams, true);
+
+        return $this->render('mrecursos', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 }

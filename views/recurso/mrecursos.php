@@ -1,14 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-use webvimark\modules\UserManagement\models\User;
 use app\widgets\CardSearchPagination;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\RecursoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Recursos';
+$this->title = 'Mis Recursos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="recurso-index">
@@ -16,9 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if (User::hasRole(['aut', 'admon', false])) { ?>
-            <?= Html::a('Crear un Recurso', ['create'], ['class' => 'btn btn-success']) ?>
-        <?php } ?>
+        <?= Html::a('Crear un Recurso', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
@@ -26,6 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= CardSearchPagination::widget([
         "dataProvider" => $dataProvider,
+        'title' => 'Resultados de la búsqueda de "Mis Recursos"',
         "dataProviderResultsMapper" => function ($model) {
             return [
                 "title" => $model['rec_nombre'],

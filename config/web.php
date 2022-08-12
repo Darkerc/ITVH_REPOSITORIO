@@ -4,6 +4,7 @@ use kartik\datecontrol\Module;
 
 error_reporting(E_ALL ^ E_NOTICE);
 setlocale(LC_TIME, 'es_ES.UTF-8');
+$baseUrl = str_replace('/web', '', (new \yii\web\Request)->getBaseUrl());
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -22,6 +23,7 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'q7Swf1mRki3REYOzqE_DZL3rBk8w7FaB',
+            'baseUrl' => $baseUrl,
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -54,20 +56,17 @@ $config = [
         ],
         'db' => $db,
         'urlManager' => [
-            'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'enablePrettyUrl' => true,
             'rules' => [
-                '<controller:\w+>/<id:\d+>'                          => '<controller>/view',
-                '<controller:\w+>/<action:\w+>/<id:\d+>'             => '<controller>/<action>',
-                '<controller:\w+>/<action:\w+>'                      => '<controller>/<action>',
+                '<controller:\w+>/<id:\d+>'                         => '<controller>/view',
+                '<controller:\w+>/<action:\w+><id:\d+>'             => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>'                     => '<controller>/<action>'
             ],
         ],
     ],
     'params' => $params,
     'modules' => [
-        'pdfjs' => [
-            'class' => '\yii2assets\pdfjs\Module',
-        ],
         'gridview' =>  [
             'class' => '\kartik\grid\Module'
         ],

@@ -5,8 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Recurso;
-use app\models\RecursoCarrera;
-
+use webvimark\modules\UserManagement\models\User;   
 /**
  * RecursoSearch represents the model behind the search form of `app\models\Recurso`.
  */
@@ -42,11 +41,17 @@ class RecursoSearch extends Recurso
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $byautor=false)
     {
         $query = Recurso::find();
         $query->joinWith(['palabras']);
         $query->joinWith(['recursoCarreras']);
+        
+        
+        if (User::hasRole('aut') && $byautor) {
+            $query->where(['autrec_fkautor' => Autor::autorId()]);
+        }
+        $query->joinWith(['autorRecursos']);
 
         // add conditions that should always apply here
 

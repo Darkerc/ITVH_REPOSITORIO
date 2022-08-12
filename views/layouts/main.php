@@ -52,6 +52,7 @@ AppAsset::register($this);
                 ['label' => 'Inicio', 'url' => Yii::$app->homeUrl],
                 ['label' => 'Búsqueda', 'url' => '/site/busqueda'],
                 ['label' => 'Recursos', 'url' => '/recurso/index'],
+                ['label' => 'Mis Recursos', 'url' => '/recurso/mis-recursos', 'visible' => User::hasRole(['aut'], false)],
 				Yii::$app->user->isSuperadmin ? ( [
                     'label' => 'Frontend routes',
                     'items' => [

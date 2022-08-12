@@ -134,10 +134,9 @@ class Autor extends \yii\db\ActiveRecord
         if(is_null($autor) || is_null($recurso)) return false;
 
         $autoresIds = array_map(fn($ar) => $ar->autrec_fkautor, $recurso->autorRecursos);
-        if (!in_array($user_id, $autoresIds)) return false;
-
+        if (!in_array($autor->aut_id, $autoresIds)) return false;
+        
         if ($autor->aut_fkautortipo == 1) return false;
-
         return true;
     }
 }

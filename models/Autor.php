@@ -129,6 +129,8 @@ class Autor extends \yii\db\ActiveRecord
 
     // Devuelve true si el autor es un alumno o si el recurso solamente cuenta solamente con un solo autor
     public static function isAllowedToEdit($user_id, $rec_id) {
+        if (User::hasRole(['admon', false])): return true;
+
         $autor = Autor::findOne(['aut_fkuser' => $user_id]);
         $recurso = Recurso::findOne(['rec_id' => $rec_id]);
         if(is_null($autor) || is_null($recurso)) return false;

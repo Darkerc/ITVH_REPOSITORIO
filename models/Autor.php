@@ -126,4 +126,17 @@ class Autor extends \yii\db\ActiveRecord
     public static function autorId(){
         return self::find()->where(['aut_fkuser' => Yii::$app->user->identity->id])->one()->aut_id;
     }
+
+    public static function isAllowedToEdit($user_id, $rec_id) {
+        $autor = Autor::findOne(['aut_fkuser' => $user_id]);
+        $recurso = Recurso::findOne(['rec_id' => $rec_id]);
+        if(is_null($autor) || is_null($recurso)) return false;
+
+        $autoresIds = array_map(fn($ar) => $ar->autrec_fkautor, $recurso->autorRecursos);
+        if (!in_array($user_id, $autoresIds)) return false;
+
+        if ($autor->aut_fkautortipo == 1) return false;
+
+        return true;
+    }
 }

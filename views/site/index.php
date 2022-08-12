@@ -15,7 +15,9 @@ $this->title = 'ITVH Repositorio';
 ?>
 <div class="site-index ">
     <div class="py-1 bg-transparent brand d-flex justify-content-end">
+        <h5 class="textcount">
         NUMERO DE VISITAS: <?= Visitas::getCount() ?>
+        </h5>
     </div>
     <div class="py-3 text-center bg-transparent brand">
         <h4>Repositorio Institucional del Tecnológico Nacional de México Campus Villahermosa</h4>

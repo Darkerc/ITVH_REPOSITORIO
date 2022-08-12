@@ -127,6 +127,7 @@ class Autor extends \yii\db\ActiveRecord
         return self::find()->where(['aut_fkuser' => Yii::$app->user->identity->id])->one()->aut_id;
     }
 
+    // Devuelve true si el autor es un alumno o si el recurso solamente cuenta solamente con un solo autor
     public static function isAllowedToEdit($user_id, $rec_id) {
         $autor = Autor::findOne(['aut_fkuser' => $user_id]);
         $recurso = Recurso::findOne(['rec_id' => $rec_id]);

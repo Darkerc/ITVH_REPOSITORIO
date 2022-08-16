@@ -96,7 +96,7 @@ $archivos = new ArrayDataProvider([
                                     ]);
                                 },
                                 'btnDownload' => function ($url, Archivo $archivo, $key) {     // render your custom button
-                                    return Html::a('<img src="/images/download.svg" />', $archivo->getArchivoURL(), [
+                                    return Html::a('<img src="/images/download.svg" />', "/archivo/file-download?arc_id={$archivo->arc_id}", [
                                         'class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary',
                                         'title' => 'Descargar',
                                     ]);

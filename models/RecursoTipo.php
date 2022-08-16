@@ -41,6 +41,7 @@ class RecursoTipo extends \yii\db\ActiveRecord
         return [
             'rectip_id'     => 'ID',
             'rectip_nombre' => 'Nombre',
+            'rectip_multiple' => 'Multiple'
         ];
     }
 

@@ -7,6 +7,7 @@ use app\models\RecursoTipoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 /**
  * RecursoTipoController implements the CRUD actions for RecursoTipo model.
@@ -23,6 +24,15 @@ class RecursoTipoController extends Controller
                 'class' => 'webvimark\modules\UserManagement\components\GhostAccessControl',
             ],
         ];
+    }
+
+    public function actionGetOne($rectip_id)
+    {
+        $rec_tipo = RecursoTipo::find()->where((['rectip_id' => $rectip_id]))->one();
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo Json::encode($rec_tipo);
+        exit();
     }
 
     /**

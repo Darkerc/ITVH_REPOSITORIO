@@ -74,6 +74,12 @@ class Archivo extends \yii\db\ActiveRecord
         return Url::home(true) . 'files/' . $this->arc_nombre;
     }
 
+    // public function getArchivoPath()
+    // {
+    //     $path = Yii::getAlias('@webroot') . '/files';
+    //     return '/files/' . $this->arc_nombre;
+    // }
+
     public function getKartikFileType()
     {
         switch ($this->arc_extension) {
@@ -143,7 +149,7 @@ class Archivo extends \yii\db\ActiveRecord
 
     public function actionDownload()
     {
-        $path = Yii::getAlias('@webroot') . '/files';
+        $path = Yii::getAlias('@webroot') . '/files/';
 
         $file = $path . $this->arc_nombre;
 

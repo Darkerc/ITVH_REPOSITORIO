@@ -110,7 +110,7 @@ $files = array_map(fn (RecursoArchivo $ra) => [
                 'pluginEvents' => $isUpdated ? [
                     "select2:select" => "function(e){ window.onChangeSelectValues(this, e, 'UPDATE') }",
                     "select2:unselect" => "function(e){ window.onChangeSelectValues(this, e, 'DELETE') }"
-                ] : []
+                ] : ["select2:select" => "function(e){ window.onRectipUpdated(this, e, 'UPDATE') }"]
             ])->label('Tipo'); ?>
         </div>
         <div class="col col-12 col-md-6 form-group">
@@ -122,7 +122,9 @@ $files = array_map(fn (RecursoArchivo $ra) => [
                 'pluginEvents' => $isUpdated ? [
                     "select2:select" => "function(e){ window.onChangeSelectValues(this, e, 'UPDATE') }",
                     "select2:unselect" => "function(e){ window.onChangeSelectValues(this, e, 'DELETE') }"
-                ] : []
+                ] : [
+                    "select2:select" => "function(e){ window.onNivelUpdated(this, e, 'DELETE') }"
+                ]
             ])->label('Nivel'); ?>
         </div>
     </div>
@@ -148,8 +150,7 @@ $files = array_map(fn (RecursoArchivo $ra) => [
     <?php } ?>
 
     <?= $form->field($model, 'recursoCarrera')->widget(Select2::classname(), [
-        'data' => Carrera::map(),
-        'options' => ['placeholder' => 'Selecciona una carrera...', 'multiple' => true, 'value' => $model->CarreraId],
+        'options' => ['id' => 'recursoCarrera', 'placeholder' => 'Selecciona una carrera...', 'multiple' => true, 'value' => $model->CarreraId],
         'toggleAllSettings' => [
             'selectLabel' => '',
             'unselectLabel' => '',
@@ -221,109 +222,5 @@ $files = array_map(fn (RecursoArchivo $ra) => [
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.0.1/luxon.js" integrity="sha512-AnTc8fanq1DBVgUrXeDtXwe48bl9JHb8v/DW4bRBsIaiU1V8xaeeWuz7psOWTIfn9Uf6okk59Iy45eo0Lc930Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-    window.onload = () => {
-        const URL = {
-            UPDATE: '/recurso/update-recurso-field?rec_id=<?= $model->rec_id ?>',
-            DELETE: '/recurso/delete-recurso-field?rec_id=<?= $model->rec_id ?>'
-        }
-
-        const updateProperty = ({
-            key,
-            value,
-            url,
-            onSuccess = (data) => {},
-            onError = (error) => {}
-        }) => {
-            $.notify("Cambiando informacion...", "info");
-            $.ajax(url, {
-                type: 'POST', // http method
-                data: {
-                    [key]: value
-                },
-                // data to submit
-                success: function(data, status, xhr) {
-                    $.notify("Realizado con exito", "success");
-                    onSuccess(data)
-                },
-                error: function(jqXhr, textStatus, errorMessage) {
-                    $.notify("A ocurrido un error, intente de nuevo", "error");
-                    onError(errorMessage)
-                }
-            });
-        }
-
-        window.onChangeSelectValues = (element, event, type = 'UPDATE') => {
-            const modelPropertyName = event.target.id.split('recurso-').pop()
-            switch (modelPropertyName) {
-                case 'recursocarrera': {
-                    const modelPropertyValue = event.params.data.id
-                    updateProperty({
-                        key: modelPropertyName,
-                        value: modelPropertyValue,
-                        url: URL[type]
-                    })
-                    break;
-                }
-                case 'palabrasc': {
-                    const modelPropertyValue = type === 'DELETE' ? event.params.data.id : event.params.data.text
-                    if (type === 'DELETE') {
-                        updateProperty({
-                            key: modelPropertyName,
-                            value: modelPropertyValue,
-                            url: URL[type],
-                            onSuccess(pal_id) {
-                                $(`#recurso-palabrasc option[value="${modelPropertyValue}"]`).remove().trigger('change');
-                            }
-                        })
-                    } else if (type === 'UPDATE') {
-                        updateProperty({
-                            key: modelPropertyName,
-                            value: modelPropertyValue,
-                            url: URL[type],
-                            onSuccess(pal_id) {
-                                $(`#recurso-palabrasc option[value="${modelPropertyValue}"]`).remove().trigger('change');
-                                var data = {
-                                    id: pal_id,
-                                    text: modelPropertyValue
-                                };
-                                var newOption = new Option(data.text, data.id, true, true);
-                                $('#recurso-palabrasc').append(newOption).trigger('change');
-                            }
-                        })
-                    }
-                    break;
-                }
-                default: {
-                    const modelPropertyValue = event.target.value
-                    updateProperty({
-                        key: modelPropertyName,
-                        value: modelPropertyValue,
-                        url: URL[type]
-                    })
-                    break;
-                }
-            }
-        }
-
-        window.onChangeTextValues = (modelPropertyName) => {
-            const elementId = `recurso-${modelPropertyName}`
-            const element = document.getElementById(elementId)
-            updateProperty({
-                key: modelPropertyName,
-                value: element.value,
-                url: URL.UPDATE
-            })
-        }
-
-        window.onDateChanged = (event, modelPropertyName) => {
-            const elementId = `recurso-${modelPropertyName}`
-            var DateTime = luxon.DateTime;
-            const newDate = DateTime.fromJSDate(new Date(event.date)).toFormat('yyyy-MM-dd hh:mm:ss')
-            updateProperty({
-                key: modelPropertyName,
-                value: newDate,
-                url: URL.UPDATE
-            })
-        }
-    }
+    window.rec_id = "<?= $model->rec_id ?>"
 </script>

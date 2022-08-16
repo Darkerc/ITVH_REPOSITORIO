@@ -64,9 +64,21 @@ class ArchivoController extends Controller
      */
     public function actionFileView($arc_id)
     {
+        $model = $this->findModel($arc_id);
+        $model->arc_visitas = $model->arc_visitas + 1;
+        $model->save(false, ['arc_visitas']);
+
         return $this->render('FileView', [
-            'model' => $this->findModel($arc_id),
+            'model' => $model,
         ]);
+    }
+
+    public function actionFileDownload($arc_id)
+    {
+        $model = $this->findModel($arc_id);
+        $model->arc_descargas = $model->arc_descargas + 1;
+        $model->save(false, ['arc_descargas']);
+        $model->actionDownload();
     }
 
     /**

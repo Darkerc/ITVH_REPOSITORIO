@@ -32,10 +32,11 @@ class Carrera extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['car_nombre', 'car_fkdepartamento'], 'required'],
+            [['car_nombre', 'car_fkdepartamento', 'car_fknivel'], 'required'],
             [['car_nombre'], 'string'],
-            [['car_fkdepartamento'], 'integer'],
+            [['car_fkdepartamento', 'car_fknivel'], 'integer'],
             [['car_fkdepartamento'], 'exist', 'skipOnError' => true, 'targetClass' => Departamento::className(), 'targetAttribute' => ['car_fkdepartamento' => 'dep_id']],
+            [['car_fknivel'], 'exist', 'skipOnError' => true, 'targetClass' => Nivel::className(), 'targetAttribute' => ['car_fknivel' => 'niv_id']],
         ];
     }
 
@@ -48,6 +49,7 @@ class Carrera extends \yii\db\ActiveRecord
             'car_id'             => 'ID',
             'car_nombre'         => 'Nombre',
             'car_fkdepartamento' => 'Departamento',
+            'car_fknivel'        => 'Nivel'
         ];
     }
 
@@ -83,5 +85,10 @@ class Carrera extends \yii\db\ActiveRecord
 
     public static function map(){
         return ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
+    }
+
+    public function getCarFknivel()
+    {
+        return $this->hasOne(Nivel::className(), ['niv_id' => 'car_fknivel']);
     }
 }

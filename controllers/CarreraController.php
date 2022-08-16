@@ -7,7 +7,6 @@ use app\models\CarreraSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
 /**
  * CarreraController implements the CRUD actions for Carrera model.
  */
@@ -108,6 +107,15 @@ class CarreraController extends Controller
         $this->findModel($car_id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionGetCarrerasByNivel($niv_id)
+    {
+        $carreras = Carrera::find()->where((['car_fknivel' => $niv_id]))->asArray()->all();
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($carreras);
+        exit();
     }
 
     /**

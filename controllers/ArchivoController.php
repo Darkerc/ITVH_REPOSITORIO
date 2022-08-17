@@ -16,7 +16,7 @@ class ArchivoController extends Controller
     /**
      * @inheritDoc
      */
-    public $freeAccess = true;
+    public $freeAccessActions = ['index', 'view', 'file-view', 'file-download'];
 
     public function behaviors()
     {

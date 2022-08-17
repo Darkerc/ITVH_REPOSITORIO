@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "autor_tipo".
@@ -51,5 +52,9 @@ class AutorTipo extends \yii\db\ActiveRecord
     public function getAutors()
     {
         return $this->hasMany(Autor::className(), ['aut_fkautortipo' => 'auttip_id']);
+    }
+
+    public static function map(){
+        return ArrayHelper::map(AutorTipo::find()->all(), 'auttip_id', 'auttip_nombre');
     }
 }

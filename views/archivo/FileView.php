@@ -7,6 +7,11 @@ use yii\helpers\Html;
 $this->title = $model->arc_nombre;
 \yii\web\YiiAsset::register($this);
 ?>
+
+<div class="d-flex py-3">
+    <?= Html::a('Regresar <img src="/images/regresar.png"> ', Yii::$app->request->referrer, ['class' => 'btn btn-warning btn-lg px-5']) ?>
+</div>
+
 <div class="archivo-view">
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -26,15 +31,15 @@ $this->title = $model->arc_nombre;
 
         case 'jpeg':
             break;
-            
+
         case 'gif':
             break;
     }
     ?>
+
     <?php
     $data = $model->renderPDFBook();
     echo $data['book'];
     $this->registerJs($data['js']);
     ?>
-
 </div>

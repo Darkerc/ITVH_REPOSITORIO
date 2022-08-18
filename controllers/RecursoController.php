@@ -231,7 +231,7 @@ class RecursoController extends Controller
     {
         $this->findModel($rec_id)->delete();
 
-        return $this->redirect(['index']);
+        return json_encode(['ok' => true]);
     }
 
     /**

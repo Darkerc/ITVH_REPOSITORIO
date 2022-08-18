@@ -10,9 +10,10 @@ window.onload = function () {
               $.notify("Recurso eliminado con exito", "success");
               setTimeout(() => {
                   window.location.replace("/recurso/index");
-              }, 5000)
+              }, 1000)
             },
             error: function (jqXhr, textStatus, errorMessage) {
+              console.error(errorMessage)
               $.notify("No se puedo eliminar el recurso", "error");
             },
           });

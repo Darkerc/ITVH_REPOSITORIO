@@ -224,3 +224,4 @@ $files = array_map(fn (RecursoArchivo $ra) => [
 <script>
     window.rec_id = "<?= $model->rec_id ?>"
 </script>
+<script src="/js/Recurso/index.js"></script>

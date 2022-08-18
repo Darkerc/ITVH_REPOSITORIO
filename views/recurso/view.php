@@ -40,4 +40,5 @@ $this->params['breadcrumbs'][] = $this->title;
     <script>
         window.rec_id = "<?= $model->rec_id ?>"
     </script>
+    <script src="/js/Recurso/view.js"></script>
 </div>

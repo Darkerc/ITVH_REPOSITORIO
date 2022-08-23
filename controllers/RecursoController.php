@@ -105,7 +105,8 @@ class RecursoController extends Controller
                 foreach ($model->palabrasc as $palabra) {
                     $palabras = new Palabra();
                     $palabras->pal_fkrecurso = $model->rec_id;
-                    $palabras->pal_nombre = $palabra;
+                    $palabras->pal_nombre = strtoupper($palabra);
+
                     $palabras->save();
                 }
 
@@ -185,7 +186,7 @@ class RecursoController extends Controller
             case 'palabrasc': {
                     $palabras = new Palabra();
                     $palabras->pal_fkrecurso = $model->rec_id;
-                    $palabras->pal_nombre = $propertyValue;
+                    $palabras->pal_nombre = strtoupper($propertyValue);
                     $palabras->save();
                     $data = $palabras->pal_id;
                     break;

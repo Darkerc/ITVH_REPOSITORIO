@@ -89,7 +89,7 @@ class SiteController extends Controller
                 'href'  => 'site/busqueda',
                 'label' => $palabra->pal_nombre,
             ];
-        }, Palabra::find()->orderby('RAND()')->limit(4)->all());
+        }, Palabra::getPalabrasCounted());
 
         return $this->render('index', compact('recursos'));
     }

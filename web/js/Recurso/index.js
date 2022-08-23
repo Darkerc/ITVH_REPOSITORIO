@@ -125,7 +125,7 @@ window.onload = () => {
     const modelPropertyValue = event.params.data.id;
     const modelPropertyPrevValue = window.rec_fknivel;
     const previousCarriers = $("#recursoCarrera").val();
-    if (previousCarriers || previousCarriers.length) {
+    if (previousCarriers.length) {
       $.notify(
         "No se puede cambiar a este nivel, contiene carreras que no pertenecen a este nivel",
         "warning"

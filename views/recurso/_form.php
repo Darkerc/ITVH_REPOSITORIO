@@ -156,13 +156,12 @@ $files = array_map(fn (RecursoArchivo $ra) => [
             ] : []
         ]); ?>
     <?php } ?>
-    <?= var_dump($model->CarreraId) ?>
+
     <?= $form->field($model, 'recursoCarrera')->widget(Select2::classname(), [
         'data' => $isUpdated ? Carrera::mapByNivel($model->rec_fknivel) : [],
         'options' => [
             'id' => 'recursoCarrera', 
             'placeholder' => 'Selecciona una carrera...', 
-            // 'multiple' => $model->recFkrecursotipo->rectip_multiple ? true : false, 
             'multiple' => true, 
             'value' => $model->CarreraId
         ],
@@ -260,6 +259,6 @@ $files = array_map(fn (RecursoArchivo $ra) => [
 <script>
     window.rec_id = "<?= $model->rec_id ?>"
     window.rectip_multiple = "<?= $model->recFkrecursotipo->rectip_multiple ?>"
-    window.isUpdated = <?= $isUpdated ?>
+    window.isUpdated = parseInt("<?= $isUpdated ?>")
 </script>
 <script src="/js/Recurso/index.js"></script>

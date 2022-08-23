@@ -153,6 +153,15 @@ class RecursoController extends Controller
                     $data = $palabra->pal_id;
                     break;
                 }
+                case 'autores': {
+                    $palabra = AutorRecurso::findOne([
+                        'autrec_fkrecurso' => $rec_id,
+                        'autrec_fkautor' => $propertyValue
+                    ]);
+                    $palabra->delete();
+                    $data = $palabra->pal_id;
+                    break;
+                }
             default: {
                     $model->updateAttributes([$propertyName => $propertyValue]);
                     $data = $model;
@@ -205,6 +214,11 @@ class RecursoController extends Controller
                     break;
                 }
             case 'autores': {
+                    $autor = new AutorRecurso();
+                    $autor->autrec_fkrecurso = $model->rec_id;
+                    $autor->autrec_fkautor = $propertyValue;
+                    $autor->save();
+                    break;
                 }
             default: {
                     $model->updateAttributes([$propertyName => $propertyValue]);

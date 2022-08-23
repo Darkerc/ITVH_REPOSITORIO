@@ -1,9 +1,4 @@
-window.onload = () => {
-  if (!parseInt(window.rectip_multiple)) {
-    $(`#recursoCarrera `).attr("multiple", false);
-    $("#recursoCarrera").trigger("change");
-  } 
-  
+window.onload = () => {  
   const isUpdated = window.isUpdated;
 
   const URL = {
@@ -188,4 +183,11 @@ window.onload = () => {
       },
     });
   };
+
+  setTimeout(() =>{
+    if (!parseInt(window.rectip_multiple)) {
+      $(`#recursoCarrera `).attr("multiple", false);
+      $("#recursoCarrera").trigger("change");
+    } 
+  }, 0)
 };

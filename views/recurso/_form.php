@@ -137,32 +137,12 @@ $files = array_map(fn (RecursoArchivo $ra) => [
         </div>
     </div>
 
-    <?php if (User::hasRole(['admon', false])) { ?>
-        <?= $form->field($model, 'autores')->widget(Select2::classname(), [
-            'options' => ['placeholder' => 'Selecciona una autor...', 'multiple' => true, 'value' => $model->autor],
-            'toggleAllSettings' => [
-                'unselectLabel' => 'Deseleccionar todo',
-                'selectOptions' => ['class' => 'd-none'],
-                'unselectOptions' => ['class' => 'text-danger'],
-            ],
-            'pluginOptions' => [
-                'tags' => true,
-                'tokenSeparators' => [',', ' '],
-                'maximumInputLength' => 20
-            ],
-            'pluginEvents' => $isUpdated ? [
-                "select2:select" => "function(e){ window.onChangeSelectValues(this, e, 'UPDATE') }",
-                "select2:unselect" => "function(e){ window.onChangeSelectValues(this, e, 'DELETE') }"
-            ] : []
-        ]); ?>
-    <?php } ?>
-    
     <?= $form->field($model, 'recursoCarrera')->widget(Select2::classname(), [
         'data' => $isUpdated ? Carrera::mapByNivel($model->rec_fknivel) : [],
         'options' => [
-            'id' => 'recursoCarrera', 
-            'placeholder' => 'Selecciona una carrera...', 
-            'multiple' => true, 
+            'id' => 'recursoCarrera',
+            'placeholder' => 'Selecciona una carrera...',
+            'multiple' => true,
             'value' => $model->CarreraId
         ],
         'toggleAllSettings' => [

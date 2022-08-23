@@ -87,6 +87,11 @@ class Carrera extends \yii\db\ActiveRecord
         return ArrayHelper::map(Carrera::find()->all(), 'car_id', 'car_nombre');
     }
 
+    public static function mapByNivel($niv_id){
+        $data = ArrayHelper::map(Carrera::find()->where(['car_fknivel' => $niv_id])->all(), 'car_id', 'car_nombre');
+        return $data;
+    }
+
     public function getCarFknivel()
     {
         return $this->hasOne(Nivel::className(), ['niv_id' => 'car_fknivel']);

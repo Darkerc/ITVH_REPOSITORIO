@@ -105,25 +105,33 @@ $files = array_map(fn (RecursoArchivo $ra) => [
             <?= $form->field($model, 'rec_fkrecursotipo')->widget(Select2::classname(), [
                 'data' => RecursoTipo::map(),
                 'options' => [
+                    'id' => 'rec_fkrecursotipo',
                     'placeholder' => 'Seleccione un tipo',
                 ],
                 'pluginEvents' => $isUpdated ? [
-                    "select2:select" => "function(e){ window.onChangeSelectValues(this, e, 'UPDATE') }",
+                    "select2:selecting" => "function(e){ window.rec_fkrecursotipo = $(this).val() }",
+                    "select2:select" => "function(e){ window.onRectipUpdated(this, e); }",
                     "select2:unselect" => "function(e){ window.onChangeSelectValues(this, e, 'DELETE') }"
-                ] : ["select2:select" => "function(e){ window.onRectipUpdated(this, e, 'UPDATE') }"]
+                ] : [
+                    "select2:selecting" => "function(e){ window.rec_fkrecursotipo = $(this).val() }",
+                    "select2:select" => "function(e){ window.onRectipUpdated(this, e) }"
+                ]
             ])->label('Tipo'); ?>
         </div>
         <div class="col col-12 col-md-6 form-group">
             <?= $form->field($model, 'rec_fknivel')->widget(Select2::classname(), [
                 'data' => Nivel::map(),
                 'options' => [
+                    'id' => 'rec_fknivel',
                     'placeholder' => 'Seleccione un nivel',
                 ],
                 'pluginEvents' => $isUpdated ? [
-                    "select2:select" => "function(e){ window.onChangeSelectValues(this, e, 'UPDATE') }",
-                    "select2:unselect" => "function(e){ window.onChangeSelectValues(this, e, 'DELETE') }"
+                    "select2:selecting" => "function(e){ window.rec_fknivel = $(this).val() }",
+                    "select2:select" => "function(e){ window.onNivelUpdated(this, e) }",
+                    // "select2:select" => "function(e){ window.onNivelUpdated(this, e); window.onChangeSelectValues(this, e, 'UPDATE'); }",
                 ] : [
-                    "select2:select" => "function(e){ window.onNivelUpdated(this, e, 'DELETE') }"
+                    "select2:selecting" => "function(e){ window.rec_fknivel = $(this).val() }",
+                    "select2:select" => "function(e){ window.onNivelUpdated(this, e) }"
                 ]
             ])->label('Nivel'); ?>
         </div>
@@ -148,9 +156,16 @@ $files = array_map(fn (RecursoArchivo $ra) => [
             ] : []
         ]); ?>
     <?php } ?>
-
+    <?= var_dump($model->CarreraId) ?>
     <?= $form->field($model, 'recursoCarrera')->widget(Select2::classname(), [
-        'options' => ['id' => 'recursoCarrera', 'placeholder' => 'Selecciona una carrera...', 'multiple' => true, 'value' => $model->CarreraId],
+        'data' => $isUpdated ? Carrera::mapByNivel($model->rec_fknivel) : [],
+        'options' => [
+            'id' => 'recursoCarrera', 
+            'placeholder' => 'Selecciona una carrera...', 
+            // 'multiple' => $model->recFkrecursotipo->rectip_multiple ? true : false, 
+            'multiple' => true, 
+            'value' => $model->CarreraId
+        ],
         'toggleAllSettings' => [
             'selectLabel' => '',
             'unselectLabel' => '',
@@ -223,5 +238,7 @@ $files = array_map(fn (RecursoArchivo $ra) => [
 <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.0.1/luxon.js" integrity="sha512-AnTc8fanq1DBVgUrXeDtXwe48bl9JHb8v/DW4bRBsIaiU1V8xaeeWuz7psOWTIfn9Uf6okk59Iy45eo0Lc930Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     window.rec_id = "<?= $model->rec_id ?>"
+    window.rectip_multiple = "<?= $model->recFkrecursotipo->rectip_multiple ?>"
+    window.isUpdated = <?= $isUpdated ?>
 </script>
 <script src="/js/Recurso/index.js"></script>

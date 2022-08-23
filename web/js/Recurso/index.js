@@ -1,4 +1,11 @@
 window.onload = () => {
+  if (!parseInt(window.rectip_multiple)) {
+    $(`#recursoCarrera `).attr("multiple", false);
+    $("#recursoCarrera").trigger("change");
+  } 
+  
+  const isUpdated = window.isUpdated;
+
   const URL = {
     UPDATE: `/recurso/update-recurso-field?rec_id=${window.rec_id}`,
     DELETE: `/recurso/delete-recurso-field?rec_id=${window.rec_id}`,
@@ -32,11 +39,15 @@ window.onload = () => {
   window.onChangeSelectValues = (element, event, type = "UPDATE") => {
     const modelPropertyName = event.target.id.split("recurso-").pop();
     switch (modelPropertyName) {
-      case "recursocarrera": {
+      case "recursoCarrera": {
         const modelPropertyValue = event.params.data.id;
+        const rectip_id = $('#rec_fkrecursotipo').val()
         updateProperty({
           key: modelPropertyName,
-          value: modelPropertyValue,
+          value: {
+            rectip_id,
+            car_id: modelPropertyValue
+          },
           url: URL[type],
         });
         break;
@@ -112,6 +123,17 @@ window.onload = () => {
 
   window.onNivelUpdated = (element, event) => {
     const modelPropertyValue = event.params.data.id;
+    const modelPropertyPrevValue = window.rec_fknivel;
+    const previousCarriers = $("#recursoCarrera").val();
+    if (previousCarriers || previousCarriers.length) {
+      $.notify(
+        "No se puede cambiar a este nivel, contiene carreras que no pertenecen a este nivel",
+        "warning"
+      );
+      $("#rec_fknivel").val(modelPropertyPrevValue);
+      $("#rec_fknivel").trigger("change");
+      return;
+    }
     $.ajax(`/carrera/get-carreras-by-nivel?niv_id=${modelPropertyValue}`, {
       type: "GET", // http method
       success: function (data, status, xhr) {
@@ -126,17 +148,38 @@ window.onload = () => {
         onError(errorMessage);
       },
     });
+
+    if (isUpdated) {
+      window.onChangeSelectValues(element, event, "UPDATE");
+    }
   };
 
   window.onRectipUpdated = (element, event) => {
     const modelPropertyValue = event.params.data.id;
+    const modelPropertyPrevValue = window.rec_fkrecursotipo;
+    const previousCarriers = $("#recursoCarrera").val();
     $.ajax(`/recurso-tipo/get-one?rectip_id=${modelPropertyValue}`, {
       type: "GET", // http method
       success: function (data, status, xhr) {
         if (data.rectip_multiple) {
-            $(`#recursoCarrera `).attr('multiple', true);
+          $(`#recursoCarrera `).attr("multiple", true);
+          $("#recursoCarrera").trigger("change");
         } else {
-            $(`#recursoCarrera `).attr('multiple', false);
+          if (Array.isArray(previousCarriers) && previousCarriers.length >= 2) {
+            $.notify(
+              "No se puede cambiar a este tipo, solo se permite 1 carrera",
+              "warning"
+            );
+            $("#rec_fkrecursotipo").val(modelPropertyPrevValue);
+            $("#rec_fkrecursotipo").trigger("change");
+            return;
+          } else {
+            $(`#recursoCarrera `).attr("multiple", false);
+            $("#recursoCarrera").trigger("change");
+          }
+        }
+        if (isUpdated) {
+          window.onChangeSelectValues(element, event, "UPDATE");
         }
       },
       error: function (jqXhr, textStatus, errorMessage) {

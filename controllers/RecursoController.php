@@ -9,6 +9,7 @@ use app\models\Palabra;
 use app\models\Recurso;
 use app\models\RecursoCarrera;
 use app\models\RecursoSearch;
+use app\models\RecursoTipo;
 use DateTime;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -135,28 +136,28 @@ class RecursoController extends Controller
         $model->save(false, ['rec_descripcion']);
 
         switch ($propertyName) {
-            case 'recursocarrera': {
-                    $rCarrera = RecursoCarrera::findOne([
-                        'reccar_fkcarrera' => $propertyValue,
-                        'reccar_fkrecurso' => $rec_id
-                    ]);
-                    $rCarrera->delete();
-                    $data = $rCarrera->reccar_id;
-                    break;
-                }
+            case 'recursoCarrera': {
+                $rCarrera = RecursoCarrera::findOne([
+                    'reccar_fkcarrera' => $propertyValue,
+                    'reccar_fkrecurso' => $rec_id
+                ]);
+                $rCarrera->delete();
+                $data = $rCarrera->reccar_id;
+                break;
+            }
             case 'palabrasc': {
-                    $palabra = Palabra::findOne([
-                        'pal_id' => $propertyValue
-                    ]);
-                    $palabra->delete();
-                    $data = $palabra->pal_id;
-                    break;
-                }
+                $palabra = Palabra::findOne([
+                    'pal_id' => $propertyValue
+                ]);
+                $palabra->delete();
+                $data = $palabra->pal_id;
+                break;
+            }
             default: {
-                    $model->updateAttributes([$propertyName => $propertyValue]);
-                    $data = $model;
-                    break;
-                }
+                $model->updateAttributes([$propertyName => $propertyValue]);
+                $data = $model;
+                break;
+            }
         }
 
         header('Content-Type: application/json; charset=utf-8');
@@ -175,27 +176,39 @@ class RecursoController extends Controller
         $model->save(false, ['rec_descripcion']);
 
         switch ($propertyName) {
-            case 'recursocarrera': {
-                    $rCarrera = new RecursoCarrera();
-                    $rCarrera->reccar_fkrecurso = $model->rec_id;
-                    $rCarrera->reccar_fkcarrera = $propertyValue;
-                    $rCarrera->save();
-                    $data = $rCarrera->reccar_id;
-                    break;
+            case 'recursoCarrera': {
+                $rectip_id = $propertyValue['rectip_id'];
+                $car_id = $propertyValue['car_id'];
+
+                $isMultiple = RecursoTipo::findOne(['rectip_id' => $rectip_id])->rectip_multiple;
+                $data = $isMultiple;
+                if (!$isMultiple) {
+                    $recursosCarreras = RecursoCarrera::findAll(['reccar_fkrecurso' => $rec_id]);
+                    foreach ($recursosCarreras as $recursoCarrera) { 
+                        $recursoCarrera->delete();
+                    }
                 }
+
+                $rCarrera = new RecursoCarrera();
+                $rCarrera->reccar_fkrecurso = $model->rec_id;
+                $rCarrera->reccar_fkcarrera = $car_id;
+                $rCarrera->save();
+                $data = $rCarrera->reccar_id;
+                break;
+            }
             case 'palabrasc': {
                     $palabras = new Palabra();
                     $palabras->pal_fkrecurso = $model->rec_id;
-                    $palabras->pal_nombre = strtoupper($propertyValue);
+                    $palabras->pal_nombre = $propertyValue;
                     $palabras->save();
                     $data = $palabras->pal_id;
                     break;
                 }
             default: {
-                    $model->updateAttributes([$propertyName => $propertyValue]);
-                    $data = $model->rec_id;
-                    break;
-                }
+                $model->updateAttributes([$propertyName => $propertyValue]);
+                $data = $model->rec_id;
+                break;
+            }
         }
 
 
@@ -211,7 +224,7 @@ class RecursoController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($rec_id)   
+    public function actionUpdate($rec_id)
     {
         $model = $this->findModel($rec_id);
         if (!Autor::isAllowedToEdit(Yii::$app->user->identity->id, $model->rec_id)) $this->redirect('view?rec_id=' . $model->rec_id);

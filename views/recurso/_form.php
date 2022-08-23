@@ -165,7 +165,7 @@ $files = array_map(fn (RecursoArchivo $ra) => [
     <?php if (User::hasRole(['admon', false])) { ?>
         <?= $form->field($model, 'autores')->widget(Select2::classname(), [
             'data' => Autor::map(),
-            'options' => ['placeholder' => 'Selecciona una autor...', 'multiple' => true, 'value' => $model->autor],
+            'options' => ['placeholder' => 'Selecciona una autor...', 'multiple' => true, 'value' => $model->autoresIds],
             'toggleAllSettings' => [
                 'unselectLabel' => 'Deseleccionar todo',
                 'selectOptions' => ['class' => 'd-none'],

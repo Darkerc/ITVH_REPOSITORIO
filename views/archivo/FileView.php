@@ -22,7 +22,6 @@ $this->title = $model->arc_nombre;
             echo $data['book'];
             $this->registerJs($data['js']);
             break;
-
         case 'jpg':
             break;
 

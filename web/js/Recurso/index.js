@@ -1,4 +1,4 @@
-window.onload = () => {  
+window.onload = () => {
   const isUpdated = window.isUpdated;
 
   const URL = {
@@ -36,12 +36,12 @@ window.onload = () => {
     switch (modelPropertyName) {
       case "recursoCarrera": {
         const modelPropertyValue = event.params.data.id;
-        const rectip_id = $('#rec_fkrecursotipo').val()
+        const rectip_id = $("#rec_fkrecursotipo").val();
         updateProperty({
           key: modelPropertyName,
           value: {
             rectip_id,
-            car_id: modelPropertyValue
+            car_id: modelPropertyValue,
           },
           url: URL[type],
         });
@@ -79,6 +79,15 @@ window.onload = () => {
             },
           });
         }
+        break;
+      }
+      case "autores": {
+        const modelPropertyValue = event.params.data.id;
+        updateProperty({
+          key: modelPropertyName,
+          value: modelPropertyValue,
+          url: URL[type],
+        });
         break;
       }
       default: {
@@ -184,10 +193,10 @@ window.onload = () => {
     });
   };
 
-  setTimeout(() =>{
+  setTimeout(() => {
     if (!parseInt(window.rectip_multiple)) {
       $(`#recursoCarrera `).attr("multiple", false);
       $("#recursoCarrera").trigger("change");
-    } 
-  }, 0)
+    }
+  }, 0);
 };

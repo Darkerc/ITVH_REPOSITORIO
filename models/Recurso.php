@@ -221,6 +221,12 @@ class Recurso extends \yii\db\ActiveRecord
         return !$carr ? 'Sin autor(es)' : $carr;
     }
 
+    public function getAutoresIds()
+    {
+        $ids = array_map(fn ($autor) => $autor->autrec_fkautor, $this->autorRecursos);
+        return $ids;
+    }
+
     public function getCurrentUrl()
     {
         $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";

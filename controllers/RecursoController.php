@@ -137,27 +137,27 @@ class RecursoController extends Controller
 
         switch ($propertyName) {
             case 'recursoCarrera': {
-                $rCarrera = RecursoCarrera::findOne([
-                    'reccar_fkcarrera' => $propertyValue,
-                    'reccar_fkrecurso' => $rec_id
-                ]);
-                $rCarrera->delete();
-                $data = $rCarrera->reccar_id;
-                break;
-            }
+                    $rCarrera = RecursoCarrera::findOne([
+                        'reccar_fkcarrera' => $propertyValue,
+                        'reccar_fkrecurso' => $rec_id
+                    ]);
+                    $rCarrera->delete();
+                    $data = $rCarrera->reccar_id;
+                    break;
+                }
             case 'palabrasc': {
-                $palabra = Palabra::findOne([
-                    'pal_id' => $propertyValue
-                ]);
-                $palabra->delete();
-                $data = $palabra->pal_id;
-                break;
-            }
+                    $palabra = Palabra::findOne([
+                        'pal_id' => $propertyValue
+                    ]);
+                    $palabra->delete();
+                    $data = $palabra->pal_id;
+                    break;
+                }
             default: {
-                $model->updateAttributes([$propertyName => $propertyValue]);
-                $data = $model;
-                break;
-            }
+                    $model->updateAttributes([$propertyName => $propertyValue]);
+                    $data = $model;
+                    break;
+                }
         }
 
         header('Content-Type: application/json; charset=utf-8');
@@ -177,25 +177,25 @@ class RecursoController extends Controller
 
         switch ($propertyName) {
             case 'recursoCarrera': {
-                $rectip_id = $propertyValue['rectip_id'];
-                $car_id = $propertyValue['car_id'];
+                    $rectip_id = $propertyValue['rectip_id'];
+                    $car_id = $propertyValue['car_id'];
 
-                $isMultiple = RecursoTipo::findOne(['rectip_id' => $rectip_id])->rectip_multiple;
-                $data = $isMultiple;
-                if (!$isMultiple) {
-                    $recursosCarreras = RecursoCarrera::findAll(['reccar_fkrecurso' => $rec_id]);
-                    foreach ($recursosCarreras as $recursoCarrera) { 
-                        $recursoCarrera->delete();
+                    $isMultiple = RecursoTipo::findOne(['rectip_id' => $rectip_id])->rectip_multiple;
+                    $data = $isMultiple;
+                    if (!$isMultiple) {
+                        $recursosCarreras = RecursoCarrera::findAll(['reccar_fkrecurso' => $rec_id]);
+                        foreach ($recursosCarreras as $recursoCarrera) {
+                            $recursoCarrera->delete();
+                        }
                     }
-                }
 
-                $rCarrera = new RecursoCarrera();
-                $rCarrera->reccar_fkrecurso = $model->rec_id;
-                $rCarrera->reccar_fkcarrera = $car_id;
-                $rCarrera->save();
-                $data = $rCarrera->reccar_id;
-                break;
-            }
+                    $rCarrera = new RecursoCarrera();
+                    $rCarrera->reccar_fkrecurso = $model->rec_id;
+                    $rCarrera->reccar_fkcarrera = $car_id;
+                    $rCarrera->save();
+                    $data = $rCarrera->reccar_id;
+                    break;
+                }
             case 'palabrasc': {
                     $palabras = new Palabra();
                     $palabras->pal_fkrecurso = $model->rec_id;
@@ -204,11 +204,13 @@ class RecursoController extends Controller
                     $data = $palabras->pal_id;
                     break;
                 }
+            case 'autores': {
+                }
             default: {
-                $model->updateAttributes([$propertyName => $propertyValue]);
-                $data = $model->rec_id;
-                break;
-            }
+                    $model->updateAttributes([$propertyName => $propertyValue]);
+                    $data = $model->rec_id;
+                    break;
+                }
         }
 
 

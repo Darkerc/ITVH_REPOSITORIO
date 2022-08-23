@@ -156,7 +156,7 @@ $files = array_map(fn (RecursoArchivo $ra) => [
             ] : []
         ]); ?>
     <?php } ?>
-    <?= var_dump($model->CarreraId) ?>
+    
     <?= $form->field($model, 'recursoCarrera')->widget(Select2::classname(), [
         'data' => $isUpdated ? Carrera::mapByNivel($model->rec_fknivel) : [],
         'options' => [

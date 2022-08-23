@@ -199,7 +199,7 @@ class RecursoController extends Controller
             case 'palabrasc': {
                     $palabras = new Palabra();
                     $palabras->pal_fkrecurso = $model->rec_id;
-                    $palabras->pal_nombre = $propertyValue;
+                    $palabras->pal_nombre = strtoupper($propertyValue);
                     $palabras->save();
                     $data = $palabras->pal_id;
                     break;

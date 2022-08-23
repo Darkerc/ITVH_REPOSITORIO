@@ -106,7 +106,8 @@ class RecursoController extends Controller
                 foreach ($model->palabrasc as $palabra) {
                     $palabras = new Palabra();
                     $palabras->pal_fkrecurso = $model->rec_id;
-                    $palabras->pal_nombre = $palabra;
+                    $palabras->pal_nombre = strtoupper($palabra);
+
                     $palabras->save();
                 }
 
@@ -196,13 +197,13 @@ class RecursoController extends Controller
                 break;
             }
             case 'palabrasc': {
-                $palabras = new Palabra();
-                $palabras->pal_fkrecurso = $model->rec_id;
-                $palabras->pal_nombre = $propertyValue;
-                $palabras->save();
-                $data = $palabras->pal_id;
-                break;
-            }
+                    $palabras = new Palabra();
+                    $palabras->pal_fkrecurso = $model->rec_id;
+                    $palabras->pal_nombre = strtoupper($propertyValue);
+                    $palabras->save();
+                    $data = $palabras->pal_id;
+                    break;
+                }
             default: {
                 $model->updateAttributes([$propertyName => $propertyValue]);
                 $data = $model->rec_id;

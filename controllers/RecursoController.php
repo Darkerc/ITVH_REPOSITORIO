@@ -96,10 +96,10 @@ class RecursoController extends Controller
                     $autor->autrec_fkautor = Autor::autorId();
                     $autor->save();
                 } else if (User::hasRole(['admon', false])) {
-                    foreach ($model->autores as $autor) {
+                    foreach ($model->autores as $autors) {
                         $autor = new AutorRecurso();
                         $autor->autrec_fkrecurso = $model->rec_id;
-                        $autor->autrec_fkautor = $autor;
+                        $autor->autrec_fkautor = $autors;
                         $autor->save();
                     }
                 };

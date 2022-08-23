@@ -205,6 +205,10 @@ class RecursoController extends Controller
                     break;
                 }
             case 'autores': {
+                    $autor = new AutorRecurso();
+                    $autor->autrec_fkrecurso = $model->rec_id;
+                    $autor->autrec_fkautor = Autor::autorId();
+                    $autor->save();
                 }
             default: {
                     $model->updateAttributes([$propertyName => $propertyValue]);

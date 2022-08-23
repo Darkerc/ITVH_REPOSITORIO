@@ -14,7 +14,6 @@ class RecursoSearch extends Recurso
 {
     public $palabrasc;
     public $recursoCarrera;
-    public $autores;
     /**
      * {@inheritdoc}
      */
@@ -22,7 +21,7 @@ class RecursoSearch extends Recurso
     {
         return [
             [['rec_id', 'rec_fkrecursotipo', 'rec_fknivel'], 'integer'],
-            [['rec_nombre', 'rec_resumen', 'rec_registro', 'rec_descripcion', 'palabrasc', 'recursoCarrera', 'autores'], 'safe'],
+            [['rec_nombre', 'rec_resumen', 'rec_registro', 'rec_descripcion', 'palabrasc', 'recursoCarrera'], 'safe'],
         ];
     }
 
@@ -46,7 +45,6 @@ class RecursoSearch extends Recurso
     {
         $query = Recurso::find();
         $query->joinWith(['palabras']);
-        $query->joinWith(['autores']);
         $query->joinWith(['recursoCarreras']);
         
         
@@ -81,7 +79,6 @@ class RecursoSearch extends Recurso
             ->andFilterWhere(['like', 'rec_resumen', $this->rec_resumen])
             ->andFilterWhere(['like', 'pal_nombre', $this->palabrasc])
             ->andFilterWhere(['like', 'reccar_fkcarrera', $this->recursoCarrera])
-            ->andFilterWhere(['like', 'autrec_fkautor', $this->autorRecursos])
             ->andFilterWhere(['like', 'rec_descripcion', $this->rec_descripcion]);
 
         //$carrera->andFilterWhere(['recursoCarrera' => $this->reccar_fkcarrera]);

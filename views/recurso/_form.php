@@ -130,7 +130,7 @@ $files = array_map(fn (RecursoArchivo $ra) => [
                     "select2:select" => "function(e){ window.onNivelUpdated(this, e); }",
                     // "select2:select" => "function(e){ window.onNivelUpdated(this, e); window.onChangeSelectValues(this, e, 'UPDATE'); }",
                 ] : [
-                    "select2:selecting" => "function(e){ window.rec_fknivel = $(this).val(); }",
+                    "select2:selecting" => "function(e){ window.rec_fknivel = $(this).val(); var txt=$(this).val() == 1 ? 'Posgrados' : 'Carreras';  $($(this).parent().parent().parent().next().children(0)[0]).text(txt);}",
                     "select2:select" => "function(e){ window.onNivelUpdated(this, e); }"
                 ]
             ])->label('Nivel'); ?>

@@ -120,8 +120,14 @@ class Autor extends \yii\db\ActiveRecord
         return $this->hasMany(AutorRecurso::className(), ['autrec_fkautor' => 'aut_id']);
     }
 
+    public function getFullName()
+    {
+        
+        return $this->aut_nombre . ' ' . $this->aut_paterno. ' ' . $this->aut_materno;
+    }
+
     public static function map(){
-        return ArrayHelper::map(Autor::find()->all(), 'aut_id', 'aut_nombre');
+        return ArrayHelper::map(Autor::find()->all(), 'aut_id', 'fullName');
     }
 
     public static function autorId(){

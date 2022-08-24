@@ -19,12 +19,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="recurso-view">
     <?= Dialog::widget([
         'libName' => 'krajeeDialogCust',
-        'overrideYiiConfirm' => false,
+        'overrideYiiConfirm' => true,
         'dialogDefaults' => [
             Dialog::DIALOG_CONFIRM => [
-                'type' => DIALOG::TYPE_DANGER
+                'type' => Dialog::TYPE_PRIMARY,
             ]
-        ] 
+        ]
     ]) ?>
     <h1><?= Html::encode($this->title) ?></h1>
 

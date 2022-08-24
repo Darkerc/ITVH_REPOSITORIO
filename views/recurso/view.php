@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use kartik\dialog\Dialog;
 use webvimark\modules\UserManagement\models\User;
 use kartik\dialog\DialogAsset;
+
 DialogAsset::register($this);
 \yii\web\YiiAsset::register($this);
 
@@ -17,10 +18,14 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="recurso-view">
     <?= Dialog::widget([
-        'options' => [
-            'type' => Dialog::TYPE_INFO
-        ]
-    ]) ?> 
+        'libName' => 'krajeeDialogCust',
+        'overrideYiiConfirm' => false,
+        'dialogDefaults' => [
+            Dialog::DIALOG_CONFIRM => [
+                'type' => DIALOG::TYPE_DANGER
+            ]
+        ] 
+    ]) ?>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
@@ -29,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php } ?>
 
         <?php if (User::hasRole(['admon', false])) { ?>
-            <?= Html::button('Eliminar', [ 'id' => 'resourceDelete', 'class' => ['btn btn-danger'] ]) ?>
+            <?= Html::button('Eliminar', ['id' => 'resourceDelete', 'class' => ['btn btn-danger']]) ?>
         <?php } ?>
     </p>
 

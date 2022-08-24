@@ -126,12 +126,12 @@ $files = array_map(fn (RecursoArchivo $ra) => [
                     'placeholder' => 'Seleccione un nivel',
                 ],
                 'pluginEvents' => $isUpdated ? [
-                    "select2:selecting" => "function(e){ window.rec_fknivel = $(this).val() }",
-                    "select2:select" => "function(e){ window.onNivelUpdated(this, e) }",
+                    "select2:selecting" => "function(e){ window.rec_fknivel = $(this).val(); var txt=$(this).val() == 1 ? 'Posgrados' : 'Carreras';  $($(this).parent().parent().parent().next().children(0)[0]).text(txt); }",
+                    "select2:select" => "function(e){ window.onNivelUpdated(this, e); }",
                     // "select2:select" => "function(e){ window.onNivelUpdated(this, e); window.onChangeSelectValues(this, e, 'UPDATE'); }",
                 ] : [
-                    "select2:selecting" => "function(e){ window.rec_fknivel = $(this).val() }",
-                    "select2:select" => "function(e){ window.onNivelUpdated(this, e) }"
+                    "select2:selecting" => "function(e){ window.rec_fknivel = $(this).val(); }",
+                    "select2:select" => "function(e){ window.onNivelUpdated(this, e); }"
                 ]
             ])->label('Nivel'); ?>
         </div>
@@ -141,7 +141,7 @@ $files = array_map(fn (RecursoArchivo $ra) => [
         'data' => $isUpdated ? Carrera::mapByNivel($model->rec_fknivel) : [],
         'options' => [
             'id' => 'recursoCarrera',
-            'placeholder' => 'Selecciona una carrera...',
+            'placeholder' => 'Selecciona un programa...',
             'multiple' => true,
             'value' => $model->CarreraId
         ],
@@ -160,7 +160,7 @@ $files = array_map(fn (RecursoArchivo $ra) => [
             "select2:select" => "function(e){ window.onChangeSelectValues(this, e, 'UPDATE') }",
             "select2:unselect" => "function(e){ window.onChangeSelectValues(this, e, 'DELETE') }"
         ] : []
-    ])->label('Carreras'); ?>
+    ]); ?>
 
     <?php if (User::hasRole(['admon', false])) { ?>
         <?= $form->field($model, 'autores')->widget(Select2::classname(), [

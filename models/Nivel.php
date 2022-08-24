@@ -15,6 +15,9 @@ use yii\helpers\ArrayHelper;
  */
 class Nivel extends \yii\db\ActiveRecord
 {
+    const LICENCIATURA = 1;
+    const POSGRADO     = 2;    
+    
     /**
      * {@inheritdoc}
      */

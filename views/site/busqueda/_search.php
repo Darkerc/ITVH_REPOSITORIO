@@ -4,6 +4,7 @@ use app\models\Autor;
 use app\models\Carrera;
 use app\models\Nivel;
 use app\models\Palabra;
+use app\models\Recurso;
 use app\models\RecursoTipo;
 use yii\helpers\Html;
 use kartik\select2\Select2;
@@ -26,10 +27,23 @@ $config = ['template' => "{input}\n{error}\n{hint}"];
             'method' => 'get',
         ]) ?>
 
-        <?= $form->field($searchModel, 'rec_nombre')->widget(LabelInPlace::classname(), [
-            'label' => 'Titulo',
-            'encodeLabel' => false,
-        ]); ?>
+        <?= $form->field($searchModel, 'rec_nombre')->widget(Select2::classname(), [
+            'data' => Recurso::mapNombre(),
+            'options' => [
+                'placeholder' => 'Ingrese el Título', 'multiple' => true,
+            ],
+            'toggleAllSettings' => [
+                'selectLabel' => '',
+                'unselectLabel' => '',
+                'selectOptions' => ['class' => 'd-none'],
+                'unselectOptions' => ['class' => 'd-none'],
+            ],
+            'pluginOptions' => [
+                'tags' => true,
+                'maximumInputLength' => 15,
+                'maximumSelectionLength' => 1,
+            ],
+        ])->label('Título'); ?>
 
         <div class="row">
             <div class="col col-12 col-md-6 form-group">

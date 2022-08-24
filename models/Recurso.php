@@ -3,6 +3,7 @@
 namespace app\models;
 
 use yii\web\UploadedFile;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "recurso".
@@ -70,7 +71,7 @@ class Recurso extends \yii\db\ActiveRecord
             'rec_descripcion'   => 'Descripción',
             'rec_fkrecursotipo' => 'Tipo',
             'rec_fknivel'       => 'Nivel',
-            'recursoCarrera'    => 'Carreras',
+            'recursoCarrera'    => $this->rec_fknivel == Nivel::POSGRADO ? 'Posgrados' : 'Carreras',
             'palabrasc'         => 'Palabras Clave',
             'archivos'          => 'Archivos',
             'autores'           => 'Autores'
@@ -178,6 +179,10 @@ class Recurso extends \yii\db\ActiveRecord
     public function getRecursoCarreras()
     {
         return $this->hasMany(RecursoCarrera::className(), ['reccar_fkrecurso' => 'rec_id']);
+    }
+
+    public static function mapNombre(){
+        return ArrayHelper::map(Recurso::find()->all(), 'rec_nombre', 'rec_nombre');
     }
 
     public function getNivel()

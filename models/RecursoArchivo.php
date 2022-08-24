@@ -103,4 +103,8 @@ class RecursoArchivo extends \yii\db\ActiveRecord
 
         return $data;
     }
+
+    public function getRecNombre(){
+        return $this->recarcFkrecurso->rec_nombre;
+    }
 }

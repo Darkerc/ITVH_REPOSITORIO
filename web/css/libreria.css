@@ -68,3 +68,35 @@
 .bi-zoom-in {
     background-image: url(../images/Flechaizquierda.png);
 }
+
+.img-view {
+    border: 1px solid #ddd;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 8px;
+    padding: 9px;
+    width: 95%;
+    height: 90%;
+}
+
+div.polaroid {
+    width: 110%;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 25px;
+  }
+  
+  div.cont {
+    text-align: center;
+    padding: 10px 20px;
+  }
+
+  div.imagick{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 9px;
+    width: 95%;
+    height: 90%;
+  }

@@ -69,6 +69,13 @@ class Archivo extends \yii\db\ActiveRecord
         return $this->hasMany(RecursoArchivo::className(), ['recarc_fkarchivo' => 'arc_id']);
     }
 
+    public function getRecursoNombre()
+    {
+        $nombres = array_map(fn ($nombre) => $nombre->recNombre, $this->recursoArchivos);
+        $nom = join(' - ', $nombres);
+        return !$nom ? 'Sin Nombre del recurso' : $nom;
+    }
+
     public function getArchivoURL()
     {
         return Url::home(true) . 'files/' . $this->arc_nombre;

@@ -1,8 +1,11 @@
 <?php
 
+use app\models\Recurso;
 use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Archivo */
+
+$recurso = new Recurso();
 
 $this->title = $model->arc_nombre;
 \yii\web\YiiAsset::register($this);
@@ -13,17 +16,25 @@ $this->title = $model->arc_nombre;
 </div>
 
 <div class="archivo-view">
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <?php
     switch ($model->arc_extension) {
         case 'pdf':
             $data = $model->renderPDFBook();
-            echo $data['book'];
-            $this->registerJs($data['js']);
+            echo
+            '<div class="cont">
+            <p><h2>' . $model->recursoNombre . '</h2></p></div>
+            <div class="imagick">'
+                . $data['book'];
+            $this->registerJs($data['js']) . 
+            '</div>';
             break;
         case 'jpg' || 'png' || 'jpeg' || 'gif':
-            echo Html::img($model->getArchivoURL());
+            echo
+            '<div class="polaroid">
+            <div class="cont">
+            <p><h2>' . $model->recursoNombre . '</h2></p></div>'
+                . Html::img($model->getArchivoURL(), ['class' => 'img-view']) .
+                '</div>';
             break;
     }
     ?>

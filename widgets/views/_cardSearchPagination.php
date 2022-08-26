@@ -12,7 +12,10 @@ use yii\bootstrap4\LinkPager;
                 <div class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between mb-3">
                         <h5 class="mb-1">
-                            <?= $item['title'] ?> - <span class="badge badge-info"><?= $item['titleChip'] ?></span>
+                            <?= $item['title'] ?> 
+                            <?php foreach ($item['titleChips'] as $chip) {  ?>
+                                - <span class="badge badge-info"><?= $chip ?></span>
+                            <?php } ?>
                         </h5>
                         <span>
                             <small class="badge badge-info">

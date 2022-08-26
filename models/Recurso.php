@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\web\UploadedFile;
 use yii\helpers\ArrayHelper;
 

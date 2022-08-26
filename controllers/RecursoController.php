@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Autor;
 use Yii;
 use app\models\AutorRecurso;
+use app\models\Bitacora;
 use app\models\Palabra;
 use app\models\Recurso;
 use app\models\RecursoCarrera;
@@ -153,7 +154,7 @@ class RecursoController extends Controller
                     $data = $palabra->pal_id;
                     break;
                 }
-                case 'autores': {
+            case 'autores': {
                     $autorRecurso = AutorRecurso::findOne([
                         'autrec_fkrecurso' => $rec_id,
                         'autrec_fkautor' => $propertyValue
@@ -169,6 +170,7 @@ class RecursoController extends Controller
                 }
         }
 
+        Bitacora::addEvent($rec_id, $propertyName, $propertyValue, Bitacora::$ACTION_DELETE);
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($data);
         exit();
@@ -228,7 +230,7 @@ class RecursoController extends Controller
                 }
         }
 
-
+        Bitacora::addEvent($rec_id, $propertyName, $propertyValue, Bitacora::$ACTION_UPDATE);
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($data);
         exit();

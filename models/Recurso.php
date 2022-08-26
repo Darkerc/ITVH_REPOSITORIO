@@ -78,39 +78,39 @@ class Recurso extends \yii\db\ActiveRecord
         ];
     }
 
-    public function upload()
+    public function upload($validate = true)
     {
-        if ($this->validate()) {
-            $year = date('Y');
-            $i = 1;
-            foreach ($this->archivos as $file) {
-                $data = [
-                    'Archivo' => [
-                        'arc_nombre' => preg_replace('/\s+/', '', $year.'-'.$this->rec_nombre.'-'.$this->rec_id . '_'. $i .'.'. $file->extension),
-                        'arc_extension' => $file->extension,
-                        'arc_original' => $file->baseName,
-                        'arc_mimetype' => $file->type,
-                        'arc_fecha' => date('Y-m-d')
-                    ]
-                ];
-
-                $archivo = new Archivo();
-                $archivo->load($data);
-                $archivo->save();
-
-                $rArchivo = new RecursoArchivo();
-                $rArchivo->recarc_fkrecurso = $this->rec_id;
-                $rArchivo->recarc_fkarchivo = $archivo->arc_id;
-                $rArchivo->save();
-
-                $file->saveAs('files/' . $archivo->arc_nombre);
-                $i++;
-            }
-            return true;
-        } else {
+        if ($validate && !$this->validate()) {
             return false;
         }
-        die;
+
+        $year = date('Y');
+        $i = 1;
+        foreach ($this->archivos as $file) {
+            $data = [
+                'Archivo' => [
+                    'arc_nombre' => preg_replace('/\s+/', '', $year.'-'.$this->rec_nombre.'-'.$this->rec_id . '_'. $i .'.'. $file->extension),
+                    'arc_extension' => $file->extension,
+                    'arc_original' => $file->baseName,
+                    'arc_mimetype' => $file->type,
+                    'arc_fecha' => date('Y-m-d')
+                ]
+            ];
+
+            $archivo = new Archivo();
+            $archivo->load($data);
+            $archivo->save();
+
+            $rArchivo = new RecursoArchivo();
+            $rArchivo->recarc_fkrecurso = $this->rec_id;
+            $rArchivo->recarc_fkarchivo = $archivo->arc_id;
+            $rArchivo->save();
+
+            $file->saveAs('files/' . $archivo->arc_nombre);
+            $i++;
+        }
+
+        return true;
     }
 
 

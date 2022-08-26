@@ -15,6 +15,7 @@ use kartik\select2\Select2;
 use kartik\file\FileInput;
 use kartik\icons\FontAwesomeAsset;
 use webvimark\modules\UserManagement\models\User;
+use yii\helpers\Url;
 
 $isUpdated = is_int($model->rec_id);
 
@@ -215,12 +216,13 @@ $files = array_map(fn (RecursoArchivo $ra) => [
                     'multiple' => true
                 ],
                 'pluginOptions' => [
+                    'uploadUrl' =>  $isUpdated ? Url::to(['/archivo/file-upload?rec_id=' . $model->rec_id]) : false,
                     'initialPreview' => array_map(fn ($f) => $f['downloadUrl'], $files),
                     'showUpload' => false,
                     'showRemove' => false,
                     'initialPreviewAsData' => true,
                     'initialPreviewConfig' => $files,
-
+                    'overwriteInitial'=>false
                 ]
             ]);
             ?>

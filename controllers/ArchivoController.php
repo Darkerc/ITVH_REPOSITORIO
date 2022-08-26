@@ -4,9 +4,11 @@ namespace app\controllers;
 
 use app\models\Archivo;
 use app\models\ArchivoSearch;
+use app\models\Recurso;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ArchivoController implements the CRUD actions for Archivo model.
@@ -71,6 +73,18 @@ class ArchivoController extends Controller
         return $this->render('FileView', [
             'model' => $model,
         ]);
+    }
+
+    public function actionFileUpload($rec_id)
+    {
+        $model = Recurso::findOne(['rec_id' => $rec_id]);
+        $model->archivos = $_FILES;
+        $model->archivos = UploadedFile::getInstances($model, 'archivos');
+        $model->upload(false);
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['success' => true]);
+        exit();
     }
 
     public function actionFileDownload($arc_id)

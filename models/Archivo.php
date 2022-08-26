@@ -103,12 +103,12 @@ class Archivo extends \yii\db\ActiveRecord
     public function getBlobFiles()
     {
         $im = new \Imagick();
-        $im->setResolution(150, 150);
         $blobs = [];
         $isReadeable = true;
         $i = 0;
 
         while ($isReadeable) {
+            $im->setResolution(500, 500);
             $filename =  Yii::getAlias('@webroot') . '/files/' . $this->arc_nombre . "[$i]";
             //var_dump($filename);
             try {

@@ -13,6 +13,7 @@ use Yii;
  *
  * @property Carrera $reccarFkcarrera
  * @property Recurso $reccarFkrecurso
+ * @property int $car_id
  * @property int|null $count
  * @property string|null $carrer
  */
@@ -20,6 +21,7 @@ class RecursoCarrera extends \yii\db\ActiveRecord
 {
     public $count;
     public $carrer;
+    public $car_id;
     /**
      * {@inheritdoc}
      */
@@ -85,7 +87,7 @@ class RecursoCarrera extends \yii\db\ActiveRecord
     public static function getCareersCount()
     {
         $data = RecursoCarrera::find()
-            ->select(['carrera.car_nombre AS carrer, count(recurso_carrera.reccar_fkcarrera) AS count'])
+            ->select(['carrera.car_id ,carrera.car_nombre AS carrer, count(recurso_carrera.reccar_fkcarrera) AS count'])
             ->join('INNER JOIN', 'carrera', 'recurso_carrera.reccar_fkcarrera = carrera.car_id')
             ->groupBy(['reccar_fkcarrera'])
             ->orderBy([

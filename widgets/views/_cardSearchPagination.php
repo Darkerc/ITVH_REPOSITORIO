@@ -23,7 +23,7 @@ use yii\bootstrap4\LinkPager;
                             </small>
                         </span>
                     </div>
-                    <p class="mb-1">
+                    <p class="mb-1" style="max-height: 200px; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden;">
                         <?= $item['description'] ?>
                     </p>
                     <div class="d-flex justify-content-between py-2">

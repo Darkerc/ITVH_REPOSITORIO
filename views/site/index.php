@@ -61,7 +61,7 @@ $this->title = 'ITVH Repositorio';
                     'dataResultMapper' => function ($payload) {
                         return [
                             'group' => $payload['group'],
-                            'items' => array_map(fn ($item) => ['href'  => "http://localhost:8080/site/busqueda?RecursoSearch%5Brec_nombre%5D=&RecursoSearch%5Brec_fkrecursotipo%5D=&RecursoSearch%5Brec_fknivel%5D=&RecursoSearch%5BrecursoCarrera%5D=&RecursoSearch%5Bpalabrasc%5D=&RecursoSearch%5Bpalabrasc%5D%5B%5D={$item->pal_nombre}&RecursoSearch%5Brec_registro%5D=", 'label' => $item->pal_nombre], $payload['items']),
+                            'items' => array_map(fn ($item) => ['href'  => "/site/busqueda?RecursoSearch%5Brec_nombre%5D=&RecursoSearch%5Brec_fkrecursotipo%5D=&RecursoSearch%5Brec_fknivel%5D=&RecursoSearch%5BrecursoCarrera%5D=&RecursoSearch%5Bpalabrasc%5D=&RecursoSearch%5Bpalabrasc%5D%5B%5D={$item->pal_nombre}&RecursoSearch%5Brec_registro%5D=", 'label' => $item->pal_nombre], $payload['items']),
                         ];
                     },
                 ]) ?>

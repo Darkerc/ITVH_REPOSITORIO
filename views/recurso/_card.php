@@ -28,6 +28,15 @@ $archivos = new ArrayDataProvider([
                 <?= TableViewer::widget([
                     'data' => [
                         [
+                            'header' => '',
+                            'values' => 
+                            Html::tag('div', 
+                                Html::a('Descargar JSON <img src="/images/download.svg" />', "/recurso/download-dublin-file?type=json&rec_id=$model->rec_id", ['title' => 'Descargar JSON' ,'class' => 'mx-3 kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary']) .
+                                Html::a('Descargar XML <img src="/images/download.svg" />', "/recurso/download-dublin-file?type=xml&rec_id=$model->rec_id", ['title' => 'Descargar XML' ,'class' => 'mx-3 kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary']) .
+                                Html::a('Descargar CSV <img src="/images/download.svg" />', "/recurso/download-dublin-file?type=csv&rec_id=$model->rec_id", ['title' => 'Descargar CSV' ,'class' => 'mx-3 kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary']) 
+                            , ['class' => 'd-flex justify-content-end'])
+                        ],
+                        [
                             'header' => 'Título',
                             'values' => $model->rec_nombre
                         ],

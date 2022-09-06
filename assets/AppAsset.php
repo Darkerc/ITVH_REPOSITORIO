@@ -26,6 +26,8 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'bundle/index.js',
+        'js/jquery.validate.min.js',
+        'js/additional-methods.min.js',
         'js/turn.min.js',
         'js/notify.min.js',
     ];

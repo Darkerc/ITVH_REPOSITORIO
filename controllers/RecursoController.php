@@ -236,6 +236,34 @@ class RecursoController extends Controller
         exit();
     }
 
+    public function actionDownloadDublinFile($type, $rec_id)
+    {
+        require_once Yii::$app->basePath . '/views/utils/DublinCoreFormats.php';
+        if (($model = Recurso::findOne(['rec_id' => $rec_id])) !== null) {
+            switch ($type) {
+                case 'json': {
+                        header("Content-disposition: attachment; filename={$model->joinName}.json");
+                        header('Content-type: application/json');
+                        echo dublinCoreJSON($model->getDublinCoreData());
+                    break;
+                }
+                case 'xml': {
+                        header("Content-disposition: attachment; filename={$model->joinName}.xml");
+                        header('Content-Type: application/xml; charset=utf-8');
+                        echo dublinCoreXML($model->getDublinCoreData());
+                    break;
+                } 
+                case 'csv': {
+                        header("Content-disposition: attachment; filename={$model->joinName}.csv");
+                        header('Content-Type: text/csv; charset=utf-8');
+                        echo dublinCoreCSV($model->getDublinCoreData());
+                    break;
+                } 
+            }
+            exit();
+        }
+    }
+
     /**
      * Updates an existing Recurso model.
      * If update is successful, the browser will be redirected to the 'view' page.

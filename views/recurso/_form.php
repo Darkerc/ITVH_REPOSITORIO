@@ -210,10 +210,12 @@ $files = array_map(fn (RecursoArchivo $ra) => [
         <div class="col col-12 form-group">
             <?=
             $form->field($model, 'archivos[]')->widget(FileInput::classname(), [
+                'id' => 'archivos',
                 'name' => 'archivos[]',
                 'language' => 'es',
                 'options' => [
-                    'multiple' => true
+                    'multiple' => true,
+                    'accept' => 'application/pdf, image/png, image/jpeg, image/gif, image/jpg'
                 ],
                 'pluginOptions' => [
                     'uploadUrl' =>  $isUpdated ? Url::to(['/archivo/file-upload?rec_id=' . $model->rec_id]) : false,

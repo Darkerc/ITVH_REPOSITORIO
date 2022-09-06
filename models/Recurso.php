@@ -86,11 +86,10 @@ class Recurso extends \yii\db\ActiveRecord
         }
 
         $year = date('Y');
-        $i = 1;
         foreach ($this->archivos as $file) {
             $data = [
                 'Archivo' => [
-                    'arc_nombre' => preg_replace('/\s+/', '', $year.'-'.$this->rec_nombre.'-'.$this->rec_id . '_'. $i .'.'. $file->extension),
+                    'arc_nombre' => preg_replace('/\s+/', '', $year.'-'.$this->rec_nombre.'-'.$this->rec_id . '-'. microtime() . '.'. $file->extension),
                     'arc_extension' => $file->extension,
                     'arc_original' => $file->baseName,
                     'arc_mimetype' => $file->type,
@@ -114,6 +113,10 @@ class Recurso extends \yii\db\ActiveRecord
         return true;
     }
 
+    public function getJoinName()
+    {
+        return str_replace(' ','_', $this->rec_nombre);
+    }
 
     /**
      * Gets query for [[AutorRecursos]].
@@ -185,6 +188,27 @@ class Recurso extends \yii\db\ActiveRecord
         return $this->hasMany(RecursoCarrera::className(), ['reccar_fkrecurso' => 'rec_id']);
     }
 
+    public function getResumenWordCount()
+    {
+        return str_word_count($this->rec_resumen);
+    }
+
+    public function getDublinCoreData()
+    {
+        return [
+            "title" => $this->rec_nombre,
+            "creator" => $this->autoresNames,
+            "description" => $this->rec_resumen,
+            "format" => $this->filesMimeTypes,
+            "date" => reset(explode(' ',$this->rec_registro)),
+            "type" => $this->tipo,
+            "identifier" => $this->palabra,
+            "language" => 'es',
+            "wordcount" => $this->resumenWordCount,
+            "url" => $this->currentUrl
+        ];
+    }
+
     public static function mapNombre(){
         return ArrayHelper::map(Recurso::find()->all(), 'rec_nombre', 'rec_nombre');
     }
@@ -219,7 +243,7 @@ class Recurso extends \yii\db\ActiveRecord
     public function getPalabra()
     {
         $palabras = array_map(fn ($palabra) => $palabra->pal_nombre, $this->palabras);
-        $carr = join(" - ", $palabras);
+        $carr = join(", ", $palabras);
         return !$carr ? 'Sin Palabras Clave' : $carr;
     }
 
@@ -236,9 +260,21 @@ class Recurso extends \yii\db\ActiveRecord
         return $ids;
     }
 
+    public function getAutoresNames()
+    {
+        $names = array_map(fn (AutorRecurso $autor) => $autor->autrecFkautor->aut_nombre, $this->autorRecursos);
+        return join(', ', $names);
+    }
+
     public function getCurrentUrl()
     {
         $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         return $actual_link;
+    }
+
+    public function getFilesMimeTypes()
+    {
+        $fileExtencions =  array_map(fn (RecursoArchivo $rArchivo) => $rArchivo->recarcFkarchivo->arc_mimetype, $this->recursoArchivos);
+        return join(', ', $fileExtencions);
     }
 }

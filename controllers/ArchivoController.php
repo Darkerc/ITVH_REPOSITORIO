@@ -5,9 +5,11 @@ namespace app\controllers;
 use app\models\Archivo;
 use app\models\ArchivoSearch;
 use app\models\Recurso;
+use app\models\RecursoArchivo;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\HttpException;
 use yii\web\UploadedFile;
 
 /**
@@ -165,5 +167,21 @@ class ArchivoController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionRecursoArchivoDelete($rec_id, $arc_id)
+    {
+        $archivo = Archivo::findOne(['arc_id' => $arc_id]);
+        $recursoArchivo = RecursoArchivo::findOne(['recarc_fkarchivo' => $arc_id, 'recarc_fkrecurso' => $rec_id]);
+
+        if (is_null($archivo) || is_null($recursoArchivo)) throw new HttpException(404, 'Recursos no encontrados');
+        if (!$archivo->deleteFile()) throw new HttpException(500, 'No se pudo eliminar el archivo');
+
+        $recursoArchivo->delete();
+        $archivo->delete();
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['success' => true]);
+        exit();
     }
 }

@@ -1,5 +1,5 @@
 <?php
-
+use Yii;
 use app\models\Palabra;
 use app\widgets\CardListData;
 use app\widgets\CardContainer;
@@ -31,14 +31,15 @@ $this->title = 'ITVH Repositorio';
 
     ?>
 
+    <?= Html::a('Cambiar idioma', 'site/language', ['class' => 'btn textwhite', 'style' => 'width:100%; background:#4CD64C; ']) ?>
     <?= Carousel::widget(['items' => $recursos]); ?>
 
     <div class="body-content">
         <div class="row">
             <div class="py-2 col-12 col-lg-7">
                 <?= CardListData::widget([
-                    'titulo' => 'Repositorio por carreras',
-                    'descripcion' => 'Carreras disponibles en el Campus Villahermosa',
+                    'titulo' => Yii::t('app', 'repositorio_por_carreras'),
+                    'descripcion' => Yii::t('app', 'carreras_disponibles_en_el_campus_villahermosa'),
                     'mode' => 'OUTLINED',
                     'data' => RecursoCarrera::getCareersCount(),
                     'dataResultMapper' => function (RecursoCarrera $rCarrera) {

@@ -9,16 +9,13 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\BitacoraSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Bitacoras';
+$this->title = 'Bitácora';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bitacora-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Bitacora', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -31,12 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'bit_id',
             'bit_descripcion:ntext',
             'bit_fkrecurso',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'bit_id' => $model->bit_id]);
-                 }
-            ],
+            // [
+            //     'class' => ActionColumn::className(),
+            //     'urlCreator' => function ($action, $model, $key, $index, $column) {
+            //         return Url::toRoute([$action, 'bit_id' => $model->bit_id]);
+            //      }
+            // ],
         ],
     ]); ?>
 

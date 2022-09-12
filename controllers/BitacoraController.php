@@ -59,22 +59,22 @@ class BitacoraController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
-    {
-        $model = new Bitacora();
+    // public function actionCreate()
+    // {
+    //     $model = new Bitacora();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'bit_id' => $model->bit_id]);
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
+    //     if ($this->request->isPost) {
+    //         if ($model->load($this->request->post()) && $model->save()) {
+    //             return $this->redirect(['view', 'bit_id' => $model->bit_id]);
+    //         }
+    //     } else {
+    //         $model->loadDefaultValues();
+    //     }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
+    //     return $this->render('create', [
+    //         'model' => $model,
+    //     ]);
+    // }
 
     /**
      * Updates an existing Bitacora model.
@@ -83,18 +83,18 @@ class BitacoraController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($bit_id)
-    {
-        $model = $this->findModel($bit_id);
+    // public function actionUpdate($bit_id)
+    // {
+    //     $model = $this->findModel($bit_id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'bit_id' => $model->bit_id]);
-        }
+    //     if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+    //         return $this->redirect(['view', 'bit_id' => $model->bit_id]);
+    //     }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
+    //     return $this->render('update', [
+    //         'model' => $model,
+    //     ]);
+    // }
 
     /**
      * Deletes an existing Bitacora model.
@@ -103,12 +103,12 @@ class BitacoraController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($bit_id)
-    {
-        $this->findModel($bit_id)->delete();
+    // public function actionDelete($bit_id)
+    // {
+    //     $this->findModel($bit_id)->delete();
 
-        return $this->redirect(['index']);
-    }
+    //     return $this->redirect(['index']);
+    // }
 
     /**
      * Finds the Bitacora model based on its primary key value.

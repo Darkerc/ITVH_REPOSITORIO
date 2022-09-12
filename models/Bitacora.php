@@ -42,7 +42,7 @@ class Bitacora extends \yii\db\ActiveRecord
     {
         return [
             'bit_id'          => 'ID',
-            'bit_descripcion' => 'Descripcion',
+            'bit_descripcion' => 'Descripción',
             'bit_fkrecurso'   => 'Recurso',
         ];
     }

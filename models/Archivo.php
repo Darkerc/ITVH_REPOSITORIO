@@ -156,13 +156,25 @@ class Archivo extends \yii\db\ActiveRecord
 
     public function actionDownload()
     {
-        $path = Yii::getAlias('@webroot') . '/files/';
-
-        $file = $path . $this->arc_nombre;
+        $file = $this->getFilePath();
 
         if (file_exists($file)) {
 
             Yii::$app->response->sendFile($file);
         }
+    }
+
+    public function getFilePath()
+    {
+        $path = Yii::getAlias('@webroot') . '/files/' . $this->arc_nombre;
+
+        return $path;
+    }
+
+    public function deleteFile()
+    {
+        $file = $this->getFilePath();
+
+        return unlink($file);
     }
 }

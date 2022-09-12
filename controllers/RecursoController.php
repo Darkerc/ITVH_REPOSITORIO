@@ -133,7 +133,7 @@ class RecursoController extends Controller
         $propertyValue = array_values($this->request->post())[0];
         $data = null;
 
-        $model->rec_descripcion = json_encode([date('Y-m-d H:i:s') => 'Se actualizo el recurso']);
+        $model->rec_descripcion = json_encode([date('Y-m-d H:i:s') => 'Se actualizó el recurso']);
         $model->save(false, ['rec_descripcion']);
 
         switch ($propertyName) {

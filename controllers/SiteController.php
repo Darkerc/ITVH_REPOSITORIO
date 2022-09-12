@@ -71,6 +71,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $language = isset($_SESSION['language']) ? $_SESSION['language'] : 'es-MX';
+        Yii::$app->language = $language;
+
         Visitas::addVisit();
 
         $recursos = array_map(function (Recurso $recurso) {
@@ -176,5 +179,21 @@ class SiteController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionLanguage()
+    {
+        if ($_SESSION['language'] == 'en-US') {
+            $_SESSION['language'] = 'es-MX';
+        } else {
+            $_SESSION['language'] = 'en-US';
+        }
+        header('location: ' . $_SERVER['HTTP_REFERER']);
+        exit();
+        // echo '<pre>';
+        // echo var_dump($_SERVER);
+        // echo '</pre>';
+        // die;
+        // return $this->refresh();
     }
 }

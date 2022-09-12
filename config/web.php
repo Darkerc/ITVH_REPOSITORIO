@@ -11,7 +11,8 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'repositorio',
     'name' => 'Repositorio',
-    'language' => 'es-ES',
+    'language' => 'es-MX',
+    'sourceLanguage' => null,
     'timezone' => 'America/Mexico_City',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -62,6 +63,19 @@ $config = [
                 '<controller:\w+>/<id:\d+>'                         => '<controller>/view',
                 '<controller:\w+>/<action:\w+><id:\d+>'             => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>'                     => '<controller>/<action>'
+            ],
+        ],
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    //'basePath' => '@app/messages',
+                    //'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        'app' => 'app.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
             ],
         ],
     ],

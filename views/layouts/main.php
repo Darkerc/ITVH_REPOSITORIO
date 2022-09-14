@@ -26,6 +26,9 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -86,7 +89,7 @@ AppAsset::register($this);
         ?>
     </header>
 
-    <main role="main" class="flex-shrink-0">
+    <main onload="PR.prettyPrint()" role="main" class="flex-shrink-0">
         <div class="container" style="margin-top: 70px;">
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

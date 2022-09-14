@@ -7,12 +7,15 @@
 
 use yii\helpers\Html;
 use app\models\Archivo;
-use kartik\grid\GridView;
 use app\models\RecursoArchivo;
+use kartik\grid\GridView;
+use app\models\RecursoqArchivo;
+use app\widgets\RecursoDublinCoreModal;
 use yii\data\ArrayDataProvider;
 use kartik\icons\FontAwesomeAsset;
 use webvimark\modules\UserManagement\models\User;
 use app\widgets\TableViewer;
+use yii\bootstrap4\Modal;
 
 FontAwesomeAsset::register($this);
 
@@ -29,12 +32,26 @@ $archivos = new ArrayDataProvider([
                     'data' => [
                         [
                             'header' => '',
-                            'values' => 
-                            Html::tag('div', 
-                                Html::a('Descargar JSON <img src="/images/download.svg" />', "/recurso/download-dublin-file?type=json&rec_id=$model->rec_id", ['title' => 'Descargar JSON' ,'class' => 'mx-3 kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary']) .
-                                Html::a('Descargar XML <img src="/images/download.svg" />', "/recurso/download-dublin-file?type=xml&rec_id=$model->rec_id", ['title' => 'Descargar XML' ,'class' => 'mx-3 kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary']) .
-                                Html::a('Descargar CSV <img src="/images/download.svg" />', "/recurso/download-dublin-file?type=csv&rec_id=$model->rec_id", ['title' => 'Descargar CSV' ,'class' => 'mx-3 kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary']) 
-                            , ['class' => 'd-flex justify-content-end'])
+                            'values' =>
+                            Html::tag(
+                                'div',
+                                RecursoDublinCoreModal::widget([
+                                    'model' => $model,
+                                    'type' => 'json', 
+                                    'content' => $model->getDublinCoreJSON()
+                                ]) .
+                                RecursoDublinCoreModal::widget([
+                                    'model' => $model,
+                                    'type' => 'xml', 
+                                    'content' => $model->getDublinCoreXML()
+                                ]) .
+                                RecursoDublinCoreModal::widget([
+                                    'model' => $model,
+                                    'type' => 'csv', 
+                                    'content' => $model->getDublinCoreCSV()
+                                ]),
+                                ['class' => 'd-flex justify-content-end']
+                            )
                         ],
                         [
                             'header' => 'Título',

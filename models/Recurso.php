@@ -277,4 +277,19 @@ class Recurso extends \yii\db\ActiveRecord
         $fileExtencions =  array_map(fn (RecursoArchivo $rArchivo) => $rArchivo->recarcFkarchivo->arc_mimetype, $this->recursoArchivos);
         return join(', ', $fileExtencions);
     }
+
+    public function getDublinCoreJSON() {
+        require_once Yii::$app->basePath . '/views/utils/DublinCoreFormats.php';
+        return dublinCoreJSON($this->getDublinCoreData());
+    }
+
+    public function getDublinCoreXML() {
+        require_once Yii::$app->basePath . '/views/utils/DublinCoreFormats.php';
+        return htmlspecialchars(dublinCoreXML($this->getDublinCoreData()), ENT_QUOTES);
+    }
+
+    public function getDublinCoreCSV() {
+        require_once Yii::$app->basePath . '/views/utils/DublinCoreFormats.php';
+        return dublinCoreCSV($this->getDublinCoreData());
+    }
 }

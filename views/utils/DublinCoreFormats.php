@@ -32,7 +32,7 @@ function dublinCoreJSON($data) {
         "datePublished" => $data['date'],
         "dateCreated" => $data['date'],
         "dateModified" => $data['date']
-    ]);
+    ], JSON_PRETTY_PRINT + JSON_UNESCAPED_SLASHES);
 }
 
 

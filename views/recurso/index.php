@@ -26,12 +26,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= CardSearchPagination::widget([
         "dataProvider" => $dataProvider,
+        'title' => Yii::t('app', 'resultados_busqueda'),
         "dataProviderResultsMapper" => function ($model) {
             return [
                 "title" => $model['rec_nombre'],
                 "titleChips" => [$model['tipo'], $model['nivel']],
                 "description" => $model['rec_resumen'],
-                "headerRight" => "Publicado en: " . date_format(new DateTime($model['rec_registro']), 'd/m/Y'),
+                "headerRight" => Yii::t('app', 'publicado_el') . ' ' . date_format(new DateTime($model->rec_registro), 'd/m/Y'),
                 "footerRight" => $model['carrera'],
                 "footerLeft" => $model['autor'],
                 "href" => '/recurso/view?rec_id=' . $model->rec_id . ''

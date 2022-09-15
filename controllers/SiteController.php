@@ -82,7 +82,7 @@ class SiteController extends Controller
                 'caption' => '<h4 class="textblacktitle">' . $recurso->rec_nombre . '</h4> 
                                 <p class="textblack">' . $recurso->rec_resumen . '</p>
                                 <a  href="/recurso/view?rec_id=' . $recurso->rec_id . '">
-                                <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2"> Ver repositorio </button>
+                                <button type="button" class="btn btn-info btn-sm d-inline mx-auto my-2"> '. Yii::t('app', 'ver_repositorio') .' </button>
                                 </a>'
             ];
         }, Recurso::find()->orderby('RAND()')->limit(6)->all());
@@ -171,6 +171,9 @@ class SiteController extends Controller
 
     public function actionBusqueda()
     {
+        $language = isset($_SESSION['language']) ? $_SESSION['language'] : 'es-MX';
+        Yii::$app->language = $language;
+        
         $searchModel = new RecursoSearch();
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

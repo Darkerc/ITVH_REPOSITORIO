@@ -21,7 +21,7 @@ $config = ['template' => "{input}\n{error}\n{hint}"];
 <div>
 
     <div class="jumbotron p-3">
-        <?= Html::tag('h3', 'Filtros') ?>
+        <?= Html::tag('h3', Yii::t('app', 'filtro')) ?>
         <?php $form = ActiveForm::begin([
             'action' => ['busqueda'],
             'method' => 'get',
@@ -30,7 +30,7 @@ $config = ['template' => "{input}\n{error}\n{hint}"];
         <?= $form->field($searchModel, 'rec_nombre')->widget(Select2::classname(), [
             'data' => Recurso::mapNombre(),
             'options' => [
-                'placeholder' => 'Ingrese el Título', 'multiple' => true,
+                'placeholder' => Yii::t('app', 'ingrese_titulo'), 'multiple' => true,
             ],
             'toggleAllSettings' => [
                 'selectLabel' => '',
@@ -43,30 +43,30 @@ $config = ['template' => "{input}\n{error}\n{hint}"];
                 'maximumInputLength' => 15,
                 'maximumSelectionLength' => 1,
             ],
-        ])->label('Título'); ?>
+        ])->label(Yii::t('app', 'titulo')); ?>
 
         <div class="row">
             <div class="col col-12 col-md-6 form-group">
                 <?= $form->field($searchModel, 'rec_fkrecursotipo')->widget(Select2::classname(), [
                     'data' => RecursoTipo::map(),
                     'options' => [
-                        'placeholder' => 'Seleccione un tipo',
+                        'placeholder' => Yii::t('app', 'seleccionar_tipo'),
                     ],
-                ])->label('Tipo'); ?>
+                ])->label(Yii::t('app', 'tipo')); ?>
             </div>
             <div class="col col-12 col-md-6 form-group">
                 <?= $form->field($searchModel, 'rec_fknivel')->widget(Select2::classname(), [
                     'data' => Nivel::map(),
                     'options' => [
-                        'placeholder' => 'Seleccione un nivel',
+                        'placeholder' => Yii::t('app', 'seleccionar_nivel'),
                     ],
-                ])->label('Nivel'); ?>
+                ])->label(Yii::t('app', 'nivel')); ?>
             </div>
         </div>
 
         <?= $form->field($searchModel, 'recursoCarrera')->widget(Select2::classname(), [
             'data' => Carrera::map(),
-            'options' => ['placeholder' => 'Selecciona una carrera...', 'multiple' => true],
+            'options' => ['placeholder' => Yii::t('app', 'seleccionar_carrera'), 'multiple' => true],
             'toggleAllSettings' => [
                 'selectLabel' => '-Selecionar todo',
                 'unselectLabel' => 'Deseleccionar todo',
@@ -78,11 +78,11 @@ $config = ['template' => "{input}\n{error}\n{hint}"];
                 'tokenSeparators' => [',', ' '],
                 'maximumInputLength' => 20
             ],
-        ])->label('Carreras'); ?>
+        ])->label(Yii::t('app', 'carrera')); ?>
 
         <?= $form->field($searchModel, 'palabrasc')->widget(Select2::classname(), [
             'data' => Palabra::mapcount(),
-            'options' => ['placeholder' => 'Ingrese las palabras clave...', 'multiple' => true],
+            'options' => ['placeholder' => Yii::t('app', 'ingresar_palabra'), 'multiple' => true],
             'toggleAllSettings' => [
                 'selectLabel' => 'Seleccionar todo',
                 'unselectLabel' => 'Deseleccionar todo',
@@ -94,7 +94,7 @@ $config = ['template' => "{input}\n{error}\n{hint}"];
                 'tokenSeparators' => [',', ' '],
                 'maximumInputLength' => 15
             ],
-        ])->label('Palabras Clave');  ?>
+        ])->label(Yii::t('app', 'palabra_clave'));  ?>
 
         <div class="col col-12">
             <div class="form-group">
@@ -110,17 +110,17 @@ $config = ['template' => "{input}\n{error}\n{hint}"];
                         'locale' => ['format' => 'Y-m-d h:i A']
                     ],
                     'language' => 'es'
-                ]); ?>
+                ])->label(Yii::t('app', 'fecha_registro')); ?>
             </div>
         </div>
 
 
         <div class="row form-group">
             <div class="col col-12 col-md-6">
-                <?= Html::resetButton('Limpiar', ['class' => 'btn btn-warning btn-block']) ?>
+                <?= Html::resetButton(Yii::t('app', 'limpiar'), ['class' => 'btn btn-warning btn-block']) ?>
             </div>
             <div class="col col-12 col-md-6">
-                <?= Html::submitButton('Buscar...', ['class' => 'btn btn-primary btn-block']) ?>
+                <?= Html::submitButton(Yii::t('app', 'buscar'), ['class' => 'btn btn-primary btn-block']) ?>
             </div>
         </div>
 

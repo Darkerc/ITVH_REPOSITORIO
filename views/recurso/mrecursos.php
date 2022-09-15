@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= CardSearchPagination::widget([
         "dataProvider" => $dataProvider,
-        'title' => 'Resultados de la búsqueda de "Mis Recursos"',
+        'title' => 'Resultados de la búsqueda de "Mis Recursos',
         "dataProviderResultsMapper" => function ($model) {
             return [
                 "title" => $model['rec_nombre'],

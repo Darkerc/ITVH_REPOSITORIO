@@ -1,5 +1,5 @@
 <?php
-use Yii;
+
 use app\models\Palabra;
 use app\widgets\CardListData;
 use app\widgets\CardContainer;
@@ -16,7 +16,7 @@ $this->title = 'ITVH Repositorio';
 <div class="site-index ">
     <div class="py-1 bg-transparent brand d-flex justify-content-end">
         <h5 class="textcount">
-        NÚMERO DE VISITAS: <?= Visitas::getCount() ?>
+        <?= Yii::t('app', 'numero_visitas') ?> : <?= Visitas::getCount() ?>
         </h5>
     </div>
     <div class="py-3 text-center bg-transparent brand">
@@ -51,11 +51,11 @@ $this->title = 'ITVH Repositorio';
                     }
                 ]) ?>
                 <?= CardListData::widget([
-                    'titulo' => 'Repositorio Por Listado de Palabras Clave',
+                    'titulo' => Yii::t('app', 'repositorio_listado_palabras_clave'),
                     'mode' => 'TREE',
                     'data' => [
                         [
-                            'group' => 'Palabras clave',
+                            'group' => Yii::t('app', 'palabra_clave'),
                             'items' => Palabra::find()->orderby('RAND()')->limit(4)->all()
                         ]
                     ],
@@ -68,15 +68,15 @@ $this->title = 'ITVH Repositorio';
                 ]) ?>
             </div>
             <div class="py-2 col-12 col-lg-5">
-                <?php CardContainer::begin([ 'title' => 'Buscar repositorio', 'color' => '#4CD64C' ]); ?>
+                <?php CardContainer::begin([ 'title' => Yii::t('app', 'buscar_repositorio'), 'color' => '#4CD64C' ]); ?>
                     <p class="card-text">
-                        <label>Por Nombre:</label>
+                        <label><?= Yii::t('app', 'nombre') ?></label>
                     <div class="input-group mb-3">
                         <?= Select2::widget([
                             'name' => 'state_10',
                             'data' => $recurso,
                             'options' => [
-                                'placeholder' => 'Busque los repositorios ...',
+                                'placeholder' => Yii::t('app', 'busque_repositorio'),
                             ],
                             'pluginOptions' => [
                                 'allowClear' => true
@@ -92,13 +92,13 @@ $this->title = 'ITVH Repositorio';
                     </div>
                     </p>
                     <p>
-                        <?= Html::a('Búsqueda Avanzada', 'site/busqueda', ['class' => 'btn textwhite', 'style' => 'width:100%; background:#4CD64C; ']) ?>
+                        <?= Html::a(Yii::t('app', 'busqueda_avanzada'), 'site/busqueda', ['class' => 'btn textwhite', 'style' => 'width:100%; background:#4CD64C; ']) ?>
                     </p>
                 <?php CardContainer::end(); ?>
 
                 <?= CardListData::widget([
-                    'titulo' => 'Repositorios más vistos',
-                    'descripcion' => 'Repositorios con mayor índice de visitas',
+                    'titulo' => Yii::t('app', 'repositorios_mas_vistos'),
+                    'descripcion' =>  Yii::t('app', 'repositorio_mayor_visitas'),
                     'mode' => 'OUTLINED',
                     'color' => '#4CD64C',
                     'data' => RecursoArchivo::getMostVisits(),
@@ -112,8 +112,8 @@ $this->title = 'ITVH Repositorio';
                 ]) ?>
 
                 <?= CardListData::widget([
-                    'titulo' => 'Repositorios más descargados',
-                    'descripcion' => 'Repositorios con mayor índice de descargas',
+                    'titulo' => Yii::t('app', 'repositorios_mas_descargados'),
+                    'descripcion' => Yii::t('app', 'repositorios_mayor_descargas'),
                     'mode' => 'OUTLINED',
                     'color' => '#4CD64C',
                     'data' => RecursoArchivo::getMostDownloaded(),

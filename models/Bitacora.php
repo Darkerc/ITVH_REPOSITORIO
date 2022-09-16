@@ -62,14 +62,14 @@ class Bitacora extends \yii\db\ActiveRecord
         $model = new Bitacora();
         $model->bit_fkrecurso = $rec_id;
         $model->bit_descripcion = json_encode([
-            'action' => $action,
-            'user_id' => Yii::$app->user->identity->id,
-            'property' => $property,
-            'value' => $value,
+            'accion' => $action,
+            'usuario_id' => Yii::$app->user->identity->id,
+            'propiedad' => $property,
+            'valor' => $value,
         ]);
         $model->save();
     }
 
-    public static $ACTION_UPDATE = 'UPDATE';
-    public static $ACTION_DELETE = 'DELETE';
+    public static $ACTION_UPDATE = 'ACTUALIZAR';
+    public static $ACTION_DELETE = 'ELIMINAR';
 }

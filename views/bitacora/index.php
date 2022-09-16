@@ -1,10 +1,9 @@
 <?php
 
+use app\widgets\TableViewer;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
 use yii\grid\GridView;
-
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\BitacoraSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -16,26 +15,28 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'bit_id',
-            'bit_descripcion:ntext',
+            [
+                'format' => 'html',
+                'contentOptions' => ['style' => 'min-width:600px;'],
+                'value' => function ($data) {
+                    $bit_descripcion_data = json_decode($data->bit_descripcion, true);
+                    return TableViewer::widget([
+                        'data' => array_map(
+                            fn ($key, $val) => ['header' => $key, 'values' => is_array($val) ? join(' - ', $val) : $val], 
+                            array_keys($bit_descripcion_data), 
+                            array_values($bit_descripcion_data)
+                        )
+                    ]);
+                },
+            ],
             'bit_fkrecurso',
-            // [
-            //     'class' => ActionColumn::className(),
-            //     'urlCreator' => function ($action, $model, $key, $index, $column) {
-            //         return Url::toRoute([$action, 'bit_id' => $model->bit_id]);
-            //      }
-            // ],
         ],
     ]); ?>
-
 
 </div>

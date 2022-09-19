@@ -54,39 +54,39 @@ $archivos = new ArrayDataProvider([
                             )
                         ],
                         [
-                            'header' => 'Título',
+                            'header' => Yii::t('app', 'titulo'),
                             'values' => $model->rec_nombre
                         ],
                         [
-                            'header' => 'Resumen',
+                            'header' => Yii::t('app', 'resumen'),
                             'values' => $model->rec_resumen
                         ],
                         [
-                            'header' => 'Autor(es)',
+                            'header' => Yii::t('app', 'autor'),
                             'values' => array_map(fn ($rAutor) => $rAutor->autor, $model->autorRecursos)
                         ],
                         [
-                            'header' => 'Carreras',
+                            'header' => Yii::t('app', 'carreras'),
                             'values' => array_map(fn ($rCarrera) => $rCarrera->carrera, $model->recursoCarreras)
                         ],
                         [
-                            'header' => 'Nivel',
+                            'header' => Yii::t('app', 'nivel'),
                             'values' => $model->nivel
                         ],
                         [
-                            'header' => 'Tipo',
+                            'header' => Yii::t('app', 'tipo'),
                             'values' => $model->tipo
                         ],
                         [
-                            'header' => 'Fecha de publicación',
+                            'header' => Yii::t('app', 'fecha_publicacion'),
                             'values' => date_format(new DateTime($model->rec_registro), 'd/m/Y')
                         ],
                         [
-                            'header' => 'URL del recurso',
+                            'header' => Yii::t('app', 'url'),
                             'values' => Html::a($model->currentUrl, $model->currentUrl)
                         ],
                         [
-                            'header' => 'Palabras Clave',
+                            'header' => Yii::t('app', 'palabra_clave'),
                             'values' => array_map(fn ($rPalabra) => $rPalabra->pal_nombre, $model->palabras)
                         ],
                         [

@@ -25,7 +25,7 @@ class RecursoController extends Controller
     /**
      * @inheritDoc
      */
-    public $freeAccessActions = ['index', 'view'];
+    public $freeAccessActions = ['index', 'view', 'download-dublin-file'];
 
     public function behaviors()
     {
@@ -43,6 +43,9 @@ class RecursoController extends Controller
      */
     public function actionIndex()
     {
+        $language = isset($_SESSION['language']) ? $_SESSION['language'] : 'es-MX';
+        Yii::$app->language = $language;
+
         $searchModel = new RecursoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -60,6 +63,9 @@ class RecursoController extends Controller
      */
     public function actionView($rec_id)
     {
+        $language = isset($_SESSION['language']) ? $_SESSION['language'] : 'es-MX';
+        Yii::$app->language = $language;
+
         $model = $this->findModel($rec_id);
         return $this->render('view', [
             'model' => $model,
@@ -251,13 +257,13 @@ class RecursoController extends Controller
                         header('Content-Type: application/xml; charset=utf-8');
                         echo $model->getDublinCoreXML();
                     break;
-                } 
+                }
                 case 'csv': {
                         header("Content-disposition: attachment; filename={$model->joinName}.csv");
                         header('Content-Type: text/csv; charset=utf-8');
                         echo $model->getDublinCoreCSV();
                     break;
-                } 
+                }
             }
             exit();
         }

@@ -160,6 +160,8 @@ AppAsset::register($this);
             </div>
         </div>
     </footer>
+
+    <?= Html::dropDownList('idioma', 's_id', [], [ 'class' => ['toggle_language'] ]) ?>
     <!-- <footer class="footer mt-auto py-3 text-muted">
     <div class="container">
         <p class="float-left">&copy; My Company <?= date('Y') ?></p>
@@ -172,3 +174,12 @@ AppAsset::register($this);
 
 </html>
 <?php $this->endPage() ?>
+
+<style>
+    .toggle_language {
+        position: fixed;
+        bottom: 30px;
+        left: 30px;
+        width: 200px;
+    }
+</style>

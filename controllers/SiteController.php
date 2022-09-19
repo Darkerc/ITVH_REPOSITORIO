@@ -193,10 +193,5 @@ class SiteController extends Controller
         }
         header('location: ' . $_SERVER['HTTP_REFERER']);
         exit();
-        // echo '<pre>';
-        // echo var_dump($_SERVER);
-        // echo '</pre>';
-        // die;
-        // return $this->refresh();
     }
 }

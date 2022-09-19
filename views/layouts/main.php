@@ -28,7 +28,9 @@ AppAsset::register($this);
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
-    <script>hljs.highlightAll();</script>
+    <script>
+        hljs.highlightAll();
+    </script>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -56,7 +58,7 @@ AppAsset::register($this);
                 ['label' => 'Búsqueda', 'url' => '/site/busqueda'],
                 ['label' => 'Recursos', 'url' => '/recurso/index'],
                 ['label' => 'Mis Recursos', 'url' => '/recurso/mis-recursos', 'visible' => User::hasRole(['aut'], false)],
-				Yii::$app->user->isSuperadmin ? ( [
+                Yii::$app->user->isSuperadmin ? ([
                     'label' => 'Frontend routes',
                     'items' => [
                         ['label' => 'Login', 'url'               => ['/user-management/auth/login']],
@@ -66,11 +68,11 @@ AppAsset::register($this);
                         ['label' => 'Password recovery', 'url'   => ['/user-management/auth/password-recovery']],
                         ['label' => 'E-mail confirmation', 'url' => ['/user-management/auth/confirm-email']],
                     ],
-                ]): '',
+                ]) : '',
                 Yii::$app->user->isSuperadmin ? ([
                     'label' => 'Backend routes',
                     'items' => UserManagementModule::menuItems()
-                ]): '',
+                ]) : '',
                 Yii::$app->user->isGuest ? (
                     //['label' => 'Login', 'url' => ['/site/login']]
                     ['label' => 'Iniciar sesión', 'url' => ['/user-management/auth/login']]
@@ -161,13 +163,8 @@ AppAsset::register($this);
         </div>
     </footer>
 
-    <?= Html::dropDownList('idioma', 's_id', [], [ 'class' => ['toggle_language'] ]) ?>
-    <!-- <footer class="footer mt-auto py-3 text-muted">
-    <div class="container">
-        <p class="float-left">&copy; My Company <?= date('Y') ?></p>
-        <p class="float-right"><?= Yii::powered() ?></p>
-    </div>
-</footer> -->
+    <?= Html::dropDownList('idioma', Yii::$app->language, ['es-MX' => 'Español', 'en-US' => 'English'], 
+        ['class' => ['toggle_language'], 'onchange' => '(async () => { await fetch("/site/language"); window.location.reload(); })()']) ?>
 
     <?php $this->endBody() ?>
 </body>
@@ -180,6 +177,6 @@ AppAsset::register($this);
         position: fixed;
         bottom: 30px;
         left: 30px;
-        width: 200px;
+        width: 100px;
     }
 </style>

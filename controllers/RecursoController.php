@@ -11,6 +11,7 @@ use app\models\Recurso;
 use app\models\RecursoCarrera;
 use app\models\RecursoSearch;
 use app\models\RecursoTipo;
+use app\models\UsuarioHistorial;
 use DateTime;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -63,8 +64,7 @@ class RecursoController extends Controller
      */
     public function actionView($rec_id)
     {
-        $language = isset($_SESSION['language']) ? $_SESSION['language'] : 'es-MX';
-        Yii::$app->language = $language;
+        UsuarioHistorial::visitRecurso(Yii::$app->user->id, $rec_id);
 
         $model = $this->findModel($rec_id);
         return $this->render('view', [

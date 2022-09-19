@@ -35,4 +35,5 @@ return [
     'carreras' => 'Carreras',
     'fecha_publicacion' => 'Fecha de publicación',
     'url' => 'URL del recurso',
+    'card_search_pagination_ver_repositorio' => 'Ver repositorio'
 ];

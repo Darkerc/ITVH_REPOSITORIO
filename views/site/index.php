@@ -24,14 +24,9 @@ $this->title = 'ITVH Repositorio';
     </div>
 
     <?php
-    // echo
-    // var_dump($items);
-    // die;
     $recurso = ArrayHelper::map(Recurso::find()->orderBy(['rec_id' => SORT_ASC])->all(), 'rec_id', 'rec_nombre');
-
     ?>
 
-    <?= Html::a('Cambiar idioma', 'site/language', ['class' => 'btn textwhite', 'style' => 'width:100%; background:#4CD64C; ']) ?>
     <?= Carousel::widget(['items' => $recursos]); ?>
 
     <div class="body-content">

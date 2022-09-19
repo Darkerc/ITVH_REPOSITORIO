@@ -37,7 +37,7 @@ use yii\bootstrap4\LinkPager;
                     </div>
                     <div class="d-flex justify-content-end py-2">
                         <a class="btn btn-success btn-sm" href="<?= $item['href'] ?>">
-                            Ver repositorio
+                            <?= Yii::t('app', 'card_search_pagination_ver_repositorio') ?>
                         </a>
                     </div>
                 </div>

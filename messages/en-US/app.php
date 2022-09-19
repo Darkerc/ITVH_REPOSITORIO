@@ -35,4 +35,5 @@ return [
     'carreras' => 'Careers',
     'fecha_publicacion' => 'Publication Date',
     'url' => 'Resource URL',
+    'card_search_pagination_ver_repositorio' => 'View repository'
 ];

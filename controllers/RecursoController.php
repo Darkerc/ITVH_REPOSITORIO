@@ -64,7 +64,9 @@ class RecursoController extends Controller
      */
     public function actionView($rec_id)
     {
-        UsuarioHistorial::visitRecurso(Yii::$app->user->id, $rec_id);
+        $language = isset($_SESSION['language']) ? $_SESSION['language'] : 'es-MX';
+        Yii::$app->language = $language;
+        //UsuarioHistorial::visitRecurso(Yii::$app->user->id, $rec_id);
 
         $model = $this->findModel($rec_id);
         return $this->render('view', [

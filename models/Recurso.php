@@ -53,9 +53,7 @@ class Recurso extends \yii\db\ActiveRecord
             [['rec_fkrecursotipo', 'rec_fknivel'], 'integer'],
             [['rec_fknivel'], 'exist', 'skipOnError' => true, 'targetClass' => Nivel::className(), 'targetAttribute' => ['rec_fknivel' => 'niv_id']],
             [['rec_fkrecursotipo'], 'exist', 'skipOnError' => true, 'targetClass' => RecursoTipo::className(), 'targetAttribute' => ['rec_fkrecursotipo' => 'rectip_id']],
-            [['archivos'], 'file', 'maxFiles' => 4],
-            //[['archivos'], 'file', 'extensions' => 'jpg, gif, png, pdf'],
-            //[['archivos'], 'file', 'maxSize' => '500000000'],
+            [['archivos'], 'file', 'maxFiles' => 4, 'extensions' => ['png', 'jpg', 'gif', 'jpeg', 'pdf'], 'maxSize' => 1024 * 1024 * 2]
         ];
     }
 
@@ -107,7 +105,6 @@ class Recurso extends \yii\db\ActiveRecord
             $rArchivo->save();
 
             $file->saveAs('files/' . $archivo->arc_nombre);
-            $i++;
         }
 
         return true;
@@ -116,6 +113,16 @@ class Recurso extends \yii\db\ActiveRecord
     public function getJoinName()
     {
         return str_replace(' ','_', $this->rec_nombre);
+    }
+
+    /**
+     * Gets query for [[AutorRecursos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsuarioHistorial()
+    {
+        return $this->hasMany(UsuarioHistorial::className(), ['usuhis_fkrecurso' => 'rec_id']);
     }
 
     /**

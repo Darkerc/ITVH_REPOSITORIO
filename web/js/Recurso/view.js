@@ -21,4 +21,27 @@ window.onload = function () {
       }
     );
   });
+
+  $("#recursoAutorizar").on("click", function () {
+    krajeeDialog.confirm(
+      "¿Esta seguro que desea autorizar el recurso? \n Una vez autorizado, no podra eliminarse.",
+      function (result) {
+        if (result) {
+          $.ajax(`/recurso/authorize?rec_id=${window.rec_id}`, {
+            type: "POST", // http method
+            success: function (data, status, xhr) {
+              $.notify("Recurso recurso autorizado con exito", "success");
+              setTimeout(() => {
+                  window.location.reload();
+              }, 1000)
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+              console.error(errorMessage)
+              $.notify("No se puedo autorizar el recurso", "error");
+            },
+          });
+        }
+      }
+    );
+  });
 };

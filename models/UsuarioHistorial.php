@@ -47,6 +47,11 @@ class UsuarioHistorial extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getRecurso()
+    {
+        return $this->hasOne(Recurso::className(), ['rec_id' => 'usuhis_fkrecurso']);
+    }
+
     public static function visitRecurso($usr_id, $rec_id)
     {
         $usuarioHistorial = new UsuarioHistorial();

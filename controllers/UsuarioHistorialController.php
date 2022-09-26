@@ -2,8 +2,8 @@
 
 namespace app\controllers;
 
-use app\models\UsuarioHistorial;
 use app\models\UsuarioHistorialSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -40,6 +40,8 @@ class UsuarioHistorialController extends Controller
     {
         $searchModel = new UsuarioHistorialSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider->query->andWhere(['usuhis_fkuser'=> Yii::$app->user->id]);
+        $dataProvider->sort->defaultOrder = ['usuhis_fecha' => SORT_DESC];
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -60,47 +62,6 @@ class UsuarioHistorialController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new UsuarioHistorial model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
-     */
-    public function actionCreate()
-    {
-        $model = new UsuarioHistorial();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'usuhis_id' => $model->usuhis_id]);
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Updates an existing UsuarioHistorial model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $usuhis_id Usuhis ID
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($usuhis_id)
-    {
-        $model = $this->findModel($usuhis_id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'usuhis_id' => $model->usuhis_id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
 
     /**
      * Deletes an existing UsuarioHistorial model.
@@ -114,21 +75,5 @@ class UsuarioHistorialController extends Controller
         $this->findModel($usuhis_id)->delete();
 
         return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the UsuarioHistorial model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $usuhis_id Usuhis ID
-     * @return UsuarioHistorial the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($usuhis_id)
-    {
-        if (($model = UsuarioHistorial::findOne(['usuhis_id' => $usuhis_id])) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

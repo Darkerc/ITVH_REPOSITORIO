@@ -44,8 +44,8 @@ class RecursoController extends Controller
      */
     public function actionIndex()
     {
-        $language = isset($_SESSION['language']) ? $_SESSION['language'] : 'es-MX';
-        Yii::$app->language = $language;
+        // $language = isset($_SESSION['language']) ? $_SESSION['language'] : 'es-MX';
+        // Yii::$app->language = $language;
 
         $searchModel = new RecursoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
@@ -64,9 +64,14 @@ class RecursoController extends Controller
      */
     public function actionView($rec_id)
     {
-        UsuarioHistorial::visitRecurso(Yii::$app->user->id, $rec_id);
-
+        
         $model = $this->findModel($rec_id);
+
+        if ($model->rec_status == Recurso::$REC_STATUS_REVISADO) {
+            UsuarioHistorial::visitRecurso(Yii::$app->user->id, $rec_id);
+        }
+
+
         return $this->render('view', [
             'model' => $model,
         ]);
@@ -97,18 +102,18 @@ class RecursoController extends Controller
                     $carreras->reccar_fkcarrera = $carrera;
                     $carreras->save();
                 };
-                if (User::hasRole(['aut', false])) {
-                    $autor = new AutorRecurso();
-                    $autor->autrec_fkrecurso = $model->rec_id;
-                    $autor->autrec_fkautor = Autor::autorId();
-                    $autor->save();
-                } else if (User::hasRole(['admon', false])) {
+                if (User::hasRole(['admon', false])) {
                     foreach ($model->autores as $autors) {
                         $autor = new AutorRecurso();
                         $autor->autrec_fkrecurso = $model->rec_id;
                         $autor->autrec_fkautor = $autors;
                         $autor->save();
                     }
+                } else if ( User::hasRole(['aut', false])) {
+                    $autor = new AutorRecurso();
+                    $autor->autrec_fkrecurso = $model->rec_id;
+                    $autor->autrec_fkautor = Autor::autorId();
+                    $autor->save();
                 };
                 foreach ($model->palabrasc as $palabra) {
                     $palabras = new Palabra();
@@ -125,8 +130,6 @@ class RecursoController extends Controller
             $model->loadDefaultValues();
         }
 
-        //echo         var_dump($model->getErrors());
-        // die;
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -298,6 +301,18 @@ class RecursoController extends Controller
         $this->findModel($rec_id)->delete();
 
         return json_encode(['ok' => true]);
+    }
+
+    public function actionAuthorize($rec_id)
+    {
+        $model = $this->findModel($rec_id);
+        $model->rec_status = Recurso::$REC_STATUS_REVISADO;
+        $model->save(false, ['rec_status']);
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['ok' => true]);
+        exit();
+
     }
 
     /**

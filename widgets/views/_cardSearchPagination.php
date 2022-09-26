@@ -1,5 +1,7 @@
 <?php
 use yii\bootstrap4\LinkPager;
+use yii\helpers\Html;
+
 ?>
 
 <div class="card">
@@ -13,7 +15,7 @@ use yii\bootstrap4\LinkPager;
                     <div class="d-flex w-100 justify-content-between mb-3">
                         <h5 class="mb-1">
                             <?= $item['title'] ?> 
-                            <?php foreach ($item['titleChips'] as $chip) {  ?>
+                            <?php foreach ($item['titleChips'] ?? [] as $chip) {  ?>
                                 - <span class="badge badge-info"><?= $chip ?></span>
                             <?php } ?>
                         </h5>
@@ -27,16 +29,28 @@ use yii\bootstrap4\LinkPager;
                         <?= $item['description'] ?>
                     </p>
                     <div class="d-flex justify-content-between py-2">
-                        <span class='badge badge-info'>
-                            <?= $item['footerLeft'] ?>
-                        </span>
+                        <?php if (!is_null($item['footerLeft'])){ ?>
+                            <span class='badge badge-info'>
+                                <?= $item['footerLeft'] ?>
+                            </span>
+                        <?php } ?>
 
-                        <span class="badge badge-info">
-                            <?= $item['footerRight'] ?>
-                        </span>
+                        <?php if (!is_null($item['footerRight'])){ ?>
+                            <span class="badge badge-info">
+                                <?= $item['footerRight'] ?>
+                            </span>
+                        <?php } ?>
                     </div>
                     <div class="d-flex justify-content-end py-2">
-                        <a class="btn btn-success btn-sm" href="<?= $item['href'] ?>">
+                        <?php if(!is_null($item['dangerBtn'])){ ?>
+                            <form action="<?= $item['dangerBtn']['href'] ?>" method="post">
+                                <?php foreach($item['dangerBtn']['values'] as $key => $value){ ?>
+                                    <?= Html::hiddenInput($key, $value) ?>
+                                <?php } ?>
+                                <?= Html::submitButton($item['dangerBtn']['text'], [ 'class' => 'btn btn-danger btn-sm mx-1' ]) ?>
+                            </form>
+                        <?php } ?>
+                        <a class="btn btn-success btn-sm mx-1" href="<?= $item['href'] ?>">
                             <?= Yii::t('app', 'card_search_pagination_ver_repositorio') ?>
                         </a>
                     </div>

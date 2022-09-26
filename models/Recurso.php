@@ -14,6 +14,7 @@ use yii\helpers\ArrayHelper;
  * @property string $rec_resumen
  * @property string $rec_registro
  * @property string $rec_descripcion
+ * @property int $rec_status
  * @property int $rec_fkrecursotipo
  * @property int $rec_fknivel
  *
@@ -28,11 +29,13 @@ use yii\helpers\ArrayHelper;
  */
 class Recurso extends \yii\db\ActiveRecord
 {
+    public static $REC_STATUS_EN_REVICION = 0;
+    public static $REC_STATUS_REVISADO = 1;
+
     public $recursoCarrera;
     public $palabrasc;
     public $archivos;
     public $autores;
-    //public $autores;
     /**
      * {@inheritdoc}
      */
@@ -50,7 +53,7 @@ class Recurso extends \yii\db\ActiveRecord
             [['rec_nombre', 'rec_resumen', 'rec_registro', 'rec_fkrecursotipo', 'rec_fknivel', 'recursoCarrera', 'palabrasc'], 'required', 'message' => '{attribute} no puede estar vacío'],
             [['rec_nombre', 'rec_resumen', 'rec_descripcion'], 'string'],
             [['rec_registro', 'recursoCarrera', 'palabrasc', 'autores'], 'safe'],
-            [['rec_fkrecursotipo', 'rec_fknivel'], 'integer'],
+            [['rec_fkrecursotipo', 'rec_fknivel', 'rec_status'], 'integer'],
             [['rec_fknivel'], 'exist', 'skipOnError' => true, 'targetClass' => Nivel::className(), 'targetAttribute' => ['rec_fknivel' => 'niv_id']],
             [['rec_fkrecursotipo'], 'exist', 'skipOnError' => true, 'targetClass' => RecursoTipo::className(), 'targetAttribute' => ['rec_fkrecursotipo' => 'rectip_id']],
             [['archivos'], 'file', 'maxFiles' => 4, 'extensions' => ['png', 'jpg', 'gif', 'jpeg', 'pdf'], 'maxSize' => 1024 * 1024 * 2]
@@ -298,5 +301,9 @@ class Recurso extends \yii\db\ActiveRecord
     public function getDublinCoreCSV() {
         require_once Yii::$app->basePath . '/views/utils/DublinCoreFormats.php';
         return dublinCoreCSV($this->getDublinCoreData());
+    }
+
+    public function suggestRecursos() {
+        return [];
     }
 }

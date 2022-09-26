@@ -17,7 +17,7 @@ class UsuarioHistorialSearch extends UsuarioHistorial
     public function rules()
     {
         return [
-            [['usuhis_id', 'fk_user', 'fk_recurso'], 'integer'],
+            [['usuhis_id', 'usuhis_fkuser', 'usuhis_fkrecurso'], 'integer'],
             [['usuhis_fecha'], 'safe'],
         ];
     }
@@ -60,8 +60,8 @@ class UsuarioHistorialSearch extends UsuarioHistorial
         $query->andFilterWhere([
             'usuhis_id' => $this->usuhis_id,
             'usuhis_fecha' => $this->usuhis_fecha,
-            'fk_user' => $this->fk_user,
-            'fk_recurso' => $this->fk_recurso,
+            'usuhis_fkuser' => $this->usuhis_fkuser,
+            'usuhis_fkrecurso' => $this->usuhis_fkrecurso,
         ]);
 
         return $dataProvider;

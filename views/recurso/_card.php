@@ -94,8 +94,8 @@ $archivos = new ArrayDataProvider([
                             'values' => TableViewer::widget([
                                 'data' => array_map(
                                     fn ($key, $val) => ['header' => $key, 'values' => $val], 
-                                    array_keys(json_decode($model->rec_descripcion, true)), 
-                                    array_values(json_decode($model->rec_descripcion, true))
+                                    array_keys(json_decode($model->rec_descripcion, true) ?? []), 
+                                    array_values(json_decode($model->rec_descripcion, true) ?? [])
                                 )
                             ]),
                             'hide' => !User::hasRole(['admon', false])

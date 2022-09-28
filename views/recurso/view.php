@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Autor;
+use app\models\Recurso;
 use yii\helpers\Html;
 use kartik\dialog\Dialog;
 use webvimark\modules\UserManagement\models\User;
@@ -26,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ]
         ]
     ]) ?>
+    
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
@@ -33,7 +35,11 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a('Actualizar', ['update', 'rec_id' => $model->rec_id], ['class' => 'btn btn-primary']) ?>
         <?php } ?>
 
-        <?php if (User::hasRole(['admon', false])) { ?>
+        <?php if (Autor::isAllowedToEdit(Yii::$app->user->identity->id, $model->rec_id) && $model->rec_status == Recurso::$REC_STATUS_EN_REVICION) { ?>
+            <?= Html::button('Autorizar', ['id' => 'recursoAutorizar', 'class' => 'btn btn-warning']) ?>
+        <?php } ?>
+
+        <?php if (User::hasRole(['admon', false]) && $model->rec_status == Recurso::$REC_STATUS_EN_REVICION) { ?>
             <?= Html::button('Eliminar', ['id' => 'resourceDelete', 'class' => ['btn btn-danger']]) ?>
         <?php } ?>
     </p>

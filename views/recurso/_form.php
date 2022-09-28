@@ -224,7 +224,9 @@ $files = array_map(fn (RecursoArchivo $ra) => [
                     'showRemove' => false,
                     'initialPreviewAsData' => true,
                     'initialPreviewConfig' => $files,
-                    'overwriteInitial'=>false
+                    'overwriteInitial'=>false,
+                    'allowedFileExtensions'=>['jpg','gif','jpeg', 'png', 'pdf'],
+                    'maxFileSize' => 2048
                 ]
             ]);
             ?>

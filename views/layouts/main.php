@@ -163,20 +163,15 @@ AppAsset::register($this);
         </div>
     </footer>
 
-    <?= Html::dropDownList('idioma', Yii::$app->language, ['es-MX' => 'Español', 'en-US' => 'English'], 
-        ['class' => ['toggle_language'], 'onchange' => '(async () => { await fetch("/site/language"); window.location.reload(); })()']) ?>
+    <?= Html::dropDownList(
+        'idioma',
+        Yii::$app->language,
+        ['es-MX' => 'Español', 'en-US' => 'English'],
+        ['class' => ['toggle_language'], 'onchange' => '(async () => { await fetch("/site/language"); window.location.reload(); })()']
+    ) ?>
 
     <?php $this->endBody() ?>
 </body>
 
 </html>
 <?php $this->endPage() ?>
-
-<style>
-    .toggle_language {
-        position: fixed;
-        bottom: 30px;
-        left: 30px;
-        width: 100px;
-    }
-</style>

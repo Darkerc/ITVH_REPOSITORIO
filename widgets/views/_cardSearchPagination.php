@@ -15,8 +15,9 @@ use yii\helpers\Html;
                     <div class="d-flex w-100 justify-content-between mb-3">
                         <h5 class="mb-1">
                             <?= $item['title'] ?> 
+                            <?= $item['titleChips'] ? '-' : '' ?> 
                             <?php foreach ($item['titleChips'] ?? [] as $chip) {  ?>
-                                - <span class="badge badge-info"><?= $chip ?></span>
+                                <span class="badge badge-info"><?= $chip ?></span>
                             <?php } ?>
                         </h5>
                         <span>

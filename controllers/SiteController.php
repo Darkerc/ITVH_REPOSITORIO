@@ -71,6 +71,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $language = isset($_SESSION['language']) ? $_SESSION['language'] : 'es-MX';
+        Yii::$app->language = $language;
+
         Visitas::addVisit();
 
         $recursos = array_map(function (Recurso $recurso) {
@@ -186,9 +189,7 @@ class SiteController extends Controller
             $_SESSION['language'] = 'en-US';
         }
 
-        $language = isset($_SESSION['language']) ? $_SESSION['language'] : 'es-MX';
-        Yii::$app->language = $language;
-
-        return Yii::$app->language;
+        header('location: ' . $_SERVER['HTTP_REFERER']);
+        exit();
     }
 }

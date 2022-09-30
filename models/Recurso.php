@@ -17,6 +17,8 @@ use yii\helpers\ArrayHelper;
  * @property int $rec_status
  * @property int $rec_fkrecursotipo
  * @property int $rec_fknivel
+ * @property string $tipo
+ * @property int $cantidad
  *
  * @property AutorRecurso[] $autorRecursos
  * @property Bitacora[] $bitacoras
@@ -32,6 +34,8 @@ class Recurso extends \yii\db\ActiveRecord
     public static $REC_STATUS_EN_REVICION = 0;
     public static $REC_STATUS_REVISADO = 1;
 
+    public $tipo;
+    public $cantidad;
     public $recursoCarrera;
     public $palabrasc;
     public $archivos;
@@ -305,5 +309,19 @@ class Recurso extends \yii\db\ActiveRecord
 
     public function suggestRecursos() {
         return [];
+    }
+
+    public static function getCountByType($year) {
+        $data = Recurso::find()
+            ->select(["count( `recurso`.`rec_id` ) AS `cantidad`, `recurso_tipo`.`rectip_nombre` AS `tipo` "])
+            ->join('INNER JOIN', 'recurso_tipo', "`recurso`.`rec_fkrecursotipo` = `recurso_tipo`.`rectip_id`")
+            ->groupBy(['rec_fkrecursotipo']);
+
+        if ($year != "Todos") {
+            $data->where(['year(`recurso`.`rec_registro`)' => $year]);
+        }
+
+
+        return $data->all();
     }
 }

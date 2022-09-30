@@ -17,6 +17,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use webvimark\modules\UserManagement\models\User;
 use yii\web\UploadedFile;
+use kartik\mpdf\Pdf;
 
 /**
  * RecursoController implements the CRUD actions for Recurso model.
@@ -313,6 +314,31 @@ class RecursoController extends Controller
         echo json_encode(['ok' => true]);
         exit();
 
+    }
+
+    public function actionRecursosReporteGeneral($year)
+    {
+        ini_set("pcre.backtrack_limit", "50000000");
+        
+        $content = $this->renderPartial('pdf/_reporteGeneral', compact('year'));
+        $header = $this->renderPartial('pdf/_header.php');
+        $footer = $this->renderPartial('pdf/_footer');
+
+        $pdf = new Pdf([
+            'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
+            'destination' => Pdf::DEST_BROWSER,
+            'content' =>  $content,  
+            'marginTop' => '60px',
+            'marginBottom' => '50px',
+            'marginRight' => '15px',
+            'marginLeft' => '15px',
+            'options' => ['title' => 'Repositorios - Reporte General'],
+            'methods' => [
+                'SetHTMLHeader' => $header,
+                'SetHTMLFooter' => $footer
+            ]
+        ]);
+        return $pdf->render();
     }
 
     /**

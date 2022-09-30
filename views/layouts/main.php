@@ -163,8 +163,14 @@ AppAsset::register($this);
         </div>
     </footer>
 
-    <?= Html::dropDownList('idioma', Yii::$app->language, ['es-MX' => 'Español', 'en-US' => 'English'], 
-        ['class' => ['toggle_language'], 'onchange' => '(async () => { await fetch("/site/language"); })()']) ?>
+    <?php if (Yii::$app->language == 'es-MX') { ?> 
+        <?= Html::a(Html::img('/images/US.svg', ['class' => ['toggle_language']]), '/site/language') ?>
+    <?php } else if (Yii::$app->language == 'en-US') { ?> 
+        <?= Html::a(Html::img('/images/MX.svg', ['class' => ['toggle_language']]), '/site/language') ?>
+    <?php } ?> 
+
+    <!-- <?= Html::dropDownList('idioma', Yii::$app->language, ['es-MX' => 'Español', 'en-US' => 'English'], 
+        ['class' => ['toggle_language'], 'onchange' => '(async () => { await fetch("/site/language"); })()']) ?> -->
 
     <?php $this->endBody() ?>
 </body>

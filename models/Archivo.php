@@ -177,4 +177,19 @@ class Archivo extends \yii\db\ActiveRecord
 
         return unlink($file);
     }
+
+    public static function imageToBase64($path)
+    {
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+        return $base64;
+    }
+
+    public static function getAllVisits() {
+        $data = Archivo::find()->sum('arc_visitas');
+
+        return $data;
+    }
 }

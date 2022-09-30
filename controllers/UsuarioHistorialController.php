@@ -40,7 +40,7 @@ class UsuarioHistorialController extends Controller
     {
         $searchModel = new UsuarioHistorialSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-        $dataProvider->query->andWhere(['usuhis_fkuser'=> Yii::$app->user->id]);
+        $dataProvider->query->andWhere(['usuhis_fkuser'=> Yii::$app->user->id, 'usuhis_status'=>1]);
         $dataProvider->sort->defaultOrder = ['usuhis_fecha' => SORT_DESC];
 
         return $this->render('index', [

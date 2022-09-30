@@ -90,6 +90,11 @@ class Autor extends \yii\db\ActiveRecord
         return $this->hasOne(Carrera::className(), ['car_id' => 'aut_fkcarrera']);
     }
 
+    public function getCarrera()
+    {
+        return $this->autFkcarrera->car_nombre;
+    }
+
     /**
      * Gets query for [[AutFkdepartamento]].
      *

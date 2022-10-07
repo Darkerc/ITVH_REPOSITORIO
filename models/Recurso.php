@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Expression;
 use yii\web\UploadedFile;
 use yii\helpers\ArrayHelper;
 
@@ -307,10 +308,6 @@ class Recurso extends \yii\db\ActiveRecord
         return dublinCoreCSV($this->getDublinCoreData());
     }
 
-    public function suggestRecursos() {
-        return [];
-    }
-
     public static function getCountByType($year) {
         $data = Recurso::find()
             ->select(["count( `recurso`.`rec_id` ) AS `cantidad`, `recurso_tipo`.`rectip_nombre` AS `tipo` "])
@@ -323,5 +320,41 @@ class Recurso extends \yii\db\ActiveRecord
 
 
         return $data->all();
+    }
+
+
+    /**
+     *
+     * @return Recurso[]
+     */
+    public static function suggestRecursosByUserId($id) {
+        if (is_null($id)) return null;
+
+        $connection = Yii::$app->getDb();
+        $command = $connection->createCommand("SELECT
+        `recurso_tipo`.`rectip_id`
+        FROM
+            (
+                `recurso`
+            JOIN `recurso_tipo` ON ( `recurso`.`rec_fkrecursotipo` = `recurso_tipo`.`rectip_id` )) 
+        WHERE
+            `recurso`.`rec_id` IN ( SELECT `usuario_historial`.`usuhis_fkrecurso` FROM `usuario_historial` WHERE `usuario_historial`.`usuhis_fkuser` = {$id} ) 
+        GROUP BY
+            `recurso_tipo`.`rectip_nombre` 
+        ORDER BY
+            count( `recurso`.`rec_id` ) DESC 
+        LIMIT 3;", [':start_date' => '1970-01-01']);
+
+        $result = $command->queryAll();
+
+        $rectip_ids = array_map(fn ($obj) => $obj['rectip_id'], $result);
+
+        $query = Recurso::find()
+            ->where(['in', 'rec_fkrecursotipo', $rectip_ids])
+            ->orderBy(new Expression('rand()'))
+            ->limit(5)
+            ->all();
+
+        return $query;
     }
 }

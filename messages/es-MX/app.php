@@ -5,6 +5,8 @@ return [
     'repositorio_por_carreras' => 'Repositorio por carreras',
     'carreras_disponibles_en_el_campus_villahermosa' => 'Carreras disponibles en el Campus Villahermosa',
     'repositorio_listado_palabras_clave' => 'Repositorio Por Listado de Palabras Clave',
+    'repositorio_listado_recomendados' => 'Repositorio recomendados',
+    'repositorio_listado_recomendados_descripcion' => 'Recursos obtenidos basados en tus visitas previas',
     'palabra_clave' => 'Palabras clave',
     'ver_repositorio' => 'Ver Repositorio',
     'buscar_repositorio' => 'Buscar repositorio',

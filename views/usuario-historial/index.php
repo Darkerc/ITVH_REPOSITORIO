@@ -27,13 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 "footerRight" => $model->recurso->carrera,
                 "footerLeft" => $model->recurso->autor,
                 "href" => '/recurso/view?rec_id=' . $model->recurso->rec_id,
-                "dangerBtn" => [
-                    'values' => [
-                        'usuhis_id' => $model->usuhis_id
-                    ],
-                    'text' => 'Eliminar',
-                    'href' => '/usuario-historial/delete?usuhis_id=' . $model->usuhis_id
-                ]
             ];
         }
     ]); ?>

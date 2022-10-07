@@ -63,7 +63,7 @@ $recursosRecomendados = Recurso::suggestRecursosByUserId(Yii::$app->user->id);
                         ];
                     },
                 ]) ?>
-                <?php if (count($recursosRecomendados) > 0) { ?>
+                <?php if (!is_null($recursosRecomendados) && count($recursosRecomendados) > 0) { ?>
                 <?= CardListData::widget([
                     'titulo' => Yii::t('app', 'repositorio_listado_recomendados'),
                     'descripcion' => Yii::t('app', 'repositorio_listado_recomendados_descripcion'),

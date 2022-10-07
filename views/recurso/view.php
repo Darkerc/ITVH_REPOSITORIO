@@ -2,6 +2,7 @@
 
 use app\models\Autor;
 use app\models\Recurso;
+use app\widgets\CardListData;
 use yii\helpers\Html;
 use kartik\dialog\Dialog;
 use webvimark\modules\UserManagement\models\User;
@@ -9,7 +10,7 @@ use kartik\dialog\DialogAsset;
 
 DialogAsset::register($this);
 \yii\web\YiiAsset::register($this);
-
+$recursosRecomendados = Recurso::suggestRecursosByUserId(Yii::$app->user->id);
 /* @var $this yii\web\View */
 /* @var $model app\models\Recurso */
 
@@ -27,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ]
         ]
     ]) ?>
-    
+
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
@@ -48,6 +49,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
     ]);
     ?>
+
+    <?php if (!is_null($recursosRecomendados) && count($recursosRecomendados) > 0) { ?>
+        <?= CardListData::widget([
+            'titulo' => Yii::t('app', 'repositorio_listado_recomendados'),
+            'descripcion' => Yii::t('app', 'repositorio_listado_recomendados_descripcion'),
+            'mode' => 'OUTLINED',
+            'data' => $recursosRecomendados,
+            'dataResultMapper' => function (Recurso $recurso) {
+                return [
+                    'href'  => "/recurso/view?rec_id={$recurso->rec_id}",
+                    'label' => $recurso->rec_nombre
+                ];
+            },
+        ]) ?>
+    <?php } ?>
     <script>
         window.rec_id = "<?= $model->rec_id ?>"
     </script>

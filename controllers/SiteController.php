@@ -179,9 +179,11 @@ class SiteController extends Controller
             $start = $dates[0];
             $end = $dates[1];
 
-            $dataProvider->query->andWhere(['between', 'rec_registro', $start, $end]);
-            $index = $this->findIndex(fn($val) => is_array($val) && array_key_exists('rec_registro', $val), $dataProvider->query->where);
-            unset($dataProvider->query->where[$index]);
+            if (!is_null($start) && !is_null($end)) {
+                $dataProvider->query->andWhere(['between', 'rec_registro', $start, $end]);
+                $index = $this->findIndex(fn($val) => is_array($val) && array_key_exists('rec_registro', $val), $dataProvider->query->where);
+                unset($dataProvider->query->where[$index]);
+            }
         }
 
         return $this->render('busqueda', [

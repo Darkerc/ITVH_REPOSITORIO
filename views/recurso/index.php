@@ -1,4 +1,6 @@
 <?php
+
+use app\models\Recurso;
 use yii\helpers\Html;
 use webvimark\modules\UserManagement\models\User;
 use app\widgets\CardSearchPagination;
@@ -7,7 +9,9 @@ use kartik\select2\Select2;
 $this->title = 'Recursos';
 $this->params['breadcrumbs'][] = $this->title;
 
-$years = array_combine(range(date("Y"), 2000), range(date("Y"), 2000));
+// $years = array_combine(range(date("Y"), 2000), range(date("Y"), 2000));
+$years = Recurso::getRecursosYears();
+
 ?>
 <div class="recurso-index">
 

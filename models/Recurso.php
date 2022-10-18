@@ -41,6 +41,7 @@ class Recurso extends \yii\db\ActiveRecord
     public $palabrasc;
     public $archivos;
     public $autores;
+    public $year;
     /**
      * {@inheritdoc}
      */
@@ -356,5 +357,12 @@ class Recurso extends \yii\db\ActiveRecord
             ->all();
 
         return $query;
+    }
+
+    public static function getRecursosYears() {
+        $data = Recurso::find()->select(["DISTINCT YEAR( recurso.rec_registro ) as year"])->orderBy(['year'=>SORT_DESC])->all();
+        $years = array_map(fn ($model) => $model->year ,$data);
+        $yearsFormated = array_combine(array_values($years), array_values($years));
+        return $yearsFormated;
     }
 }

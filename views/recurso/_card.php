@@ -118,22 +118,26 @@ $archivos = new ArrayDataProvider([
                             'class' => 'kartik\grid\ActionColumn',
                             'header' => ' ',
                             'template' => '{btnView}{btnDownload}',
-                            'buttons' => [
-                                'btnView' => function ($url, Archivo $archivo, $key) {     // render your custom button
-                                    // "/archivo/file-view?arc_id={$archivo->arc_id}"
-                                    return Html::a('<img src="/images/view.svg" />', "/archivo/file-view?arc_id={$archivo->arc_id}", [
-                                        'class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary',
-                                        'title' => 'Ver',
-                                        'id' => $archivo->arc_id
-                                    ]);
-                                },
-                                'btnDownload' => function ($url, Archivo $archivo, $key) {     // render your custom button
-                                    return Html::a('<img src="/images/download.svg" />', "/archivo/file-download?arc_id={$archivo->arc_id}", [
-                                        'class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary',
-                                        'title' => 'Descargar',
-                                    ]);
-                                }
-                            ]
+                            'buttons' => array_merge(
+                                [
+                                    'btnView' => function ($url, Archivo $archivo, $key) {     // render your custom button
+                                        // "/archivo/file-view?arc_id={$archivo->arc_id}"
+                                        return Html::a('<img src="/images/view.svg" />', "/archivo/file-view?arc_id={$archivo->arc_id}", [
+                                            'class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary',
+                                            'title' => 'Ver',
+                                            'id' => $archivo->arc_id
+                                        ]);
+                                    }
+                                ],
+                                User::hasRole(['admon', false]) ? [
+                                    'btnDownload' => function ($url, Archivo $archivo, $key) {     // render your custom button
+                                        return Html::a('<img src="/images/download.svg" />', "/archivo/file-download?arc_id={$archivo->arc_id}", [
+                                            'class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary',
+                                            'title' => 'Descargar',
+                                        ]);
+                                    }
+                                ] : []
+                            )
                         ]
                     ]
                 ]);

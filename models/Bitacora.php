@@ -59,11 +59,13 @@ class Bitacora extends \yii\db\ActiveRecord
 
     public static function addEvent($rec_id, $property, $value, $action)
     {
+        // $user = Yii::$app->user->identity->findIdentity(Yii::$app->user->identity->id);
         $model = new Bitacora();
         $model->bit_fkrecurso = $rec_id;
         $model->bit_descripcion = json_encode([
             'accion' => $action,
-            'usuario_id' => Yii::$app->user->identity->id,
+            'usu_id' => Yii::$app->user->identity->id,
+            'usu_nombre' =>  Yii::$app->user->identity->username,
             'propiedad' => $property,
             'valor' => $value,
         ]);

@@ -316,6 +316,18 @@ class RecursoController extends Controller
 
     }
 
+    public function actionDesauthorize($rec_id)
+    {
+        $model = $this->findModel($rec_id);
+        $model->rec_status = Recurso::$REC_STATUS_EN_REVICION;
+        $model->save(false, ['rec_status']);
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['ok' => true]);
+        exit();
+
+    }
+
     public function actionRecursosReporteGeneral($year)
     {
         ini_set("pcre.backtrack_limit", "50000000");

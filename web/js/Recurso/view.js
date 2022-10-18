@@ -44,4 +44,27 @@ window.onload = function () {
       }
     );
   });
+
+  $("#recursoDesautorizar").on("click", function () {
+    krajeeDialog.confirm(
+      "¿Esta seguro que desea desautorizar el recurso?",
+      function (result) {
+        if (result) {
+          $.ajax(`/recurso/desauthorize?rec_id=${window.rec_id}`, {
+            type: "POST", // http method
+            success: function (data, status, xhr) {
+              $.notify("Recurso recurso desautorizado con exito", "success");
+              setTimeout(() => {
+                  window.location.reload();
+              }, 1000)
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+              console.error(errorMessage)
+              $.notify("No se puedo desautorizar el recurso", "error");
+            },
+          });
+        }
+      }
+    );
+  });
 };

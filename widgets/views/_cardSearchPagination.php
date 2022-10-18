@@ -17,27 +17,27 @@ use yii\helpers\Html;
                             <?= $item['title'] ?> 
                             <?= $item['titleChips'] ? '-' : '' ?> 
                             <?php foreach ($item['titleChips'] ?? [] as $chip) {  ?>
-                                <span class="badge badge-info"><?= $chip ?></span>
+                                <span class="badge badge-info" style="font-size: 15px;"><?= $chip ?></span>
                             <?php } ?>
                         </h5>
                         <span>
-                            <small class="badge badge-info">
+                            <small class="badge badge-info" style="font-size: 15px;">
                                 <?= $item['headerRight'] ?>
                             </small>
                         </span>
                     </div>
-                    <p class="mb-1" style="max-height: 200px; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden;">
+                    <p class="my-3" style="max-height: 200px; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden;">
                         <?= $item['description'] ?>
                     </p>
                     <div class="d-flex justify-content-between py-2">
                         <?php if (!is_null($item['footerLeft'])){ ?>
-                            <span class='badge badge-info'>
+                            <span class='badge badge-info' style="font-size: 15px;">
                                 <?= $item['footerLeft'] ?>
                             </span>
                         <?php } ?>
 
                         <?php if (!is_null($item['footerRight'])){ ?>
-                            <span class="badge badge-info">
+                            <span class="badge badge-info" style="font-size: 15px;">
                                 <?= $item['footerRight'] ?>
                             </span>
                         <?php } ?>
@@ -51,7 +51,7 @@ use yii\helpers\Html;
                                 <?= Html::submitButton($item['dangerBtn']['text'], [ 'class' => 'btn btn-danger btn-sm mx-1' ]) ?>
                             </form>
                         <?php } ?>
-                        <a class="btn btn-success btn-sm mx-1" href="<?= $item['href'] ?>">
+                        <a class="btn btn-success m-1" href="<?= $item['href'] ?>">
                             <?= Yii::t('app', 'card_search_pagination_ver_repositorio') ?>
                         </a>
                     </div>

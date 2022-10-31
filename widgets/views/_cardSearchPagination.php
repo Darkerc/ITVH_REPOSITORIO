@@ -43,6 +43,7 @@ use yii\helpers\Html;
                         <?php } ?>
                     </div>
                     <div class="d-flex justify-content-end py-2">
+                        <?= $item['optionsSlot'] ?>
                         <?php if(!is_null($item['dangerBtn'])){ ?>
                             <form action="<?= $item['dangerBtn']['href'] ?>" method="post">
                                 <?php foreach($item['dangerBtn']['values'] as $key => $value){ ?>

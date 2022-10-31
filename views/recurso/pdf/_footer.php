@@ -1,16 +1,10 @@
 <?php
 
 use app\models\Archivo;
-$logoITVH = Archivo::imageToBase64(Yii::getAlias('@webroot') . '/images/' . 'logo.png');
+$logoITVH = Archivo::imageToBase64(Yii::getAlias('@webroot') . '/membretes/' . 'DQlKNeBy5yT3OIl0rPBoZN1HkxZ2iFuk.jpg');
 ?>
 
 
 <div>
-    <div>
-        <img src="<?= $logoITVH ?>" height="75px">
-    </div>
-    <div style="color: #9dab05; font-size: 12px; padding-top: 20px;">
-        <div>Carretera Villahermosa-F rontera Km. 3.5 Cd. Industrial C.P. 86010 Villahermosa, Tab. México </div>
-        <div>Tel. (993) 3530259, Ext. 101 e-mail: dir_villaherm osa@tecnm.mx tecnm.mx | villahermosa.tecnm.mx</div>
-    </div>
+    <img src="<?= $logoITVH ?>" height="900px">
 </div>

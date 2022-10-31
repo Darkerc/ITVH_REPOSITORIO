@@ -10,6 +10,7 @@ use app\models\Archivo;
 use app\models\RecursoArchivo;
 use kartik\grid\GridView;
 use app\models\RecursoqArchivo;
+use app\models\UsuarioDublinCore;
 use app\widgets\RecursoDublinCoreModal;
 use yii\data\ArrayDataProvider;
 use kartik\icons\FontAwesomeAsset;
@@ -18,6 +19,9 @@ use app\widgets\TableViewer;
 use yii\bootstrap4\Modal;
 
 FontAwesomeAsset::register($this);
+
+$usu_dc = UsuarioDublinCore::findOne(['usudc_fkrecurso' => $model->rec_id, 'usudc_fkuser' => Yii::$app->user->id]);
+$is_dc_autorized = !is_null($usu_dc) && $usu_dc->usudc_autorizado == UsuarioDublinCore::$AUTORIZADO;
 
 $archivos = new ArrayDataProvider([
     'allModels' => array_map(fn (RecursoArchivo $modelRA) => $modelRA->recarcFkarchivo, $model->recursoArchivos),
@@ -30,6 +34,7 @@ $archivos = new ArrayDataProvider([
             <div class="col-12 mt-3">
                 <?= TableViewer::widget([
                     'data' => [
+                        User::hasRole(['admon', false]) || $is_dc_autorized ? 
                         [
                             'header' => '',
                             'values' =>
@@ -52,7 +57,7 @@ $archivos = new ArrayDataProvider([
                                 ]),
                                 ['class' => 'd-flex justify-content-end']
                             )
-                        ],
+                        ] : [],
                         [
                             'header' => Yii::t('app', 'titulo'),
                             'values' => $model->rec_nombre

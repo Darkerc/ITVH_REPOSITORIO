@@ -2,6 +2,7 @@
 
 use app\models\Autor;
 use app\models\Recurso;
+use app\models\UsuarioDublinCore;
 use app\widgets\CardListData;
 use yii\helpers\Html;
 use kartik\dialog\Dialog;
@@ -16,8 +17,7 @@ $recursosRecomendados = Recurso::suggestRecursosByUserId(Yii::$app->user->id);
 
 $this->title = $model->rec_nombre;
 $this->params['breadcrumbs'][] = ['label' => 'Recursos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-?>
+$this->params['breadcrumbs'][] = $this->title;?>
 <div class="recurso-view">
     <?= Dialog::widget([
         'libName' => 'krajeeDialogCust',
@@ -46,6 +46,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php if (User::hasRole(['admon', false]) && $model->rec_status == Recurso::$REC_STATUS_EN_REVICION) { ?>
             <?= Html::button('Eliminar', ['id' => 'resourceDelete', 'class' => ['btn btn-danger']]) ?>
+        <?php } ?>
+
+        <?php if (!User::hasRole(['admon', false]) && Yii::$app->user->identity->id) { ?>
+            <?= Html::button('Solicitar Dublin Core', ['id' => 'recursoDC', 'class' => ["btn btn-success {}"]]) ?>
         <?php } ?>
     </p>
 

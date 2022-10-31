@@ -11,6 +11,8 @@ use app\models\Recurso;
 use app\models\RecursoCarrera;
 use app\models\RecursoSearch;
 use app\models\RecursoTipo;
+use app\models\UsuarioDublinCore;
+use app\models\UsuarioDublinCoreSearch;
 use app\models\UsuarioHistorial;
 use DateTime;
 use yii\web\Controller;
@@ -326,6 +328,50 @@ class RecursoController extends Controller
         echo json_encode(['ok' => true]);
         exit();
 
+    }
+
+    public function actionDcRequest($rec_id)
+    {
+        $user_id = Yii::$app->user->id;
+        $usu_dc = UsuarioDublinCore::findOne(['usudc_fkuser' => $user_id, 'usudc_fkrecurso' => $rec_id]);
+
+        if(is_null($usu_dc)) {
+            $usu_dc = new UsuarioDublinCore();
+            $usu_dc->usudc_fkuser = $user_id;
+            $usu_dc->usudc_fkrecurso = $rec_id;
+            $usu_dc->save();
+        }
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['ok' => true]);
+        exit();
+    }
+
+    public function actionDcAuthorize($rec_id, $user_id, $state)
+    {
+        $usu_dc = UsuarioDublinCore::findOne(['usudc_fkuser' => $user_id, 'usudc_fkrecurso' => $rec_id]);
+
+        if(!is_null($usu_dc)) {
+            if ($state == UsuarioDublinCore::$AUTORIZADO) {
+                $usu_dc->usudc_autorizado = UsuarioDublinCore::$AUTORIZADO;
+                $usu_dc->save(false, ['usudc_autorizado']);
+            } else if ($state == UsuarioDublinCore::$NO_AUTORIZADO) {
+                $usu_dc->delete();
+            }
+        }
+        
+        $this->redirect('solicitudes-dc');
+    }
+
+    public function actionSolicitudesDc()
+    {
+        $searchModel = new UsuarioDublinCoreSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->render('solicitudes-dc', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     public function actionRecursosReporteGeneral($year)

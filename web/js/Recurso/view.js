@@ -67,4 +67,24 @@ window.onload = function () {
       }
     );
   });
+
+  $("#recursoDC").on("click", function () {
+    krajeeDialog.confirm(
+      "¿Desea acceso a los archivos de dublin core?",
+      function (result) {
+        if (result) {
+          $.ajax(`/recurso/dc-request?rec_id=${window.rec_id}`, {
+            type: "POST", // http method
+            success: function (data, status, xhr) {
+              $.notify("Solicitud enviada, espere a que sea autorizado", "success");
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+              console.error(errorMessage)
+              $.notify("No se puedo autorizar", "error");
+            },
+          });
+        }
+      }
+    );
+  });
 };

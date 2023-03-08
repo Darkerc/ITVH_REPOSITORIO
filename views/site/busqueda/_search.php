@@ -107,7 +107,9 @@ $config = ['template' => "{input}\n{error}\n{hint}"];
                     'pluginOptions' => [
                         'timePicker' => true,
                         'timePickerIncrement' => 15,
-                        'locale' => ['format' => 'Y-m-d h:i A']
+                        'locale' => [
+                            'format' => 'Y-m-d'
+                        ]
                     ],
                     'language' => 'es'
                 ])->label(Yii::t('app', 'fecha_registro')); ?>

@@ -1,28 +1,41 @@
 <?php
 
+use app\models\Recurso;
 use yii\helpers\Html;
 use webvimark\modules\UserManagement\models\User;
 use app\widgets\CardSearchPagination;
-
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\RecursoSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+use kartik\select2\Select2;
 
 $this->title = 'Recursos';
 $this->params['breadcrumbs'][] = $this->title;
+
+// $years = array_combine(range(date("Y"), 2000), range(date("Y"), 2000));
+$years = Recurso::getRecursosYears();
+
 ?>
 <div class="recurso-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?php if (User::hasRole(['aut', 'admon', false])) { ?>
-            <?= Html::a('Crear un Recurso', ['create'], ['class' => 'btn btn-success']) ?>
-        <?php } ?>
-    </p>
+    <div class="d-flex">
+            <?php if (User::hasRole(['aut', 'admon', false])) { ?>
+                <?= Html::a('Crear un Recurso', ['create'], ['class' => 'btn btn-success mr-3']) ?>
+            <?php } ?>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); 
-    ?>
+            <?php if (User::hasRole(['admon', false])) { ?>
+                <?= Select2::widget([
+                    'options' => ['placeholder' => 'Reporte general por año'],
+                    'name' => 'año_reporte',
+                    'data' => ["all" => 'Todos', ...$years],
+                    'pluginEvents' => [
+                        "select2:select" => "function(e){ 
+                            const year = e.params.data.text
+                            window.location.href = '/recurso/recursos-reporte-general?year=' + year;
+                        }",
+                    ]
+                ]) ?>
+            <?php } ?>
+    </div>
 
     <?= CardSearchPagination::widget([
         "dataProvider" => $dataProvider,

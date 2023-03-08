@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Expression;
 use yii\web\UploadedFile;
 use yii\helpers\ArrayHelper;
 
@@ -14,8 +15,11 @@ use yii\helpers\ArrayHelper;
  * @property string $rec_resumen
  * @property string $rec_registro
  * @property string $rec_descripcion
+ * @property int $rec_status
  * @property int $rec_fkrecursotipo
  * @property int $rec_fknivel
+ * @property string $tipo
+ * @property int $cantidad
  *
  * @property AutorRecurso[] $autorRecursos
  * @property Bitacora[] $bitacoras
@@ -28,11 +32,16 @@ use yii\helpers\ArrayHelper;
  */
 class Recurso extends \yii\db\ActiveRecord
 {
+    public static $REC_STATUS_EN_REVICION = 0;
+    public static $REC_STATUS_REVISADO = 1;
+
+    public $tipo;
+    public $cantidad;
     public $recursoCarrera;
     public $palabrasc;
     public $archivos;
     public $autores;
-    //public $autores;
+    public $year;
     /**
      * {@inheritdoc}
      */
@@ -50,12 +59,10 @@ class Recurso extends \yii\db\ActiveRecord
             [['rec_nombre', 'rec_resumen', 'rec_registro', 'rec_fkrecursotipo', 'rec_fknivel', 'recursoCarrera', 'palabrasc'], 'required', 'message' => '{attribute} no puede estar vacío'],
             [['rec_nombre', 'rec_resumen', 'rec_descripcion'], 'string'],
             [['rec_registro', 'recursoCarrera', 'palabrasc', 'autores'], 'safe'],
-            [['rec_fkrecursotipo', 'rec_fknivel'], 'integer'],
+            [['rec_fkrecursotipo', 'rec_fknivel', 'rec_status'], 'integer'],
             [['rec_fknivel'], 'exist', 'skipOnError' => true, 'targetClass' => Nivel::className(), 'targetAttribute' => ['rec_fknivel' => 'niv_id']],
             [['rec_fkrecursotipo'], 'exist', 'skipOnError' => true, 'targetClass' => RecursoTipo::className(), 'targetAttribute' => ['rec_fkrecursotipo' => 'rectip_id']],
-            [['archivos'], 'file', 'maxFiles' => 4],
-            //[['archivos'], 'file', 'extensions' => 'jpg, gif, png, pdf'],
-            //[['archivos'], 'file', 'maxSize' => '500000000'],
+            [['archivos'], 'file', 'maxFiles' => 4, 'extensions' => ['png', 'jpg', 'gif', 'jpeg', 'pdf'], 'maxSize' => 1024 * 1024 * 2]
         ];
     }
 
@@ -107,7 +114,6 @@ class Recurso extends \yii\db\ActiveRecord
             $rArchivo->save();
 
             $file->saveAs('files/' . $archivo->arc_nombre);
-            $i++;
         }
 
         return true;
@@ -116,6 +122,16 @@ class Recurso extends \yii\db\ActiveRecord
     public function getJoinName()
     {
         return str_replace(' ','_', $this->rec_nombre);
+    }
+
+    /**
+     * Gets query for [[AutorRecursos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsuarioHistorial()
+    {
+        return $this->hasMany(UsuarioHistorial::className(), ['usuhis_fkrecurso' => 'rec_id']);
     }
 
     /**
@@ -291,5 +307,62 @@ class Recurso extends \yii\db\ActiveRecord
     public function getDublinCoreCSV() {
         require_once Yii::$app->basePath . '/views/utils/DublinCoreFormats.php';
         return dublinCoreCSV($this->getDublinCoreData());
+    }
+
+    public static function getCountByType($year) {
+        $data = Recurso::find()
+            ->select(["count( `recurso`.`rec_id` ) AS `cantidad`, `recurso_tipo`.`rectip_nombre` AS `tipo` "])
+            ->join('INNER JOIN', 'recurso_tipo', "`recurso`.`rec_fkrecursotipo` = `recurso_tipo`.`rectip_id`")
+            ->groupBy(['rec_fkrecursotipo']);
+
+        if ($year != "Todos") {
+            $data->where(['year(`recurso`.`rec_registro`)' => $year]);
+        }
+
+
+        return $data->all();
+    }
+
+
+    /**
+     *
+     * @return Recurso[]
+     */
+    public static function suggestRecursosByUserId($id) {
+        if (is_null($id)) return null;
+
+        $connection = Yii::$app->getDb();
+        $command = $connection->createCommand("SELECT
+        `recurso_tipo`.`rectip_id`
+        FROM
+            (
+                `recurso`
+            JOIN `recurso_tipo` ON ( `recurso`.`rec_fkrecursotipo` = `recurso_tipo`.`rectip_id` )) 
+        WHERE
+            `recurso`.`rec_id` IN ( SELECT `usuario_historial`.`usuhis_fkrecurso` FROM `usuario_historial` WHERE `usuario_historial`.`usuhis_fkuser` = {$id} ) 
+        GROUP BY
+            `recurso_tipo`.`rectip_nombre` 
+        ORDER BY
+            count( `recurso`.`rec_id` ) DESC 
+        LIMIT 3;", [':start_date' => '1970-01-01']);
+
+        $result = $command->queryAll();
+
+        $rectip_ids = array_map(fn ($obj) => $obj['rectip_id'], $result);
+
+        $query = Recurso::find()
+            ->where(['in', 'rec_fkrecursotipo', $rectip_ids])
+            ->orderBy(new Expression('rand()'))
+            ->limit(5)
+            ->all();
+
+        return $query;
+    }
+
+    public static function getRecursosYears() {
+        $data = Recurso::find()->select(["DISTINCT YEAR( recurso.rec_registro ) as year"])->orderBy(['year'=>SORT_DESC])->all();
+        $years = array_map(fn ($model) => $model->year ,$data);
+        $yearsFormated = array_combine(array_values($years), array_values($years));
+        return $yearsFormated;
     }
 }

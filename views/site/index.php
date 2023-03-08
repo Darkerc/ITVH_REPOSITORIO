@@ -12,6 +12,8 @@ use app\models\RecursoCarrera;
 use yii\helpers\Html;
 use app\models\Visitas;
 $this->title = 'ITVH Repositorio';
+$recursosRecomendados = Recurso::suggestRecursosByUserId(Yii::$app->user->id);
+
 ?>
 <div class="site-index ">
     <div class="py-1 bg-transparent brand d-flex justify-content-end">
@@ -61,6 +63,20 @@ $this->title = 'ITVH Repositorio';
                         ];
                     },
                 ]) ?>
+                <?php if (!is_null($recursosRecomendados) && count($recursosRecomendados) > 0) { ?>
+                <?= CardListData::widget([
+                    'titulo' => Yii::t('app', 'repositorio_listado_recomendados'),
+                    'descripcion' => Yii::t('app', 'repositorio_listado_recomendados_descripcion'),
+                    'mode' => 'OUTLINED',
+                    'data' => $recursosRecomendados,
+                    'dataResultMapper' => function (Recurso $recurso) {
+                        return [
+                            'href'  => "/recurso/view?rec_id={$recurso->rec_id}",
+                            'label' => $recurso->rec_nombre                        
+                        ];
+                    },
+                ]) ?>
+                <?php } ?>  
             </div>
             <div class="py-2 col-12 col-lg-5">
                 <?php CardContainer::begin([ 'title' => Yii::t('app', 'buscar_repositorio'), 'color' => '#4CD64C' ]); ?>

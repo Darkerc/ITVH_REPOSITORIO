@@ -170,18 +170,36 @@ class SiteController extends Controller
     }
 
     public function actionBusqueda()
-    {
-        $language = isset($_SESSION['language']) ? $_SESSION['language'] : 'es-MX';
-        Yii::$app->language = $language;
-        
+    {        
         $searchModel = new RecursoSearch();
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (!is_null($searchModel['rec_registro'])) {
+            $dates = explode(' - ',$searchModel['rec_registro']);
+            $start = $dates[0];
+            $end = $dates[1];
+
+            if (!is_null($start) && !is_null($end)) {
+                $dataProvider->query->andWhere(['between', 'rec_registro', $start, $end]);
+                $index = $this->findIndex(fn($val) => is_array($val) && array_key_exists('rec_registro', $val), $dataProvider->query->where);
+                unset($dataProvider->query->where[$index]);
+            }
+        }
 
         return $this->render('busqueda', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function findIndex($func, $arr) {
+        foreach ($arr as $index => $value) { 
+            if ($func($value) == true) {
+                return $index;
+            }
+        }
+
+        return -1;
     }
 
     public function actionLanguage()
@@ -191,6 +209,7 @@ class SiteController extends Controller
         } else {
             $_SESSION['language'] = 'en-US';
         }
+
         header('location: ' . $_SERVER['HTTP_REFERER']);
         exit();
     }

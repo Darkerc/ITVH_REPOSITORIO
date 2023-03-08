@@ -10,6 +10,7 @@ use app\models\Archivo;
 use app\models\RecursoArchivo;
 use kartik\grid\GridView;
 use app\models\RecursoqArchivo;
+use app\models\UsuarioDublinCore;
 use app\widgets\RecursoDublinCoreModal;
 use yii\data\ArrayDataProvider;
 use kartik\icons\FontAwesomeAsset;
@@ -18,6 +19,9 @@ use app\widgets\TableViewer;
 use yii\bootstrap4\Modal;
 
 FontAwesomeAsset::register($this);
+
+$usu_dc = UsuarioDublinCore::findOne(['usudc_fkrecurso' => $model->rec_id, 'usudc_fkuser' => Yii::$app->user->id]);
+$is_dc_autorized = !is_null($usu_dc) && $usu_dc->usudc_autorizado == UsuarioDublinCore::$AUTORIZADO;
 
 $archivos = new ArrayDataProvider([
     'allModels' => array_map(fn (RecursoArchivo $modelRA) => $modelRA->recarcFkarchivo, $model->recursoArchivos),
@@ -30,6 +34,7 @@ $archivos = new ArrayDataProvider([
             <div class="col-12 mt-3">
                 <?= TableViewer::widget([
                     'data' => [
+                        User::hasRole(['admon', false]) || $is_dc_autorized ? 
                         [
                             'header' => '',
                             'values' =>
@@ -52,7 +57,7 @@ $archivos = new ArrayDataProvider([
                                 ]),
                                 ['class' => 'd-flex justify-content-end']
                             )
-                        ],
+                        ] : [],
                         [
                             'header' => Yii::t('app', 'titulo'),
                             'values' => $model->rec_nombre
@@ -94,8 +99,8 @@ $archivos = new ArrayDataProvider([
                             'values' => TableViewer::widget([
                                 'data' => array_map(
                                     fn ($key, $val) => ['header' => $key, 'values' => $val], 
-                                    array_keys(json_decode($model->rec_descripcion, true)), 
-                                    array_values(json_decode($model->rec_descripcion, true))
+                                    array_keys(json_decode($model->rec_descripcion, true) ?? []), 
+                                    array_values(json_decode($model->rec_descripcion, true) ?? [])
                                 )
                             ]),
                             'hide' => !User::hasRole(['admon', false])
@@ -118,22 +123,26 @@ $archivos = new ArrayDataProvider([
                             'class' => 'kartik\grid\ActionColumn',
                             'header' => ' ',
                             'template' => '{btnView}{btnDownload}',
-                            'buttons' => [
-                                'btnView' => function ($url, Archivo $archivo, $key) {     // render your custom button
-                                    // "/archivo/file-view?arc_id={$archivo->arc_id}"
-                                    return Html::a('<img src="/images/view.svg" />', "/archivo/file-view?arc_id={$archivo->arc_id}", [
-                                        'class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary',
-                                        'title' => 'Ver',
-                                        'id' => $archivo->arc_id
-                                    ]);
-                                },
-                                'btnDownload' => function ($url, Archivo $archivo, $key) {     // render your custom button
-                                    return Html::a('<img src="/images/download.svg" />', "/archivo/file-download?arc_id={$archivo->arc_id}", [
-                                        'class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary',
-                                        'title' => 'Descargar',
-                                    ]);
-                                }
-                            ]
+                            'buttons' => array_merge(
+                                [
+                                    'btnView' => function ($url, Archivo $archivo, $key) {     // render your custom button
+                                        // "/archivo/file-view?arc_id={$archivo->arc_id}"
+                                        return Html::a('<img src="/images/view.svg" />', "/archivo/file-view?arc_id={$archivo->arc_id}", [
+                                            'class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary',
+                                            'title' => 'Ver',
+                                            'id' => $archivo->arc_id
+                                        ]);
+                                    }
+                                ],
+                                User::hasRole(['admon', false]) ? [
+                                    'btnDownload' => function ($url, Archivo $archivo, $key) {     // render your custom button
+                                        return Html::a('<img src="/images/download.svg" />', "/archivo/file-download?arc_id={$archivo->arc_id}", [
+                                            'class' => 'kv-file-download btn btn-sm btn-kv btn-default btn-outline-secondary',
+                                            'title' => 'Descargar',
+                                        ]);
+                                    }
+                                ] : []
+                            )
                         ]
                     ]
                 ]);

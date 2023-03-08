@@ -11,6 +11,7 @@ use Yii;
  * @property string $usuhis_fecha
  * @property int $usuhis_fkuser
  * @property int $usuhis_fkrecurso
+ * @property int $usuhis_status
  */
 class UsuarioHistorial extends \yii\db\ActiveRecord
 {
@@ -29,7 +30,7 @@ class UsuarioHistorial extends \yii\db\ActiveRecord
     {
         return [
             [['usuhis_fkuser', 'usuhis_fkrecurso'], 'required'],
-            [['usuhis_fkuser', 'usuhis_fkrecurso'], 'integer'],
+            [['usuhis_fkuser', 'usuhis_fkrecurso', 'usuhis_status'], 'integer'],
             [['usuhis_fecha'], 'safe'],
         ];
     }
@@ -45,6 +46,11 @@ class UsuarioHistorial extends \yii\db\ActiveRecord
             'usuhis_fkuser' => 'Fk User',
             'usuhis_fkrecurso' => 'Fk Recurso',
         ];
+    }
+
+    public function getRecurso()
+    {
+        return $this->hasOne(Recurso::className(), ['rec_id' => 'usuhis_fkrecurso']);
     }
 
     public static function visitRecurso($usr_id, $rec_id)

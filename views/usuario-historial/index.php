@@ -1,45 +1,34 @@
 <?php
 
+use app\widgets\CardSearchPagination;
 use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\UsuarioHistorialSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $model app\models\UsuarioHistorial */
 
-$this->title = 'Usuario Historials';
+$this->title = $model->usuhis_id;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'historial_busqueda'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+\yii\web\YiiAsset::register($this);
 ?>
-<div class="usuario-historial-index">
+<div class="usuario-historial-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Usuario Historial', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'usuhis_id',
-            'usuhis_fecha',
-            'fk_user',
-            'fk_recurso',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, UsuarioHistorial $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'usuhis_id' => $model->usuhis_id]);
-                 }
-            ],
-        ],
+    <?= CardSearchPagination::widget([
+        "dataProvider" => $dataProvider,
+        'title' => Yii::t('app', 'historial_busqueda'),
+        "dataProviderResultsMapper" => function ($model) {
+            return [
+                "title" => $model->recurso->rec_nombre,
+                "titleChips" => [$model->recurso->tipo, $model->recurso->nivel],
+                "description" => $model->recurso->rec_resumen,
+                "headerRight" => Yii::t('app', 'visitado_el') . ' ' . date_format(new DateTime($model->usuhis_fecha), 'd/m/Y'),
+                "footerRight" => $model->recurso->carrera,
+                "footerLeft" => $model->recurso->autor,
+                "href" => '/recurso/view?rec_id=' . $model->recurso->rec_id,
+            ];
+        }
     ]); ?>
-
 
 </div>

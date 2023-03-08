@@ -11,12 +11,15 @@ use app\models\Recurso;
 use app\models\RecursoCarrera;
 use app\models\RecursoSearch;
 use app\models\RecursoTipo;
+use app\models\UsuarioDublinCore;
+use app\models\UsuarioDublinCoreSearch;
 use app\models\UsuarioHistorial;
 use DateTime;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use webvimark\modules\UserManagement\models\User;
 use yii\web\UploadedFile;
+use kartik\mpdf\Pdf;
 
 /**
  * RecursoController implements the CRUD actions for Recurso model.
@@ -44,8 +47,8 @@ class RecursoController extends Controller
      */
     public function actionIndex()
     {
-        $language = isset($_SESSION['language']) ? $_SESSION['language'] : 'es-MX';
-        Yii::$app->language = $language;
+        // $language = isset($_SESSION['language']) ? $_SESSION['language'] : 'es-MX';
+        // Yii::$app->language = $language;
 
         $searchModel = new RecursoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
@@ -64,11 +67,21 @@ class RecursoController extends Controller
      */
     public function actionView($rec_id)
     {
+<<<<<<< HEAD
         $language = isset($_SESSION['language']) ? $_SESSION['language'] : 'es-MX';
         Yii::$app->language = $language;
         //UsuarioHistorial::visitRecurso(Yii::$app->user->id, $rec_id);
 
+=======
+        
+>>>>>>> 651e1b563418bebdd6ce8a677b16a11553d04b17
         $model = $this->findModel($rec_id);
+
+        if ($model->rec_status == Recurso::$REC_STATUS_REVISADO) {
+            UsuarioHistorial::visitRecurso(Yii::$app->user->id, $rec_id);
+        }
+
+
         return $this->render('view', [
             'model' => $model,
         ]);
@@ -99,18 +112,18 @@ class RecursoController extends Controller
                     $carreras->reccar_fkcarrera = $carrera;
                     $carreras->save();
                 };
-                if (User::hasRole(['aut', false])) {
-                    $autor = new AutorRecurso();
-                    $autor->autrec_fkrecurso = $model->rec_id;
-                    $autor->autrec_fkautor = Autor::autorId();
-                    $autor->save();
-                } else if (User::hasRole(['admon', false])) {
+                if (User::hasRole(['admon', false])) {
                     foreach ($model->autores as $autors) {
                         $autor = new AutorRecurso();
                         $autor->autrec_fkrecurso = $model->rec_id;
                         $autor->autrec_fkautor = $autors;
                         $autor->save();
                     }
+                } else if ( User::hasRole(['aut', false])) {
+                    $autor = new AutorRecurso();
+                    $autor->autrec_fkrecurso = $model->rec_id;
+                    $autor->autrec_fkautor = Autor::autorId();
+                    $autor->save();
                 };
                 foreach ($model->palabrasc as $palabra) {
                     $palabras = new Palabra();
@@ -127,8 +140,6 @@ class RecursoController extends Controller
             $model->loadDefaultValues();
         }
 
-        //echo         var_dump($model->getErrors());
-        // die;
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -300,6 +311,99 @@ class RecursoController extends Controller
         $this->findModel($rec_id)->delete();
 
         return json_encode(['ok' => true]);
+    }
+
+    public function actionAuthorize($rec_id)
+    {
+        $model = $this->findModel($rec_id);
+        $model->rec_status = Recurso::$REC_STATUS_REVISADO;
+        $model->save(false, ['rec_status']);
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['ok' => true]);
+        exit();
+
+    }
+
+    public function actionDesauthorize($rec_id)
+    {
+        $model = $this->findModel($rec_id);
+        $model->rec_status = Recurso::$REC_STATUS_EN_REVICION;
+        $model->save(false, ['rec_status']);
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['ok' => true]);
+        exit();
+
+    }
+
+    public function actionDcRequest($rec_id)
+    {
+        $user_id = Yii::$app->user->id;
+        $usu_dc = UsuarioDublinCore::findOne(['usudc_fkuser' => $user_id, 'usudc_fkrecurso' => $rec_id]);
+
+        if(is_null($usu_dc)) {
+            $usu_dc = new UsuarioDublinCore();
+            $usu_dc->usudc_fkuser = $user_id;
+            $usu_dc->usudc_fkrecurso = $rec_id;
+            $usu_dc->save();
+        }
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['ok' => true]);
+        exit();
+    }
+
+    public function actionDcAuthorize($rec_id, $user_id, $state)
+    {
+        $usu_dc = UsuarioDublinCore::findOne(['usudc_fkuser' => $user_id, 'usudc_fkrecurso' => $rec_id]);
+
+        if(!is_null($usu_dc)) {
+            if ($state == UsuarioDublinCore::$AUTORIZADO) {
+                $usu_dc->usudc_autorizado = UsuarioDublinCore::$AUTORIZADO;
+                $usu_dc->save(false, ['usudc_autorizado']);
+            } else if ($state == UsuarioDublinCore::$NO_AUTORIZADO) {
+                $usu_dc->delete();
+            }
+        }
+        
+        $this->redirect('solicitudes-dc');
+    }
+
+    public function actionSolicitudesDc()
+    {
+        $searchModel = new UsuarioDublinCoreSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->render('solicitudes-dc', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionRecursosReporteGeneral($year)
+    {
+        ini_set("pcre.backtrack_limit", "50000000");
+        
+        $content = $this->renderPartial('pdf/_reporteGeneral', compact('year'));
+        $header = $this->renderPartial('pdf/_header.php');
+        $footer = $this->renderPartial('pdf/_footer');
+
+        $pdf = new Pdf([
+            'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
+            'destination' => Pdf::DEST_BROWSER,
+            'content' =>  $content,  
+            'marginTop' => '60px',
+            'marginBottom' => '50px',
+            'marginRight' => '15px',
+            'marginLeft' => '15px',
+            'options' => ['title' => 'Repositorios - Reporte General'],
+            'methods' => [
+                'SetHTMLHeader' => $header,
+                'SetHTMLFooter' => $footer
+            ]
+        ]);
+        return $pdf->render();
     }
 
     /**

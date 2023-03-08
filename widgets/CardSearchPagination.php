@@ -11,6 +11,7 @@ class CardSearchPagination extends Widget
     public $dataProvider = null;
     public $dataProviderResultsMapper = null;
     public $items = [];
+    public $dangerBtn = null;
     public $pagination = [
         'pageSize' => 10
     ];

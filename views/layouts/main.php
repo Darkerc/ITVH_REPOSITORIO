@@ -12,7 +12,6 @@ use yii\bootstrap4\NavBar;
 use webvimark\modules\UserManagement\UserManagementModule;
 use webvimark\modules\UserManagement\models\User;
 
-
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -50,6 +49,7 @@ AppAsset::register($this);
                 'class' => 'navbar_index navbar-expand-md navbar-light fixed-top',
             ],
         ]);
+        echo Yii::$app->language;
         echo Nav::widget([
             'encodeLabels' => false,
             'options' => ['class' => 'navbar-nav'],
@@ -163,8 +163,14 @@ AppAsset::register($this);
         </div>
     </footer>
 
-    <?= Html::dropDownList('idioma', Yii::$app->language, ['es-MX' => 'Español', 'en-US' => 'English'], 
-        ['class' => ['toggle_language'], 'onchange' => '(async () => { await fetch("/site/language"); window.location.reload(); })()']) ?>
+    <?php if (Yii::$app->language == 'es-MX') { ?> 
+        <?= Html::a(Html::img('/images/US.svg', ['class' => ['toggle_language']]), '/site/language') ?>
+    <?php } else if (Yii::$app->language == 'en-US') { ?> 
+        <?= Html::a(Html::img('/images/MX.svg', ['class' => ['toggle_language']]), '/site/language') ?>
+    <?php } ?> 
+
+    <!-- <?= Html::dropDownList('idioma', Yii::$app->language, ['es-MX' => 'Español', 'en-US' => 'English'], 
+        ['class' => ['toggle_language'], 'onchange' => '(async () => { await fetch("/site/language"); })()']) ?> -->
 
     <?php $this->endBody() ?>
 </body>
